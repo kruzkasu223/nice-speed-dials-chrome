@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css'
 
 export const mainGrid = style({
   display: 'grid',
-  gridTemplateColumns: 'repeat(5, 96px)',
-  gridTemplateRows: 'repeat(2, 96px)',
+  gridTemplateColumns: 'repeat(var(--grid-width, 3), 112px)',
+  gridTemplateRows: 'repeat(var(--grid-height, 3), 112px)',
   gap: '8px',
 })

@@ -5,12 +5,17 @@ globalStyle('*', {
   margin: 0,
   padding: 0,
   boxSizing: 'border-box',
+  userSelect: 'none',
+  WebkitUserSelect: 'none',
+  MozUserSelect: 'none',
+  msUserSelect: 'none',
 })
 
 globalStyle('body', {
   width: '100vw',
   height: '100vh',
   backgroundColor: '#2c2124',
+  fontFamily: 'Roboto, sans-serif',
 })
 
 globalStyle('#root', {
