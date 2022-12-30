@@ -22,9 +22,17 @@ export const gridItem = style({
   flexDirection: 'column',
 })
 
+export const gridItemImgDiv = style({
+  width: '50%',
+  height: '50%',
+  padding: '8px',
+  backgroundColor: '#423136',
+  borderRadius: '4px',
+})
+
 export const gridItemImg = style({
-  width: '40%',
-  height: '40%',
+  width: '100%',
+  height: '100%',
   objectFit: 'contain',
 })
 
@@ -37,9 +45,8 @@ export const gridItemText = style({
 })
 
 export const gridItemAdd = style({
-  all: 'unset',
-  boxSizing: 'border-box',
-  margin: 0,
+  background: 'inherit',
+  border: 'none',
   width: '100%',
   height: '100%',
   borderRadius: '4px',
@@ -58,13 +65,13 @@ export const gridItemAdd = style({
 })
 
 export const gridItemAddIcon = style({
-  width: '40%',
-  height: '40%',
+  width: '50%',
+  height: '50%',
   borderRadius: '4px',
   border: '1px solid white',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  fontSize: '2rem',
+  fontSize: '1.5rem',
   overflow: 'hidden',
 })

@@ -1,3 +1,4 @@
+import { createEffect } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import { gridAlgorithm } from '../utils'
 
@@ -9,6 +10,12 @@ type TSpeedDial = {
 }
 
 const initialSpeedDials: TSpeedDial[] = [
+  {
+    id: 2,
+    name: 'Kruz',
+    icon: 'https://www.google.com/favicon.ico',
+    url: 'https://kruz.me',
+  },
   {
     id: 1,
     name: 'Google',
@@ -110,16 +117,47 @@ const initialSpeedDials: TSpeedDial[] = [
 const [speedDials, setSpeedDials] = createStore<TSpeedDial[]>(initialSpeedDials)
 const speedDialsLength = speedDials?.length || 0
 
-export const createSpeedDials = () => {
-  const { gridHeight: speedDialsGridHeight, gridWidth: speedDialsGridWidth } =
-    gridAlgorithm(speedDialsLength + 1)
+const [speedDialsGrid, setSpeedDialsGrid] = createStore({
+  height: 3,
+  width: 3,
+})
 
+const [chromeBookmarks, setChromeBookmarks] = createStore<
+  chrome.bookmarks.BookmarkTreeNode[]
+>([])
+
+try {
+  chrome.bookmarks.getTree().then((bookmarks) => {
+    const dailyBookmarks =
+      (
+        bookmarks?.[0]?.children?.find(
+          (child) => child.title === 'Mobile bookmarks'
+        )?.children || []
+      )?.find((child) => child.title === 'Daily')?.children || []
+
+    setChromeBookmarks(dailyBookmarks)
+  })
+} catch (e) {}
+
+createEffect(() => {
+  console.log(chromeBookmarks)
+})
+
+createEffect(() => {
+  const { gridHeight: height, gridWidth: width } = gridAlgorithm(
+    speedDialsLength + 1
+  )
+  setSpeedDialsGrid({
+    height,
+    width,
+  })
+})
+
+export const createSpeedDials = () => {
   return {
     speedDials,
     setSpeedDials,
     speedDialsLength,
-    speedDialsGridLength: 5,
-    speedDialsGridHeight,
-    speedDialsGridWidth,
+    speedDialsGrid,
   }
 }

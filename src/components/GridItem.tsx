@@ -1,5 +1,12 @@
 import { type Component } from 'solid-js'
-import { gridItem, gridItemA, gridItemImg, gridItemText } from '../styles'
+import {
+  gridItem,
+  gridItemA,
+  gridItemImg,
+  gridItemImgDiv,
+  gridItemText,
+} from '../styles'
+import { getFaviconUrl } from '../utils'
 
 interface P {
   item: {
@@ -14,7 +21,13 @@ export const GridItem: Component<P> = ({ item }) => {
   return (
     <a class={gridItemA} href={item.url}>
       <div class={gridItem}>
-        <img class={gridItemImg} src={item.icon} alt={item.name} />
+        <div class={gridItemImgDiv}>
+          <img
+            class={gridItemImg}
+            src={getFaviconUrl(item.url)}
+            alt={item.name}
+          />
+        </div>
         <p class={gridItemText}>{item.name}</p>
       </div>
     </a>
