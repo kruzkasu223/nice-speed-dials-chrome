@@ -1,10 +1,9 @@
 {
   "name": "Nice Speed Dials",
-  "description": "Speed dials Extention for Chrome",
+  "description": "Nice and Simple Speed dials Extention for Chrome",
   "version": "0.0.1",
   "manifest_version": 3,
-  "permissions": ["storage", "bookmarks"],
-  "host_permissions": ["https://www.google.com/*"],
+  "permissions": ["storage", "bookmarks", "favicon"],
   "chrome_url_overrides": {
     "newtab": "index.html"
   }
