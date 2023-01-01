@@ -1,2 +1,2 @@
-export * from './gridAlgorithm'
+export * from './getGridDimensions'
 export * from './getFaviconUrl'

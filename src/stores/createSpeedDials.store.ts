@@ -1,6 +1,6 @@
 import { createEffect } from 'solid-js'
 import { createStore } from 'solid-js/store'
-import { gridAlgorithm } from '../utils'
+import { getGridDimensions } from '../utils'
 
 type TSpeedDial = {
   id: number
@@ -144,7 +144,7 @@ createEffect(() => {
 })
 
 createEffect(() => {
-  const { gridHeight: height, gridWidth: width } = gridAlgorithm(
+  const { gridHeight: height, gridWidth: width } = getGridDimensions(
     speedDialsLength + 1
   )
   setSpeedDialsGrid({
