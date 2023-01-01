@@ -37,12 +37,14 @@ export const gridMenuIcon = style({
   ':focus': {
     opacity: '1',
   },
-})
 
-globalStyle(`.${gridItemA}:hover .${gridMenuIcon}`, {
-  opacity: '1',
-  transition:
-    'opacity 0.25s ease-in-out 0.4s, background-color 0.25s ease-in-out 0s',
+  selectors: {
+    [`.${gridItemA}:hover &`]: {
+      opacity: '1',
+      transition:
+        'opacity 0.25s ease-in-out 0.4s, background-color 0.25s ease-in-out 0s',
+    },
+  },
 })
 
 export const menuIcon = style({
