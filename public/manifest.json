@@ -1,6 +1,6 @@
 {
   "name": "Nice Speed Dials",
-  "description": "Nice and Simple Speed dials Extention for Chrome",
+  "description": "Nice and Simple Speed dials Extension for Chrome",
   "version": "0.0.1",
   "manifest_version": 3,
   "permissions": ["storage", "bookmarks", "favicon"],

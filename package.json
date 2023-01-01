@@ -1,13 +1,12 @@
 {
   "name": "nice-speed-dials-chrome",
   "version": "0.0.1",
-  "description": "Speed dials Extention for Chrome",
+  "description": "Speed Dials Extension for Chrome",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview"
   },
-  "license": "MIT",
   "devDependencies": {
     "@types/chrome": "^0.0.206",
     "@vanilla-extract/vite-plugin": "^3.7.0",
