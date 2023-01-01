@@ -1,16 +1,54 @@
-import { style } from '@vanilla-extract/css'
+import { globalStyle, style } from '@vanilla-extract/css'
 
 export const gridItemA = style({
+  position: 'relative',
   width: '100%',
   height: '100%',
   borderRadius: '4px',
   textDecoration: 'none',
-  color: 'white',
+  color: 'var(--hope-colors-whiteAlpha-800)',
   padding: '8px',
+  border: '1px solid var(--hope-colors-whiteAlpha-200)',
+  backgroundColor: 'var(--hope-colors-whiteAlpha-50)',
+  cursor: 'pointer',
+  transition: 'all 0.25s ease-in-out',
 
   ':hover': {
-    backdropFilter: 'brightness(1.3)',
+    backgroundColor: 'var(--hope-colors-whiteAlpha-200)',
   },
+})
+
+export const gridMenuIcon = style({
+  position: 'absolute',
+  top: '8px',
+  right: '8px',
+  cursor: 'pointer',
+  background: 'none',
+  border: 'none',
+  padding: '4px 2px',
+  borderRadius: '2px',
+  opacity: '0',
+  transition:
+    'opacity 0.25s ease-in-out 0s, background-color 0.25s ease-in-out 0s',
+
+  ':hover': {
+    backgroundColor: 'var(--hope-colors-whiteAlpha-200)',
+  },
+  ':focus': {
+    opacity: '1',
+  },
+})
+
+globalStyle(`.${gridItemA}:hover .${gridMenuIcon}`, {
+  opacity: '1',
+  transition:
+    'opacity 0.25s ease-in-out 0.4s, background-color 0.25s ease-in-out 0s',
+})
+
+export const menuIcon = style({
+  width: '14px',
+  height: '14px',
+  objectFit: 'contain',
 })
 
 export const gridItem = style({
@@ -26,7 +64,6 @@ export const gridItemImgDiv = style({
   width: '50%',
   height: '50%',
   padding: '8px',
-  backgroundColor: '#423136',
   borderRadius: '4px',
 })
 
@@ -44,34 +81,6 @@ export const gridItemText = style({
   textAlign: 'center',
 })
 
-export const gridItemAdd = style({
-  background: 'inherit',
-  border: 'none',
-  width: '100%',
-  height: '100%',
-  borderRadius: '4px',
-  textDecoration: 'none',
-  color: 'white',
-  padding: '8px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-evenly',
-  flexDirection: 'column',
-  cursor: 'pointer',
-
-  ':hover': {
-    backdropFilter: 'brightness(1.3)',
-  },
-})
-
 export const gridItemAddIcon = style({
-  width: '50%',
-  height: '50%',
-  borderRadius: '4px',
-  border: '1px solid white',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  fontSize: '1.5rem',
-  overflow: 'hidden',
+  border: '1px solid var(--hope-colors-whiteAlpha-400)',
 })

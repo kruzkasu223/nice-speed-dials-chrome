@@ -24,6 +24,10 @@ globalStyle('#root', {
   backgroundColor: '#2c2124',
 })
 
+globalStyle('.hope-Modal-root', {
+  '--hope-colors-neutral-700': '#2c2124 !important',
+} as Record<string, string>)
+
 export const app = style({
   width: '100%',
   height: '100%',
