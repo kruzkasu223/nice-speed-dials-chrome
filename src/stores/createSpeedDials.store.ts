@@ -1,159 +1,95 @@
-import { createEffect } from 'solid-js'
+import { createEffect, createMemo, createSignal } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import { getGridDimensions } from '../utils'
 
-type TSpeedDial = {
-  id: number
-  name: string
-  icon: string
-  url: string
-}
+// typeof chrome.bookmarks.BookmarkTreeNode
+// {
+//   "children"?: [],
+//   "dateAdded": 1660892821899,
+//   "dateGroupModified"?: 1660892821899,
+//   "id": "33",
+//   "index": 0,
+//   "parentId": "32",
+//   "title": "kruzkasu223 (Krushang Kasundra) · GitHub",
+//   "url"?: "https://github.com/kruzkasu223"
+// }
 
-const initialSpeedDials: TSpeedDial[] = [
-  {
-    id: 2,
-    name: 'Kruz',
-    icon: 'https://www.google.com/favicon.ico',
-    url: 'https://kruz.me',
-  },
-  {
-    id: 1,
-    name: 'Google',
-    icon: 'https://www.google.com/favicon.ico',
-    url: 'https://www.google.com',
-  },
-  {
-    id: 2,
-    name: 'GitHub',
-    icon: 'https://www.github.com/favicon.ico',
-    url: 'https://www.github.com',
-  },
-  {
-    id: 3,
-    name: 'Twitter',
-    icon: 'https://www.twitter.com/favicon.ico',
-    url: 'https://www.twitter.com',
-  },
-  {
-    id: 4,
-    name: 'Reddit',
-    icon: 'https://www.reddit.com/favicon.ico',
-    url: 'https://www.reddit.com',
-  },
-  {
-    id: 5,
-    name: 'YouTube',
-    icon: 'https://www.youtube.com/favicon.ico',
-    url: 'https://www.youtube.com',
-  },
-  {
-    id: 6,
-    name: 'Amazon',
-    icon: 'https://www.amazon.com/favicon.ico',
-    url: 'https://www.amazon.com',
-  },
-  {
-    id: 7,
-    name: 'Wikipedia',
-    icon: 'https://www.wikipedia.org/favicon.ico',
-    url: 'https://www.wikipedia.org',
-  },
-  {
-    id: 8,
-    name: 'Netflix',
-    icon: 'https://www.netflix.com/favicon.ico',
-    url: 'https://www.netflix.com',
-  },
-  {
-    id: 9,
-    name: 'Facebook',
-    icon: 'https://www.facebook.com/favicon.ico',
-    url: 'https://www.facebook.com',
-  },
-  {
-    id: 10,
-    name: 'Instagram',
-    icon: 'https://www.instagram.com/favicon.ico',
-    url: 'https://www.instagram.com',
-  },
-  {
-    id: 11,
-    name: 'Spotify',
-    icon: 'https://www.spotify.com/favicon.ico',
-    url: 'https://www.spotify.com',
-  },
-  {
-    id: 12,
-    name: 'Twitch',
-    icon: 'https://www.twitch.tv/favicon.ico',
-    url: 'https://www.twitch.tv',
-  },
-  {
-    id: 13,
-    name: 'Yahoo',
-    icon: 'https://www.yahoo.com/favicon.ico',
-    url: 'https://www.yahoo.com',
-  },
-  {
-    id: 14,
-    name: 'Bing',
-    icon: 'https://www.bing.com/favicon.ico',
-    url: 'https://www.bing.com',
-  },
-  {
-    id: 15,
-    name: 'DuckDuckGo',
-    icon: 'https://www.duckduckgo.com/favicon.ico',
-    url: 'https://www.duckduckgo.com',
-  },
-  {
-    id: 16,
-    name: 'W3Schoolsssssssssss',
-    icon: 'https://www.w3schools.com/favicon.ico',
-    url: 'https://www.w3schools.com',
-  },
-]
-
-const [speedDials, setSpeedDials] = createStore<TSpeedDial[]>(initialSpeedDials)
-const speedDialsLength = speedDials?.length || 0
-
-const [speedDialsGrid, setSpeedDialsGrid] = createStore({
-  height: 3,
-  width: 3,
-})
-
-const [chromeBookmarks, setChromeBookmarks] = createStore<
-  chrome.bookmarks.BookmarkTreeNode[]
->([])
-
-try {
-  chrome.bookmarks.getTree().then((bookmarks) => {
-    const dailyBookmarks =
-      (
-        bookmarks?.[0]?.children?.find(
-          (child) => child.title === 'Mobile bookmarks'
-        )?.children || []
-      )?.find((child) => child.title === 'Daily')?.children || []
-
-    setChromeBookmarks(dailyBookmarks)
-  })
-} catch (e) {}
-
-createEffect(() => {
-  console.log(chromeBookmarks)
-})
-
-createEffect(() => {
-  const { gridHeight: height, gridWidth: width } = getGridDimensions(
-    speedDialsLength + 1
-  )
-  setSpeedDialsGrid({
-    height,
-    width,
-  })
-})
+const DEFAULT_SPEED_DIALS_FOLDER_NAME = 'SPEED_DIALS_BOOKMARKS_[DO_NOT_DELETE]'
+const DEFAULT_SPEED_DIALS_PARENT_ID = '2'
+const CHROME_BOOKMARK_EVENTS = [
+  'onChanged',
+  'onChildrenReordered',
+  'onCreated',
+  'onImportBegan',
+  'onImportEnded',
+  'onMoved',
+  'onRemoved',
+] as const
 
 export const createSpeedDials = () => {
+  const [defaultSpeedDialsFolder, setDefaultSpeedDialsFolder] =
+    createSignal<chrome.bookmarks.BookmarkTreeNode>()
+  const [speedDials, setSpeedDials] = createStore<
+    chrome.bookmarks.BookmarkTreeNode[]
+  >([])
+  const speedDialsLength = createMemo(() => speedDials?.length || 0)
+  const speedDialsGrid = createMemo(() => {
+    const { gridHeight: height, gridWidth: width } = getGridDimensions(
+      speedDialsLength() + 1
+    )
+    return {
+      height,
+      width,
+    }
+  })
+
+  const createDefaultSpeedDialsFolder = async () => {
+    await chrome.bookmarks.create({
+      title: DEFAULT_SPEED_DIALS_FOLDER_NAME,
+      parentId: DEFAULT_SPEED_DIALS_PARENT_ID,
+    })
+    await getDefaultSpeedDialsFolder()
+  }
+
+  const getDefaultSpeedDialsFolder = async () => {
+    chrome.bookmarks
+      .getChildren(DEFAULT_SPEED_DIALS_PARENT_ID)
+      .then((children) => {
+        const defaultFolder = children?.find(
+          (child) => child.title === DEFAULT_SPEED_DIALS_FOLDER_NAME
+        )
+        setDefaultSpeedDialsFolder(defaultFolder)
+      })
+  }
+
+  const getSpeedDials = async () => {
+    const defaultFolder = defaultSpeedDialsFolder()
+    if (!defaultFolder) {
+      chrome.bookmarks
+        .getChildren(DEFAULT_SPEED_DIALS_PARENT_ID)
+        .then((bookmarks) => {
+          const defaultFolder = bookmarks?.find(
+            (child) => child.title === DEFAULT_SPEED_DIALS_FOLDER_NAME
+          )
+          if (!defaultFolder) createDefaultSpeedDialsFolder()
+          else getDefaultSpeedDialsFolder()
+        })
+    } else {
+      const children = await chrome.bookmarks.getChildren(defaultFolder.id)
+      setSpeedDials(children)
+    }
+  }
+
+  const chromeBookmarkEventListeners = () =>
+    CHROME_BOOKMARK_EVENTS.forEach((event) => {
+      return chrome.bookmarks[event].addListener(getSpeedDials)
+    })
+
+  createEffect(() => {
+    getSpeedDials()
+    chromeBookmarkEventListeners()
+  })
+
   return {
     speedDials,
     setSpeedDials,

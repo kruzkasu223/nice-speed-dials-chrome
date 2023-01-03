@@ -3,7 +3,7 @@
   "description": "Nice and Simple Speed dials Extension for Chrome",
   "version": "0.0.1",
   "manifest_version": 3,
-  "permissions": ["storage", "bookmarks", "favicon"],
+  "permissions": ["bookmarks", "favicon"],
   "chrome_url_overrides": {
     "newtab": "index.html"
   }

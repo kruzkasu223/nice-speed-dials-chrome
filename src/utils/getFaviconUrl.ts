@@ -1,4 +1,5 @@
-export const getFaviconUrl = (url: string) => {
+export const getFaviconUrl = (url?: string) => {
+  if (!url) return ''
   try {
     return `chrome-extension://${
       chrome.runtime.id

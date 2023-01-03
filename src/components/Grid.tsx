@@ -16,21 +16,17 @@ import { Icon } from '../icons'
 export const Grid: Component = () => {
   const { speedDials, speedDialsGrid } = createSpeedDials()
 
-  const handleAddNew = () => {
-    // setIsOpen(true)
-  }
-
   return (
     <div
       class={mainGrid}
       style={{
-        '--grid-width': speedDialsGrid.width,
-        '--grid-height': speedDialsGrid.height,
+        '--grid-width': speedDialsGrid().width,
+        '--grid-height': speedDialsGrid().height,
       }}
     >
       <For each={speedDials}>{(item) => <GridItem item={item} />}</For>
 
-      <button class={gridItemA} onClick={handleAddNew}>
+      <button class={gridItemA} onClick={() => 0}>
         <div class={gridItem}>
           <div class={clsx(gridItemImgDiv, gridItemAddIcon)}>
             <Icon.Plus

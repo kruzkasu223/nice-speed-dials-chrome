@@ -1,6 +1,7 @@
-import { Button } from '@hope-ui/core'
+import { Popover, Text } from '@hope-ui/core'
 import { type Component } from 'solid-js'
 import { Icon } from '../icons'
+import { Folder } from '../icons/Folder.icon'
 import {
   gridItem,
   gridItemA,
@@ -13,22 +14,17 @@ import {
 import { getFaviconUrl } from '../utils'
 
 interface P {
-  item: {
-    id: number
-    name: string
-    url: string
-    icon: string
-  }
+  item: chrome.bookmarks.BookmarkTreeNode
 }
 
-export const GridItem: Component<P> = ({ item }) => {
+export const GridItem: Component<P> = (props) => {
   const handleOpenMenu = (e: Event) => {
     e.preventDefault()
     e.stopPropagation()
   }
 
   return (
-    <a class={gridItemA} href={item.url}>
+    <a class={gridItemA} href={props.item?.url}>
       <div class={gridItem}>
         <button class={gridMenuIcon} onClick={handleOpenMenu}>
           <Icon.ThreeDotsVertical
@@ -37,13 +33,27 @@ export const GridItem: Component<P> = ({ item }) => {
           />
         </button>
         <div class={gridItemImgDiv}>
-          <img
-            class={gridItemImg}
-            src={getFaviconUrl(item.url)}
-            alt={item.name}
-          />
+          {props.item?.url ? (
+            <img
+              class={gridItemImg}
+              src={getFaviconUrl(props.item?.url)}
+              alt={props.item.title}
+            />
+          ) : (
+            <Folder
+              className={gridItemImg}
+              colour="var(--hope-colors-whiteAlpha-800)"
+            />
+          )}
         </div>
-        <p class={gridItemText}>{item.name}</p>
+        <Popover triggerMode="hover">
+          <Popover.Trigger as={Text} class={gridItemText}>
+            {props.item.title}
+          </Popover.Trigger>
+          <Popover.Content w="max-content" p={2}>
+            <p>{props.item.title}</p>
+          </Popover.Content>
+        </Popover>
       </div>
     </a>
   )
