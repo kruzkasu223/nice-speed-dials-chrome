@@ -46,6 +46,7 @@ export const GridItem: Component<P> = (props) => {
             />
           )}
         </div>
+        {/* change this popover to a tooltip once available on hope-ui v1 */}
         <Popover triggerMode="hover">
           <Popover.Trigger as={Text} class={gridItemText}>
             {props.item.title}

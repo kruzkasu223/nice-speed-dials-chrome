@@ -1,5 +1,5 @@
 import { Component, For } from 'solid-js'
-import { createSpeedDials } from '../stores'
+import { createModal } from '../stores'
 import {
   gridItem,
   gridItemA,
@@ -12,31 +12,35 @@ import {
 import { GridItem } from './GridItem'
 import { clsx } from 'clsx'
 import { Icon } from '../icons'
+import { InputModal } from './'
 
 export const Grid: Component = () => {
-  const { speedDials, speedDialsGrid } = createSpeedDials()
+  const { openModal } = createModal()
 
   return (
-    <div
-      class={mainGrid}
-      style={{
-        '--grid-width': speedDialsGrid().width,
-        '--grid-height': speedDialsGrid().height,
-      }}
-    >
-      <For each={speedDials}>{(item) => <GridItem item={item} />}</For>
+    <>
+      <InputModal />
+      <div
+        class={mainGrid}
+        style={{
+          '--grid-width': 1,
+          '--grid-height': 1,
+        }}
+      >
+        <For each={[]}>{(item) => <GridItem item={item} />}</For>
 
-      <button class={gridItemA} onClick={() => 0}>
-        <div class={gridItem}>
-          <div class={clsx(gridItemImgDiv, gridItemAddIcon)}>
-            <Icon.Plus
-              className={gridItemImg}
-              colour="var(--hope-colors-whiteAlpha-800)"
-            />
+        <button class={gridItemA} onClick={() => openModal('ADD')}>
+          <div class={gridItem}>
+            <div class={clsx(gridItemImgDiv, gridItemAddIcon)}>
+              <Icon.Plus
+                className={gridItemImg}
+                colour="var(--hope-colors-whiteAlpha-800)"
+              />
+            </div>
+            <p class={gridItemText}>Add New</p>
           </div>
-          <p class={gridItemText}>Add New</p>
-        </div>
-      </button>
-    </div>
+        </button>
+      </div>
+    </>
   )
 }
