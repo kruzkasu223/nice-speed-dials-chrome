@@ -1,4 +1,4 @@
-import { createEffect, createMemo, createSignal } from 'solid-js'
+import { createEffect, createMemo, createSignal, onCleanup } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import { getGridDimensions } from '../utils'
 
@@ -14,7 +14,8 @@ import { getGridDimensions } from '../utils'
 //   "url"?: "https://github.com/kruzkasu223"
 // }
 
-const DEFAULT_SPEED_DIALS_FOLDER_NAME = 'SPEED_DIALS_BOOKMARKS_[DO_NOT_DELETE]'
+const DEFAULT_SPEED_DIALS_FOLDER_NAME =
+  'NICE_SPEED_DIALS_BOOKMARKS_[DO_NOT_DELETE]'
 const DEFAULT_SPEED_DIALS_PARENT_ID = '2'
 const CHROME_BOOKMARK_EVENTS = [
   'onChanged',
@@ -26,12 +27,14 @@ const CHROME_BOOKMARK_EVENTS = [
   'onRemoved',
 ] as const
 
+const [defaultSpeedDialsFolder, setDefaultSpeedDialsFolder] =
+  createSignal<chrome.bookmarks.BookmarkTreeNode>()
+
+const [speedDials, setSpeedDials] = createStore<
+  chrome.bookmarks.BookmarkTreeNode[]
+>([])
+
 export const createSpeedDials = () => {
-  const [defaultSpeedDialsFolder, setDefaultSpeedDialsFolder] =
-    createSignal<chrome.bookmarks.BookmarkTreeNode>()
-  const [speedDials, setSpeedDials] = createStore<
-    chrome.bookmarks.BookmarkTreeNode[]
-  >([])
   const speedDialsLength = createMemo(() => speedDials?.length || 0)
   const speedDialsGrid = createMemo(() => {
     const { gridHeight: height, gridWidth: width } = getGridDimensions(
@@ -85,9 +88,15 @@ export const createSpeedDials = () => {
       return chrome.bookmarks[event].addListener(getSpeedDials)
     })
 
+  const removeChromeBookmarkEventListeners = () =>
+    CHROME_BOOKMARK_EVENTS.forEach((event) => {
+      return chrome.bookmarks[event].removeListener(getSpeedDials)
+    })
+
   createEffect(() => {
     getSpeedDials()
     chromeBookmarkEventListeners()
+    onCleanup(removeChromeBookmarkEventListeners)
   })
 
   return {
