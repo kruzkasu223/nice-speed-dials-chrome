@@ -1,5 +1,6 @@
 import { createSignal } from 'solid-js'
-import { isValidUrl } from '../utils'
+import { isUrlValid } from '../utils'
+import { BookmarkDataType, createSpeedDials } from './createSpeedDials.store'
 
 export type ModalType = {
   type: keyof typeof MODAL_TYPES
@@ -8,11 +9,7 @@ export type ModalType = {
   description: string
 }
 
-export type ModalDataType = {
-  id?: string
-  title?: string
-  url?: string
-}
+export type ModalDataType = Partial<BookmarkDataType>
 
 export const MODAL_TYPES = {
   ADD: {
@@ -41,9 +38,9 @@ export const isValid = (type?: ModalTypes, data?: ModalDataType) => {
   if (type === 'DELETE') {
     return !!data?.id
   } else if (type === 'EDIT') {
-    return !!(data?.title && data?.url && data?.id)
+    return !!(data?.id && data?.title && data?.url && isUrlValid(data?.url))
   } else if (type === 'ADD') {
-    return !!(data?.title && data?.url && isValidUrl(data?.url))
+    return !!(data?.title && data?.url && isUrlValid(data?.url))
   }
   return false
 }
@@ -53,6 +50,8 @@ const [modalType, setModalType] = createSignal<ModalType>()
 const [modalData, setModalData] = createSignal<ModalDataType>()
 
 export const createModal = () => {
+  const { addNewSpeedDial } = createSpeedDials()
+
   const toggleModal = () => setIsModalOpen((s) => !s)
 
   const openModal = (type: ModalTypes) => {
@@ -78,7 +77,7 @@ export const createModal = () => {
       } else if (type === 'EDIT') {
         // editSpeedDial(modalData())
       } else if (type === 'ADD') {
-        // addSpeedDial(modalData())
+        addNewSpeedDial(modalData())
       }
     }
 

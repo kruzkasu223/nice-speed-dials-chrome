@@ -1,5 +1,5 @@
 import { Component, For } from 'solid-js'
-import { createModal } from '../stores'
+import { createModal, createSpeedDials } from '../stores'
 import {
   gridItem,
   gridItemA,
@@ -15,6 +15,7 @@ import { Icon } from '../icons'
 import { InputModal } from './'
 
 export const Grid: Component = () => {
+  const { speedDials, speedDialsGrid } = createSpeedDials()
   const { openModal } = createModal()
 
   return (
@@ -23,11 +24,11 @@ export const Grid: Component = () => {
       <div
         class={mainGrid}
         style={{
-          '--grid-width': 1,
-          '--grid-height': 1,
+          '--grid-width': speedDialsGrid().width,
+          '--grid-height': speedDialsGrid().height,
         }}
       >
-        <For each={[]}>{(item) => <GridItem item={item} />}</For>
+        <For each={speedDials}>{(item) => <GridItem item={item} />}</For>
 
         <button class={gridItemA} onClick={() => openModal('ADD')}>
           <div class={gridItem}>

@@ -1,18 +1,9 @@
 import { createEffect, createMemo, createSignal, onCleanup } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import { getGridDimensions } from '../utils'
+import toast from 'solid-toast'
 
-// typeof chrome.bookmarks.BookmarkTreeNode
-// {
-//   "children"?: [],
-//   "dateAdded": 1660892821899,
-//   "dateGroupModified"?: 1660892821899,
-//   "id": "33",
-//   "index": 0,
-//   "parentId": "32",
-//   "title": "kruzkasu223 (Krushang Kasundra) · GitHub",
-//   "url"?: "https://github.com/kruzkasu223"
-// }
+export type BookmarkDataType = chrome.bookmarks.BookmarkTreeNode
 
 const DEFAULT_SPEED_DIALS_FOLDER_NAME =
   'NICE_SPEED_DIALS_BOOKMARKS_[DO_NOT_DELETE]'
@@ -99,10 +90,33 @@ export const createSpeedDials = () => {
     onCleanup(removeChromeBookmarkEventListeners)
   })
 
+  const addNewSpeedDial = async (values?: Partial<BookmarkDataType>) => {
+    if (!values?.title || !values?.url) return // maybe will add validation later
+
+    const defaultFolder = defaultSpeedDialsFolder()
+    if (!defaultFolder) {
+      await createDefaultSpeedDialsFolder()
+    }
+
+    await chrome.bookmarks
+      .create({
+        parentId: defaultFolder?.id,
+        title: values?.title,
+        url: values?.url,
+      })
+      .then((bookmark) => {
+        toast.success(`${bookmark.title} added successfully!`)
+      })
+      .catch((error) => {
+        toast.error(error.message)
+      })
+  }
+
   return {
     speedDials,
     setSpeedDials,
     speedDialsLength,
     speedDialsGrid,
+    addNewSpeedDial,
   }
 }

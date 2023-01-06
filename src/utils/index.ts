@@ -1,3 +1,3 @@
 export * from './getGridDimensions'
 export * from './getFaviconUrl'
-export * from './isValidUrl'
+export * from './isUrlValid'
