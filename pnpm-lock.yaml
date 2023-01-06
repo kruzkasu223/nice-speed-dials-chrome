@@ -9,6 +9,7 @@ specifiers:
   clsx: ^1.2.1
   onchange: ^7.1.0
   solid-js: ^1.6.6
+  solid-toast: ^0.4.0
   typescript: ^4.9.4
   vite: ^4.0.3
   vite-plugin-solid: ^2.5.0
@@ -19,6 +20,7 @@ dependencies:
   '@vanilla-extract/css': 1.9.2
   clsx: 1.2.1
   solid-js: 1.6.6
+  solid-toast: 0.4.0_solid-js@1.6.6
 
 devDependencies:
   '@types/chrome': 0.0.206
@@ -1357,6 +1359,14 @@ packages:
       '@babel/types': 7.20.7
       solid-js: 1.6.6
     dev: true
+
+  /solid-toast/0.4.0_solid-js@1.6.6:
+    resolution: {integrity: sha512-ciJbj+n+7KbUN6wfwZsW7lqFESLoQ9sXMG4uJWuHrIw2f0GxX3/wLSKs0Q1YwdTZZRxyRJ1Nwc2eBVcJvs91+g==}
+    peerDependencies:
+      solid-js: ^1.5.4
+    dependencies:
+      solid-js: 1.6.6
+    dev: false
 
   /source-map-js/1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}

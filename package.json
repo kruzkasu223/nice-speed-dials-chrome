@@ -21,6 +21,7 @@
     "@stitches/core": "^1.2.8",
     "@vanilla-extract/css": "^1.9.2",
     "clsx": "^1.2.1",
-    "solid-js": "^1.6.6"
+    "solid-js": "^1.6.6",
+    "solid-toast": "^0.4.0"
   }
 }

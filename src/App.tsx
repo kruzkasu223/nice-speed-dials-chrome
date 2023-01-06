@@ -2,6 +2,7 @@ import { type Component } from 'solid-js'
 import { Grid } from './components'
 import { app } from './styles'
 import { createPalette, extendTheme, HopeProvider } from '@hope-ui/core'
+import { Toaster } from 'solid-toast'
 
 const theme = extendTheme({
   colors: {
@@ -25,6 +26,16 @@ const theme = extendTheme({
 const App: Component = () => {
   return (
     <HopeProvider initialColorMode="dark" theme={theme}>
+      <Toaster
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: '#1d1618',
+            color: 'var(--hope-colors-primary-200)',
+            'font-size': '1.125rem',
+          },
+        }}
+      />
       <div class={app}>
         <Grid />
       </div>
