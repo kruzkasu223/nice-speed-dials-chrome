@@ -19,11 +19,9 @@ const CHROME_BOOKMARK_EVENTS = [
 ] as const
 
 const [defaultSpeedDialsFolder, setDefaultSpeedDialsFolder] =
-  createSignal<chrome.bookmarks.BookmarkTreeNode>()
+  createSignal<BookmarkDataType>()
 
-const [speedDials, setSpeedDials] = createStore<
-  chrome.bookmarks.BookmarkTreeNode[]
->([])
+const [speedDials, setSpeedDials] = createStore<BookmarkDataType[]>([])
 
 export const createSpeedDials = () => {
   const speedDialsLength = createMemo(() => speedDials?.length || 0)
