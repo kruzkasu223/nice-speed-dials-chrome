@@ -112,11 +112,45 @@ export const createSpeedDials = () => {
       })
   }
 
+  const editSpeedDial = async (values?: Partial<BookmarkDataType>) => {
+    if (!values?.id || !values?.title || !values?.url) return // maybe will add validation later
+
+    const defaultFolder = defaultSpeedDialsFolder()
+    if (!defaultFolder) {
+      await createDefaultSpeedDialsFolder()
+    }
+
+    await chrome.bookmarks
+      .update(values?.id, {
+        title: values?.title,
+        url: values?.url,
+      })
+      .then((bookmark) => {
+        toast.success(`${bookmark.title} edited successfully!`)
+      })
+      .catch((error) => {
+        toast.error(error.message)
+      })
+  }
+
+  const deleteSpeedDial = async (id: string) => {
+    await chrome.bookmarks
+      .remove(id)
+      .then(() => {
+        toast.success('Speed dial deleted successfully!')
+      })
+      .catch((error) => {
+        toast.error(error.message)
+      })
+  }
+
   return {
     speedDials,
     setSpeedDials,
     speedDialsLength,
     speedDialsGrid,
     addNewSpeedDial,
+    editSpeedDial,
+    deleteSpeedDial,
   }
 }
