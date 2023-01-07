@@ -14,7 +14,7 @@ export type ModalDataType = Partial<BookmarkDataType>
 export const MODAL_TYPES = {
   ADD: {
     type: 'ADD',
-    title: 'Create New',
+    title: 'Create',
     button: 'Create',
     description: 'Create a new speed dial',
   },
