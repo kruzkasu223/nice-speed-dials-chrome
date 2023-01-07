@@ -115,11 +115,6 @@ export const createSpeedDials = () => {
   const editSpeedDial = async (values?: Partial<BookmarkDataType>) => {
     if (!values?.id || !values?.title || !values?.url) return // maybe will add validation later
 
-    const defaultFolder = defaultSpeedDialsFolder()
-    if (!defaultFolder) {
-      await createDefaultSpeedDialsFolder()
-    }
-
     await chrome.bookmarks
       .update(values?.id, {
         title: values?.title,
@@ -133,9 +128,11 @@ export const createSpeedDials = () => {
       })
   }
 
-  const deleteSpeedDial = async (id: string) => {
+  const deleteSpeedDial = async (values?: Partial<BookmarkDataType>) => {
+    if (!values?.id) return // maybe will add validation later
+
     await chrome.bookmarks
-      .remove(id)
+      .remove(values?.id)
       .then(() => {
         toast.success('Speed dial deleted successfully!')
       })

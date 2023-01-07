@@ -1,37 +1,32 @@
 import { Popover, Text } from '@hope-ui/core'
+import { HopeProvider } from '@hope-ui/solid'
 import { type Component } from 'solid-js'
-import { Icon } from '../icons'
 import { Folder } from '../icons/Folder.icon'
+import { BookmarkDataType, ModalTypes } from '../stores'
 import {
   gridItem,
   gridItemA,
   gridItemImg,
   gridItemImgDiv,
   gridItemText,
-  gridMenuIcon,
-  menuIcon,
 } from '../styles'
 import { getFaviconUrl } from '../utils'
+import { ContextMenu } from './ContextMenu'
 
 interface P {
-  item: chrome.bookmarks.BookmarkTreeNode
+  item: BookmarkDataType
+  openModal: (type: ModalTypes, item?: BookmarkDataType) => void
 }
 
 export const GridItem: Component<P> = (props) => {
-  const handleOpenMenu = (e: Event) => {
-    e.preventDefault()
-    e.stopPropagation()
-  }
-
   return (
     <a class={gridItemA} href={props.item?.url}>
       <div class={gridItem}>
-        <button class={gridMenuIcon} onClick={handleOpenMenu}>
-          <Icon.ThreeDotsVertical
-            className={menuIcon}
-            colour="var(--hope-colors-whiteAlpha-800)"
-          />
-        </button>
+        {/* refactor this out once menu is available in hope-ui v1 */}
+        <HopeProvider>
+          <ContextMenu item={props.item} openModal={props.openModal} />
+        </HopeProvider>
+
         <div class={gridItemImgDiv}>
           {props.item?.url ? (
             <img

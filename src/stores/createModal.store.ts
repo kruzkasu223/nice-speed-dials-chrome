@@ -32,7 +32,7 @@ export const MODAL_TYPES = {
   },
 } as const
 
-type ModalTypes = keyof typeof MODAL_TYPES
+export type ModalTypes = keyof typeof MODAL_TYPES
 
 export const isValid = (type?: ModalTypes, data?: ModalDataType) => {
   if (type === 'DELETE') {
@@ -50,13 +50,14 @@ const [modalType, setModalType] = createSignal<ModalType>()
 const [modalData, setModalData] = createSignal<ModalDataType>()
 
 export const createModal = () => {
-  const { addNewSpeedDial } = createSpeedDials()
+  const { addNewSpeedDial, editSpeedDial, deleteSpeedDial } = createSpeedDials()
 
   const toggleModal = () => setIsModalOpen((s) => !s)
 
-  const openModal = (type: ModalTypes) => {
+  const openModal = (type: ModalTypes, data?: BookmarkDataType) => {
     setIsModalOpen(true)
     setModalType(MODAL_TYPES[type])
+    if (data) setModalData(data)
   }
 
   const closeModal = () => {
@@ -73,9 +74,9 @@ export const createModal = () => {
     const type = modalType()?.type
     if (type && isValid(type, modalData())) {
       if (type === 'DELETE') {
-        // deleteSpeedDial(modalData().id)
+        deleteSpeedDial(modalData())
       } else if (type === 'EDIT') {
-        // editSpeedDial(modalData())
+        editSpeedDial(modalData())
       } else if (type === 'ADD') {
         addNewSpeedDial(modalData())
       }

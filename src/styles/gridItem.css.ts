@@ -19,20 +19,24 @@ export const gridItemA = style({
 })
 
 export const gridMenuIcon = style({
-  position: 'absolute',
+  position: 'absolute !important' as 'absolute',
   top: '8px',
   right: '8px',
+  width: 'max-content !important' as 'max-content',
+  height: 'max-content !important' as 'max-content',
   cursor: 'pointer',
-  background: 'none',
-  border: 'none',
-  padding: '4px 2px',
+  background: 'none !important' as 'none',
+  border: 'none !important' as 'none',
+  padding: '4px 4px !important',
+  paddingInlineEnd: '2 !important',
+  paddingInlineStart: '2 !important',
   borderRadius: '2px',
   opacity: '0',
   transition:
     'opacity 0.25s ease-in-out 0s, background-color 0.25s ease-in-out 0s',
 
   ':hover': {
-    backgroundColor: 'var(--hope-colors-whiteAlpha-200)',
+    backgroundColor: 'var(--hope-colors-whiteAlpha-200) !important',
   },
   ':focus': {
     opacity: '1',
@@ -51,6 +55,8 @@ export const menuIcon = style({
   width: '14px',
   height: '14px',
   objectFit: 'contain',
+  margin: '0',
+  padding: '0',
 })
 
 export const gridItem = style({

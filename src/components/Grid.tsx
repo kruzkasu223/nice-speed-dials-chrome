@@ -28,7 +28,9 @@ export const Grid: Component = () => {
           '--grid-height': speedDialsGrid().height,
         }}
       >
-        <For each={speedDials}>{(item) => <GridItem item={item} />}</For>
+        <For each={speedDials}>
+          {(item) => <GridItem item={item} openModal={openModal} />}
+        </For>
 
         <button class={gridItemA} onClick={() => openModal('ADD')}>
           <div class={gridItem}>
