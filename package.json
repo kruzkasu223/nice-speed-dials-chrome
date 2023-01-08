@@ -1,12 +1,28 @@
 {
   "name": "nice-speed-dials-chrome",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "keywords": [
+    "chrome",
+    "extension",
+    "speed dials",
+    "solid",
+    "solidjs"
+  ],
+  "author": {
+    "name": "Krushang Kasundra",
+    "url": "https://kruz.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kruzkasu223/nice-speed-dials-chrome"
+  },
   "description": "Speed Dials Extension for Chrome",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview",
-    "dev:build": "onchange -k './src/**' -- vite build"
+    "dev:build": "onchange -k './src/**' -- vite build",
+    "zip": "bestzip extension.zip dist",
+    "export": "rm -rf ./dist ./extension.zip && pnpm build && pnpm zip"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.206",
@@ -14,7 +30,8 @@
     "onchange": "^7.1.0",
     "typescript": "^4.9.4",
     "vite": "^4.0.3",
-    "vite-plugin-solid": "^2.5.0"
+    "vite-plugin-solid": "^2.5.0",
+    "bestzip": "^2.2.1"
   },
   "dependencies": {
     "@hope-ui/core": "1.0.0-next.11",
