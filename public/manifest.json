@@ -2,7 +2,7 @@
   "name": "Nice Speed Dials",
   "description": "Nice and Simple Speed dials Extension for Chrome",
   "version": "1.0.0",
-  "version_name": "hydrogen",
+  "version_name": "hydrogen (v1)",
   "manifest_version": 3,
   "permissions": ["bookmarks", "favicon"],
   "chrome_url_overrides": {

@@ -13,6 +13,7 @@ import { GridItem } from './GridItem'
 import { clsx } from 'clsx'
 import { Icon } from '../icons'
 import { InputModal } from './'
+import { HopeProvider } from '@hope-ui/solid'
 
 export const Grid: Component = () => {
   const { speedDials, speedDialsGrid } = createSpeedDials()
@@ -28,9 +29,12 @@ export const Grid: Component = () => {
           '--grid-height': speedDialsGrid().height,
         }}
       >
-        <For each={speedDials}>
-          {(item) => <GridItem item={item} openModal={openModal} />}
-        </For>
+        {/* refactor this out once menu is available in hope-ui v1 */}
+        <HopeProvider>
+          <For each={speedDials}>
+            {(item) => <GridItem item={item} openModal={openModal} />}
+          </For>
+        </HopeProvider>
 
         <button class={gridItemA} onClick={() => openModal('ADD')}>
           <div class={gridItem}>

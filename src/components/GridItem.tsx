@@ -22,10 +22,7 @@ export const GridItem: Component<P> = (props) => {
   return (
     <a class={gridItemA} href={props.item?.url}>
       <div class={gridItem}>
-        {/* refactor this out once menu is available in hope-ui v1 */}
-        <HopeProvider>
-          <ContextMenu item={props.item} openModal={props.openModal} />
-        </HopeProvider>
+        <ContextMenu item={props.item} openModal={props.openModal} />
 
         <div class={gridItemImgDiv}>
           {props.item?.url ? (
@@ -41,13 +38,15 @@ export const GridItem: Component<P> = (props) => {
             />
           )}
         </div>
+
         {/* change this popover to a tooltip once available in hope-ui v1 */}
         <Popover triggerMode="hover">
           <Popover.Trigger as={Text} class={gridItemText}>
             {props.item.title}
           </Popover.Trigger>
-          <Popover.Content w="max-content" p={2}>
+          <Popover.Content w="max-content" maxW="3xl" textAlign="center" p={2}>
             <p>{props.item.title}</p>
+            <p>{props.item.url}</p>
           </Popover.Content>
         </Popover>
       </div>
