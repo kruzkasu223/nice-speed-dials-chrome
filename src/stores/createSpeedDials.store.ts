@@ -133,15 +133,33 @@ export const createSpeedDials = () => {
       })
   }
 
+  const duplicateSpeedDial = async (values?: Partial<BookmarkDataType>) => {
+    if (!values?.title || !values?.url) return // maybe will add validation later
+
+    await chrome.bookmarks
+      .create({
+        parentId: defaultSpeedDialsFolder()?.id,
+        title: values?.title + ' (copy)',
+        url: values?.url,
+      })
+      .then((bookmark) => {
+        toast.success(`${bookmark.title} duplicated successfully!`)
+      })
+      .catch((error) => {
+        toast.error(error.message)
+      })
+  }
+
   return {
     speedDials,
+    getSpeedDials,
     setSpeedDials,
-    speedDialsLength,
+    editSpeedDial,
     speedDialsGrid,
     addNewSpeedDial,
-    editSpeedDial,
     deleteSpeedDial,
-    getSpeedDials,
+    speedDialsLength,
+    duplicateSpeedDial,
     chromeBookmarkEventListeners,
     removeChromeBookmarkEventListeners,
   }

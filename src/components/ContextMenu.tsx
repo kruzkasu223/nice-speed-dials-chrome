@@ -5,14 +5,15 @@ import {
   MenuItem,
   MenuTrigger,
 } from '@hope-ui/solid'
-import { Component } from 'solid-js'
+import { type Component } from 'solid-js'
 import { Icon } from '../icons'
-import { type BookmarkDataType, ModalTypes } from '../stores'
+import type { BookmarkDataType, ModalTypes } from '../stores'
 import { gridMenuIcon, menuIcon } from '../styles'
 
 type P = {
   item: BookmarkDataType
   openModal: (type: ModalTypes, item?: BookmarkDataType) => void
+  duplicateSpeedDial: (item: Partial<BookmarkDataType>) => void
 }
 
 export const ContextMenu: Component<P> = (props) => {
@@ -37,11 +38,23 @@ export const ContextMenu: Component<P> = (props) => {
         }
       />
       <MenuContent minW={'max-content'}>
-        <MenuItem onSelect={() => props.openModal('EDIT', props.item)}>
+        <MenuItem
+          icon={<Icon.Edit colour="var(--hope-colors-primary-200)" />}
+          onSelect={() => props.openModal('EDIT', props.item)}
+        >
           Edit
         </MenuItem>
-        <MenuItem onSelect={() => props.openModal('DELETE', props.item)}>
+        <MenuItem
+          icon={<Icon.Delete colour="var(--hope-colors-primary-200)" />}
+          onSelect={() => props.openModal('DELETE', props.item)}
+        >
           Delete
+        </MenuItem>
+        <MenuItem
+          icon={<Icon.Duplicate colour="var(--hope-colors-primary-200)" />}
+          onSelect={() => props.duplicateSpeedDial(props.item)}
+        >
+          Duplicate
         </MenuItem>
       </MenuContent>
     </Menu>

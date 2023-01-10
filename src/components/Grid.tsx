@@ -1,4 +1,4 @@
-import { Component, createEffect, For, onCleanup } from 'solid-js'
+import { type Component, createEffect, For, onCleanup } from 'solid-js'
 import { createModal, createSpeedDials } from '../stores'
 import {
   gridItem,
@@ -18,8 +18,9 @@ import { HopeProvider } from '@hope-ui/solid'
 export const Grid: Component = () => {
   const {
     speedDials,
-    speedDialsGrid,
     getSpeedDials,
+    speedDialsGrid,
+    duplicateSpeedDial,
     chromeBookmarkEventListeners,
     removeChromeBookmarkEventListeners,
   } = createSpeedDials()
@@ -44,7 +45,13 @@ export const Grid: Component = () => {
         {/* refactor this out once menu is available in hope-ui v1 */}
         <HopeProvider>
           <For each={speedDials}>
-            {(item) => <GridItem item={item} openModal={openModal} />}
+            {(item) => (
+              <GridItem
+                item={item}
+                openModal={openModal}
+                duplicateSpeedDial={duplicateSpeedDial}
+              />
+            )}
           </For>
         </HopeProvider>
 

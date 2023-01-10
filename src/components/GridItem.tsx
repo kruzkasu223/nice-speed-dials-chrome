@@ -1,7 +1,6 @@
 import { Popover, Text } from '@hope-ui/core'
-import { HopeProvider } from '@hope-ui/solid'
 import { type Component } from 'solid-js'
-import { Folder } from '../icons/Folder.icon'
+import { Icon } from '../icons'
 import { BookmarkDataType, ModalTypes } from '../stores'
 import {
   gridItem,
@@ -16,13 +15,18 @@ import { ContextMenu } from './ContextMenu'
 interface P {
   item: BookmarkDataType
   openModal: (type: ModalTypes, item?: BookmarkDataType) => void
+  duplicateSpeedDial: (item: Partial<BookmarkDataType>) => void
 }
 
 export const GridItem: Component<P> = (props) => {
   return (
     <a class={gridItemA} href={props.item?.url}>
       <div class={gridItem}>
-        <ContextMenu item={props.item} openModal={props.openModal} />
+        <ContextMenu
+          item={props.item}
+          openModal={props.openModal}
+          duplicateSpeedDial={props.duplicateSpeedDial}
+        />
 
         <div class={gridItemImgDiv}>
           {props.item?.url ? (
@@ -32,7 +36,7 @@ export const GridItem: Component<P> = (props) => {
               alt={props.item.title}
             />
           ) : (
-            <Folder
+            <Icon.Folder
               className={gridItemImg}
               colour="var(--hope-colors-whiteAlpha-800)"
             />
