@@ -82,12 +82,6 @@ export const createSpeedDials = () => {
       return chrome.bookmarks[event].removeListener(getSpeedDials)
     })
 
-  createEffect(() => {
-    getSpeedDials()
-    chromeBookmarkEventListeners()
-    onCleanup(removeChromeBookmarkEventListeners)
-  })
-
   const addNewSpeedDial = async (values?: Partial<BookmarkDataType>) => {
     if (!values?.title || !values?.url) return // maybe will add validation later
 
@@ -147,5 +141,8 @@ export const createSpeedDials = () => {
     addNewSpeedDial,
     editSpeedDial,
     deleteSpeedDial,
+    getSpeedDials,
+    chromeBookmarkEventListeners,
+    removeChromeBookmarkEventListeners,
   }
 }

@@ -1,4 +1,4 @@
-import { Component, For } from 'solid-js'
+import { Component, createEffect, For, onCleanup } from 'solid-js'
 import { createModal, createSpeedDials } from '../stores'
 import {
   gridItem,
@@ -16,8 +16,20 @@ import { InputModal } from './'
 import { HopeProvider } from '@hope-ui/solid'
 
 export const Grid: Component = () => {
-  const { speedDials, speedDialsGrid } = createSpeedDials()
+  const {
+    speedDials,
+    speedDialsGrid,
+    getSpeedDials,
+    chromeBookmarkEventListeners,
+    removeChromeBookmarkEventListeners,
+  } = createSpeedDials()
   const { openModal } = createModal()
+
+  createEffect(() => {
+    getSpeedDials()
+    chromeBookmarkEventListeners()
+    onCleanup(removeChromeBookmarkEventListeners)
+  })
 
   return (
     <>
