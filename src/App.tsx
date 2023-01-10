@@ -1,8 +1,8 @@
 import { type Component } from 'solid-js'
+import { Toaster } from 'solid-toast'
+import { createPalette, extendTheme, HopeProvider } from '@hope-ui/core'
 import { Grid } from './components'
 import { app } from './styles'
-import { createPalette, extendTheme, HopeProvider } from '@hope-ui/core'
-import { Toaster } from 'solid-toast'
 
 const theme = extendTheme({
   colors: {

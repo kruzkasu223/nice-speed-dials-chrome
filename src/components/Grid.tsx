@@ -1,4 +1,7 @@
+import { clsx } from 'clsx'
 import { type Component, createEffect, For, onCleanup } from 'solid-js'
+import { HopeProvider } from '@hope-ui/solid'
+import { Icon } from '../icons'
 import { createModal, createSpeedDials } from '../stores'
 import {
   gridItem,
@@ -9,11 +12,8 @@ import {
   gridItemText,
   mainGrid,
 } from '../styles'
-import { GridItem } from './GridItem'
-import { clsx } from 'clsx'
-import { Icon } from '../icons'
 import { InputModal } from './'
-import { HopeProvider } from '@hope-ui/solid'
+import { GridItem } from './GridItem'
 
 export const Grid: Component = () => {
   const {

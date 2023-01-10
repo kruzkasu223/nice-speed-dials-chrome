@@ -32,6 +32,7 @@ Try Nice Speed Dials today and streamline your browsing experience!
 - Access speed dials from any new tab
 - Speed dials are stored in your Chrome account
 - Sync speed dials across multiple devices (if your chrome sync is on)
+- Keyboard accessibility
 
 ### Future Plan:
 

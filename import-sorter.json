@@ -1,0 +1,25 @@
+{
+  "generalConfiguration": {
+    "sortOnBeforeSave": false
+  },
+  "importStringConfiguration": {
+    "maximumNumberOfImportExpressionsPerLine": {
+      "type": "newLineEachExpressionAfterCountLimitExceptIfOnlyOne",
+      "count": 80
+    },
+    "numberOfEmptyLinesAfterAllImports": 1,
+    "trailingComma": "multiLine",
+    "hasSemicolon": false,
+    "quoteMark": "single",
+    "tabType": "space",
+    "tabSize": 2
+  },
+  "sortConfiguration": {
+    "customOrderingRules": {
+      "defaultNumberOfEmptyLinesAfterGroup": 0
+    },
+    "joinImportPaths": true,
+    "removeUnusedImports": true,
+    "removeUnusedDefaultImports": true
+  }
+}

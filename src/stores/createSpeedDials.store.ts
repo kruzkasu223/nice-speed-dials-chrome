@@ -1,7 +1,7 @@
-import { createEffect, createMemo, createSignal, onCleanup } from 'solid-js'
+import { createMemo, createSignal } from 'solid-js'
 import { createStore } from 'solid-js/store'
-import { getGridDimensions } from '../utils'
 import toast from 'solid-toast'
+import { getGridDimensions } from '../utils'
 
 export type BookmarkDataType = chrome.bookmarks.BookmarkTreeNode
 

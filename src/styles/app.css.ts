@@ -1,5 +1,4 @@
-import { style } from '@vanilla-extract/css'
-import { globalStyle } from '@vanilla-extract/css'
+import { globalStyle, style } from '@vanilla-extract/css'
 
 globalStyle('*', {
   margin: 0,
