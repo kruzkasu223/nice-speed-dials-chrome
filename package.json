@@ -27,11 +27,11 @@
   "devDependencies": {
     "@types/chrome": "^0.0.206",
     "@vanilla-extract/vite-plugin": "^3.7.0",
+    "bestzip": "^2.2.1",
     "onchange": "^7.1.0",
     "typescript": "^4.9.4",
     "vite": "^4.0.3",
-    "vite-plugin-solid": "^2.5.0",
-    "bestzip": "^2.2.1"
+    "vite-plugin-solid": "^2.5.0"
   },
   "dependencies": {
     "@hope-ui/core": "1.0.0-next.11",
