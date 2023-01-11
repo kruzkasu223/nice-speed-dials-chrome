@@ -2,6 +2,8 @@
 
 ### Nice and Simple Speed dials Extension for Chrome
 
+[Visit Chrome Web Store](https://chrome.google.com/webstore/detail/nice-speed-dials/igdancpfkcmgelecddchfeijbofdcnaa)
+
 Nice Speed Dials is a Chrome extension With a sleek and intuitive interface that
 allows you to organize your browser's new tab page with your favourite websites
 and links. With just a few clicks, you can create and organize a collection of
@@ -47,5 +49,3 @@ Try Nice Speed Dials today and streamline your browsing experience!
 
 Request a features or report a bug at
 https://github.com/kruzkasu223/nice-speed-dials-chrome/issues
-
-[Visit Chrome Web Store](https://chrome.google.com/webstore/detail/nice-speed-dials/igdancpfkcmgelecddchfeijbofdcnaa)
