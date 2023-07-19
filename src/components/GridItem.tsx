@@ -1,6 +1,5 @@
 import { type Component } from 'solid-js'
 import { Popover, Text } from '@hope-ui/core'
-import { Icon } from '../icons'
 import {
   gridItem,
   gridItemA,
@@ -11,6 +10,7 @@ import {
 import { getFaviconUrl } from '../utils'
 import { ContextMenu } from './ContextMenu'
 import type { BookmarkDataType, ModalTypes } from '../stores'
+import { FolderIcon } from 'lucide-solid'
 
 interface P {
   item: BookmarkDataType
@@ -36,9 +36,9 @@ export const GridItem: Component<P> = (props) => {
               alt={props.item.title}
             />
           ) : (
-            <Icon.Folder
-              className={gridItemImg}
-              colour="var(--hope-colors-whiteAlpha-800)"
+            <FolderIcon
+              class={gridItemImg}
+              color="var(--hope-colors-whiteAlpha-800)"
             />
           )}
         </div>

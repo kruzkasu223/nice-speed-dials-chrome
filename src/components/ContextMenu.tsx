@@ -6,9 +6,14 @@ import {
   MenuItem,
   MenuTrigger,
 } from '@hope-ui/solid'
-import { Icon } from '../icons'
 import { gridMenuIcon, menuIcon } from '../styles'
 import type { BookmarkDataType, ModalTypes } from '../stores'
+import {
+  CopyPlusIcon,
+  MoreVerticalIcon,
+  PencilIcon,
+  Trash2Icon,
+} from 'lucide-solid'
 
 type P = {
   item: BookmarkDataType
@@ -31,27 +36,29 @@ export const ContextMenu: Component<P> = (props) => {
         colorScheme="neutral"
         class={gridMenuIcon}
         icon={
-          <Icon.ThreeDotsVertical
-            className={menuIcon}
-            colour="var(--hope-colors-whiteAlpha-800)"
+          <MoreVerticalIcon
+            class={menuIcon}
+            color="var(--hope-colors-whiteAlpha-800)"
           />
         }
       />
       <MenuContent minW={'max-content'}>
         <MenuItem
-          icon={<Icon.Edit colour="var(--hope-colors-primary-200)" />}
+          icon={<PencilIcon size={16} color="var(--hope-colors-primary-200)" />}
           onSelect={() => props.openModal('EDIT', props.item)}
         >
           Edit
         </MenuItem>
         <MenuItem
-          icon={<Icon.Delete colour="var(--hope-colors-primary-200)" />}
+          icon={<Trash2Icon size={16} color="var(--hope-colors-primary-200)" />}
           onSelect={() => props.openModal('DELETE', props.item)}
         >
           Delete
         </MenuItem>
         <MenuItem
-          icon={<Icon.Duplicate colour="var(--hope-colors-primary-200)" />}
+          icon={
+            <CopyPlusIcon size={16} color="var(--hope-colors-primary-200)" />
+          }
           onSelect={() => props.duplicateSpeedDial(props.item)}
         >
           Duplicate

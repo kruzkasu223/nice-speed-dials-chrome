@@ -1,7 +1,6 @@
 import { clsx } from 'clsx'
 import { type Component, createEffect, For, onCleanup } from 'solid-js'
 import { HopeProvider } from '@hope-ui/solid'
-import { Icon } from '../icons'
 import { createModal, createSpeedDials } from '../stores'
 import {
   gridItem,
@@ -14,6 +13,7 @@ import {
 } from '../styles'
 import { InputModal } from './'
 import { GridItem } from './GridItem'
+import { PlusIcon } from 'lucide-solid'
 
 export const Grid: Component = () => {
   const {
@@ -58,9 +58,9 @@ export const Grid: Component = () => {
         <button class={gridItemA} onClick={() => openModal('ADD')}>
           <div class={gridItem}>
             <div class={clsx(gridItemImgDiv, gridItemAddIcon)}>
-              <Icon.Plus
-                className={gridItemImg}
-                colour="var(--hope-colors-whiteAlpha-800)"
+              <PlusIcon
+                class={gridItemImg}
+                color="var(--hope-colors-whiteAlpha-800)"
               />
             </div>
             <p class={gridItemText}>Add New</p>
