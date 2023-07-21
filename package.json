@@ -25,23 +25,24 @@
     "export": "rm -rf ./dist ./extension.zip && pnpm build && pnpm zip"
   },
   "devDependencies": {
-    "@types/chrome": "^0.0.206",
-    "@vanilla-extract/vite-plugin": "^3.8.2",
-    "bestzip": "^2.2.1",
-    "onchange": "^7.1.0",
-    "typescript": "^4.9.5",
-    "vite": "^4.4.4",
-    "vite-plugin-solid": "^2.7.0"
+    "@types/chrome": "0.0.241",
+    "@vanilla-extract/vite-plugin": "3.8.2",
+    "bestzip": "2.2.1",
+    "onchange": "7.1.0",
+    "typescript": "5.1.6",
+    "vite": "4.4.5",
+    "vite-plugin-solid": "2.7.0"
   },
   "dependencies": {
     "@hope-ui/core": "1.0.0-next.11",
-    "@hope-ui/solid": "^0.6.7",
-    "@stitches/core": "^1.2.8",
-    "@vanilla-extract/css": "^1.12.0",
-    "clsx": "^1.2.1",
-    "lucide-solid": "^0.261.0",
-    "solid-js": "^1.7.8",
-    "solid-toast": "^0.4.0",
-    "solid-transition-group": "^0.0.12"
+    "@hope-ui/solid": "0.6.7",
+    "@stitches/core": "1.2.8",
+    "@vanilla-extract/css": "1.12.0",
+    "clsx": "2.0.0",
+    "lucide-solid": "0.262.0",
+    "solid-dnd-directive": "0.2.0",
+    "solid-js": "1.7.8",
+    "solid-toast": "0.5.0",
+    "solid-transition-group": "0.2.2"
   }
 }

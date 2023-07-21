@@ -18,6 +18,11 @@ const CHROME_BOOKMARK_EVENTS = [
   'onRemoved',
 ] as const
 
+export const ADD_NEW_SPEED_DIALS_ITEM: BookmarkDataType = {
+  id: 'ADD',
+  title: 'Add New',
+}
+
 const [defaultSpeedDialsFolder, setDefaultSpeedDialsFolder] =
   createSignal<BookmarkDataType>()
 
@@ -68,7 +73,7 @@ export const createSpeedDials = () => {
         })
     } else {
       const children = await chrome.bookmarks.getChildren(defaultFolder.id)
-      setSpeedDials(children)
+      setSpeedDials(children.concat([ADD_NEW_SPEED_DIALS_ITEM]))
     }
   }
 
@@ -150,11 +155,30 @@ export const createSpeedDials = () => {
       })
   }
 
+  const moveSpeedDial = async (
+    values: Partial<BookmarkDataType>,
+    newIndex: number
+  ) => {
+    if (!values?.id) return // maybe will add validation later
+    if (values?.index === newIndex) return getSpeedDials()
+    await chrome.bookmarks
+      .move(values?.id, {
+        index: newIndex,
+      })
+      .then((bookmark) => {
+        // toast.success(`${bookmark.title} reordered successfully!`)
+      })
+      .catch((error) => {
+        toast.error(error.message)
+      })
+  }
+
   return {
     speedDials,
     getSpeedDials,
     setSpeedDials,
     editSpeedDial,
+    moveSpeedDial,
     speedDialsGrid,
     addNewSpeedDial,
     deleteSpeedDial,

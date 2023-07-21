@@ -34,15 +34,15 @@ Try Nice Speed Dials today and streamline your browsing experience!
 - Access speed dials from any new tab
 - Speed dials are stored in your Chrome account
 - Sync speed dials across multiple devices (if your chrome sync is on)
+- Reorder speed dials via drag and drop
 - Keyboard accessibility
+- Nice animation
 
 ### Future Plan:
 
 - Options for customization
-- Reorder speed dials via drag and drop
 - Import and export speed dials
 - Support for folders
-- Nice animation on any actions
 - More features to come!
 
 ---
