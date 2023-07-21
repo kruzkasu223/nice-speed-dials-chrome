@@ -1,11 +1,7 @@
 import { clsx } from 'clsx'
-import {
-  type Component,
-  createEffect,
-  For,
-  onCleanup,
-  createSignal,
-} from 'solid-js'
+import { PlusIcon } from 'lucide-solid'
+import { dndzone } from 'solid-dnd-directive'
+import { Component, createEffect, createSignal, For, onCleanup } from 'solid-js'
 import { HopeProvider } from '@hope-ui/solid'
 import {
   ADD_NEW_SPEED_DIALS_ITEM,
@@ -24,8 +20,6 @@ import {
 } from '../styles'
 import { InputModal } from './'
 import { GridItem } from './GridItem'
-import { PlusIcon } from 'lucide-solid'
-import { dndzone } from 'solid-dnd-directive'
 
 export const Grid: Component = () => {
   dndzone

@@ -1,5 +1,7 @@
-import { type Component } from 'solid-js'
+import { FolderIcon } from 'lucide-solid'
+import { Component } from 'solid-js'
 import { Popover, Text } from '@hope-ui/core'
+import { BookmarkDataType, ModalTypes } from '../stores'
 import {
   gridItem,
   gridItemA,
@@ -9,8 +11,6 @@ import {
 } from '../styles'
 import { getFaviconUrl } from '../utils'
 import { ContextMenu } from './ContextMenu'
-import type { BookmarkDataType, ModalTypes } from '../stores'
-import { FolderIcon } from 'lucide-solid'
 
 interface P {
   item: BookmarkDataType

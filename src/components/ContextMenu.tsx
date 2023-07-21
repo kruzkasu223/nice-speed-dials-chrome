@@ -1,4 +1,10 @@
-import { type Component } from 'solid-js'
+import {
+  CopyPlusIcon,
+  MoreVerticalIcon,
+  PencilIcon,
+  Trash2Icon,
+} from 'lucide-solid'
+import { Component } from 'solid-js'
 import {
   IconButton,
   Menu,
@@ -6,14 +12,8 @@ import {
   MenuItem,
   MenuTrigger,
 } from '@hope-ui/solid'
+import { BookmarkDataType, ModalTypes } from '../stores'
 import { gridMenuIcon, menuIcon } from '../styles'
-import type { BookmarkDataType, ModalTypes } from '../stores'
-import {
-  CopyPlusIcon,
-  MoreVerticalIcon,
-  PencilIcon,
-  Trash2Icon,
-} from 'lucide-solid'
 
 type P = {
   item: BookmarkDataType

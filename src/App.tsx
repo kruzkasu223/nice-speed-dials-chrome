@@ -1,4 +1,4 @@
-import { type Component } from 'solid-js'
+import { Component } from 'solid-js'
 import { Toaster } from 'solid-toast'
 import { createPalette, extendTheme, HopeProvider } from '@hope-ui/core'
 import { Grid } from './components'
