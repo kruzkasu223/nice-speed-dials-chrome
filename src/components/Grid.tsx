@@ -1,7 +1,7 @@
 import { clsx } from 'clsx'
 import { PlusIcon } from 'lucide-solid'
 import { dndzone } from 'solid-dnd-directive'
-import { Component, createEffect, createSignal, For, onCleanup } from 'solid-js'
+import { Component, createEffect, For, onCleanup } from 'solid-js'
 import { HopeProvider } from '@hope-ui/solid'
 import {
   ADD_NEW_SPEED_DIALS_ITEM,
@@ -26,6 +26,7 @@ export const Grid: Component = () => {
   const {
     speedDials,
     getSpeedDials,
+    setSpeedDials,
     moveSpeedDial,
     speedDialsGrid,
     duplicateSpeedDial,
@@ -33,16 +34,11 @@ export const Grid: Component = () => {
     removeChromeBookmarkEventListeners,
   } = createSpeedDials()
   const { openModal } = createModal()
-  const [speedDialsSignal, setSpeedDialsSignal] = createSignal(speedDials)
 
   createEffect(() => {
     getSpeedDials()
     chromeBookmarkEventListeners()
     onCleanup(removeChromeBookmarkEventListeners)
-  })
-
-  createEffect(() => {
-    setSpeedDialsSignal(speedDials)
   })
 
   const onDrag = (e: any, isFinalize = false) => {
@@ -51,11 +47,11 @@ export const Grid: Component = () => {
         (item) => item.id !== 'ADD'
       )
       newItems.push(ADD_NEW_SPEED_DIALS_ITEM)
-      setSpeedDialsSignal(newItems)
+      setSpeedDials(newItems)
       return
     }
     const newItems = e.detail.items as BookmarkDataType[]
-    setSpeedDialsSignal(newItems)
+    setSpeedDials(newItems)
   }
 
   const onDragConsider = (e: any) => {
@@ -68,10 +64,8 @@ export const Grid: Component = () => {
     if (e.detail.info.id === 'ADD') return
 
     const itemId = e.detail.info.id
-    const item = speedDialsSignal().find((item) => item.id === itemId)
-    const itemNewIndex = speedDialsSignal().findIndex(
-      (item) => item.id === itemId
-    )
+    const item = speedDials.find((item) => item.id === itemId)
+    const itemNewIndex = speedDials.findIndex((item) => item.id === itemId)
 
     if (item && String(itemNewIndex) && item.index !== itemNewIndex)
       moveSpeedDial(
@@ -93,14 +87,16 @@ export const Grid: Component = () => {
         }}
         // @ts-expect-error
         use:dndzone={{
-          items: speedDialsSignal,
+          items: () => speedDials,
+          // some glitches in animations, hence disabling for now
+          flipDurationMs: 0,
         }}
         on:consider={onDragConsider}
         on:finalize={onDragFinalize}
       >
         {/* refactor this (HopeProvider) out once menu is available in hope-ui v1 */}
         <HopeProvider>
-          <For each={speedDialsSignal()}>
+          <For each={speedDials}>
             {(item) =>
               item.id === 'ADD' ? (
                 <button class={gridItemA} onClick={() => openModal('ADD')}>

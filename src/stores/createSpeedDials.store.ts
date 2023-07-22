@@ -26,7 +26,9 @@ export const ADD_NEW_SPEED_DIALS_ITEM: BookmarkDataType = {
 const [defaultSpeedDialsFolder, setDefaultSpeedDialsFolder] =
   createSignal<BookmarkDataType>()
 
-const [speedDials, setSpeedDials] = createStore<BookmarkDataType[]>([])
+const [speedDials, setSpeedDials] = createStore<BookmarkDataType[]>([
+  ADD_NEW_SPEED_DIALS_ITEM,
+])
 
 export const createSpeedDials = () => {
   const speedDialsLength = createMemo(() => speedDials?.length || 0)
