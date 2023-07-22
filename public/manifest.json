@@ -1,8 +1,8 @@
 {
   "name": "Nice Speed Dials",
   "description": "Nice and Simple Speed dials Extension for Chrome",
-  "version": "3.0.0",
-  "version_name": "lithium (v3)",
+  "version": "4.0.0",
+  "version_name": "beryllium (v4)",
   "manifest_version": 3,
   "permissions": ["bookmarks", "favicon"],
   "chrome_url_overrides": {

@@ -43,6 +43,7 @@ Try Nice Speed Dials today and streamline your browsing experience!
 - Options for customization
 - Import and export speed dials
 - Support for folders
+- Nice animation on any actions
 - More features to come!
 
 ---
