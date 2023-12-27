@@ -12,7 +12,7 @@ import {
   MenuTrigger,
 } from '@hope-ui/solid'
 import { BookmarkDataType, ModalTypes } from '../stores'
-import { gridMenuIcon, menuIcon } from '../styles'
+import classes from '../styles/Grid.module.scss'
 
 type P = {
   item: BookmarkDataType
@@ -33,10 +33,10 @@ export const ContextMenu = (props: P) => {
         as={IconButton}
         variant="outline"
         colorScheme="neutral"
-        class={gridMenuIcon}
+        class={classes.gridMenuIcon}
         icon={
           <MoreVerticalIcon
-            class={menuIcon}
+            class={classes.menuIcon}
             color="var(--hope-colors-whiteAlpha-800)"
           />
         }

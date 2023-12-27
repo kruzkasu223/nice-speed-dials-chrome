@@ -13,15 +13,7 @@ import {
   duplicateSpeedDial,
   openModal,
 } from '../stores'
-import {
-  gridItem,
-  gridItemA,
-  gridItemAddIcon,
-  gridItemImg,
-  gridItemImgDiv,
-  gridItemText,
-  mainGrid,
-} from '../styles'
+import classes from '../styles/Grid.module.scss'
 import { InputModal } from './'
 import { GridItem } from './GridItem'
 
@@ -67,7 +59,7 @@ export const Grid = () => {
     <>
       <InputModal />
       <div
-        class={mainGrid}
+        class={classes.grid}
         style={{
           '--grid-width': speedDialsGrid().width,
           '--grid-height': speedDialsGrid().height,
@@ -86,15 +78,23 @@ export const Grid = () => {
           <For each={speedDials}>
             {(item) =>
               item.id === 'ADD' ? (
-                <button class={gridItemA} onClick={() => openModal('ADD')}>
-                  <div class={gridItem}>
-                    <div class={clsx(gridItemImgDiv, gridItemAddIcon)}>
+                <button
+                  class={classes.gridItem}
+                  onClick={() => openModal('ADD')}
+                >
+                  <div class={classes.gridItemContent}>
+                    <div
+                      class={clsx(
+                        classes.gridItemImgDiv,
+                        classes.gridItemAddIcon
+                      )}
+                    >
                       <PlusIcon
-                        class={gridItemImg}
+                        class={classes.gridItemImg}
                         color="var(--hope-colors-whiteAlpha-800)"
                       />
                     </div>
-                    <p class={gridItemText}>{item.title}</p>
+                    <p class={classes.gridItemText}>{item.title}</p>
                   </div>
                 </button>
               ) : (

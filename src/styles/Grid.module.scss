@@ -1,0 +1,108 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-width, 3), 112px);
+  grid-template-rows: repeat(var(--grid-height, 3), 112px);
+  gap: 8px;
+  animation: fadeInAnimation 0.75s ease-in-out;
+
+  @keyframes fadeInAnimation {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+.gridItem {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--hope-colors-whiteAlpha-800);
+  padding: 8px;
+  border: 1px solid var(--hope-colors-whiteAlpha-200);
+  background-color: var(--hope-colors-whiteAlpha-50);
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+
+  &:hover {
+    background-color: var(--hope-colors-whiteAlpha-200);
+
+    & .gridItemContent .gridMenuIcon {
+      opacity: 1 !important;
+      transition: opacity 0.25s ease-in-out 0.4s,
+        background-color 0.25s ease-in-out 0s;
+    }
+  }
+
+  .gridItemContent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+
+    .gridItemImgDiv {
+      width: 50%;
+      height: 50%;
+      padding: 8px;
+      border-radius: 4px;
+
+      .gridItemImg {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .gridItemAddIcon {
+      border: 1px solid var(--hope-colors-whiteAlpha-400);
+    }
+
+    .gridItemText {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 100%;
+      text-align: center;
+    }
+
+    .gridMenuIcon {
+      position: absolute !important;
+      top: 8px;
+      right: 8px;
+      width: max-content !important;
+      height: max-content !important;
+      cursor: pointer;
+      background: none !important;
+      border: none !important;
+      padding: 4px !important;
+      padding-inline-end: 2 !important;
+      padding-inline-start: 2 !important;
+      border-radius: 2px;
+      opacity: 0;
+      transition: opacity 0.25s ease-in-out 0s,
+        background-color 0.25s ease-in-out 0s;
+
+      &:hover {
+        background-color: var(--hope-colors-whiteAlpha-200) !important;
+      }
+
+      &:focus {
+        opacity: 1;
+      }
+
+      .menuIcon {
+        width: 14px;
+        height: 14px;
+        object-fit: contain;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}

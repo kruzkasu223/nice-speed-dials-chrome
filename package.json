@@ -29,9 +29,9 @@
   },
   "devDependencies": {
     "@types/chrome": "0.0.254",
-    "@vanilla-extract/vite-plugin": "3.9.3",
     "bestzip": "2.2.1",
     "onchange": "7.1.0",
+    "sass": "^1.69.5",
     "typescript": "5.3.3",
     "vite": "5.0.10",
     "vite-plugin-solid": "2.8.0"
@@ -40,7 +40,6 @@
     "@hope-ui/core": "1.0.0-next.11",
     "@hope-ui/solid": "0.6.7",
     "@stitches/core": "1.2.8",
-    "@vanilla-extract/css": "1.14.0",
     "clsx": "2.0.0",
     "lucide-solid": "0.302.0",
     "solid-dnd-directive": "0.2.0",

@@ -1,7 +1,7 @@
 import { Toaster } from 'solid-toast'
 import { createPalette, extendTheme, HopeProvider } from '@hope-ui/core'
 import { Grid } from './components'
-import { app } from './styles'
+import classes from './styles/App.module.scss'
 
 const theme = extendTheme({
   colors: {
@@ -35,7 +35,7 @@ export const App = () => {
           },
         }}
       />
-      <div class={app}>
+      <div class={classes.app}>
         <Grid />
       </div>
     </HopeProvider>

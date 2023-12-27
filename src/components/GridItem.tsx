@@ -1,13 +1,7 @@
 import { FolderIcon } from 'lucide-solid'
 import { Popover, Text } from '@hope-ui/core'
 import { BookmarkDataType, ModalTypes } from '../stores'
-import {
-  gridItem,
-  gridItemA,
-  gridItemImg,
-  gridItemImgDiv,
-  gridItemText,
-} from '../styles'
+import classes from '../styles/Grid.module.scss'
 import { getFaviconUrl } from '../utils'
 import { ContextMenu } from './ContextMenu'
 
@@ -19,24 +13,24 @@ interface P {
 
 export const GridItem = (props: P) => {
   return (
-    <a class={gridItemA} href={props.item?.url}>
-      <div class={gridItem}>
+    <a class={classes.gridItem} href={props.item?.url}>
+      <div class={classes.gridItemContent}>
         <ContextMenu
           item={props.item}
           openModal={props.openModal}
           duplicateSpeedDial={props.duplicateSpeedDial}
         />
 
-        <div class={gridItemImgDiv}>
+        <div class={classes.gridItemImgDiv}>
           {props.item?.url ? (
             <img
-              class={gridItemImg}
+              class={classes.gridItemImg}
               src={getFaviconUrl(props.item?.url)}
               alt={props.item.title}
             />
           ) : (
             <FolderIcon
-              class={gridItemImg}
+              class={classes.gridItemImg}
               color="var(--hope-colors-whiteAlpha-800)"
             />
           )}
@@ -44,7 +38,7 @@ export const GridItem = (props: P) => {
 
         {/* change this popover to a tooltip once available in hope-ui v1 */}
         <Popover triggerMode="hover">
-          <Popover.Trigger as={Text} class={gridItemText}>
+          <Popover.Trigger as={Text} class={classes.gridItemText}>
             {props.item.title}
           </Popover.Trigger>
           <Popover.Content w="max-content" maxW="3xl" textAlign="center" p={2}>
