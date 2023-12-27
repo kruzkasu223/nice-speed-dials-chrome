@@ -1,6 +1,6 @@
 # Nice Speed Dials
 
-### Nice and Simple Speed dials Extension for Chrome
+### Nice and Simple Speed Dials Extension for Chrome
 
 [Visit Chrome Web Store](https://chrome.google.com/webstore/detail/nice-speed-dials/igdancpfkcmgelecddchfeijbofdcnaa)
 

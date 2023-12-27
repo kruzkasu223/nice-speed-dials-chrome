@@ -4,7 +4,6 @@ import {
   PencilIcon,
   Trash2Icon,
 } from 'lucide-solid'
-import { Component } from 'solid-js'
 import {
   IconButton,
   Menu,
@@ -21,7 +20,7 @@ type P = {
   duplicateSpeedDial: (item: Partial<BookmarkDataType>) => void
 }
 
-export const ContextMenu: Component<P> = (props) => {
+export const ContextMenu = (props: P) => {
   const handleOpenMenu = (e: Event) => {
     e.preventDefault()
     e.stopPropagation()

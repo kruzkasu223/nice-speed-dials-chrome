@@ -10,5 +10,5 @@ export const mainGrid = style({
   gridTemplateColumns: 'repeat(var(--grid-width, 3), 112px)',
   gridTemplateRows: 'repeat(var(--grid-height, 3), 112px)',
   gap: '8px',
-  animation: `${fadeIn} 0.75s ease-in-out`,
+  animation: `${fadeIn} 0.5s ease-in-out`,
 })

@@ -11,8 +11,10 @@ globalStyle('*', {
 })
 
 globalStyle('body', {
-  width: '100vw',
-  height: '100vh',
+  minWidth: '100vw',
+  minHeight: '100vh',
+  width: 'min-content',
+  height: 'auto !important',
   backgroundColor: '#2c2124',
   fontFamily: 'Roboto, sans-serif',
 })
@@ -39,7 +41,8 @@ globalStyle('[role="menu"]', {
 export const app = style({
   width: '100%',
   height: '100%',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  minHeight: '100vh',
+  display: 'grid',
+  placeItems: 'center',
+  padding: '16px',
 })

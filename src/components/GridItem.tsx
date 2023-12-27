@@ -1,5 +1,4 @@
 import { FolderIcon } from 'lucide-solid'
-import { Component } from 'solid-js'
 import { Popover, Text } from '@hope-ui/core'
 import { BookmarkDataType, ModalTypes } from '../stores'
 import {
@@ -18,7 +17,7 @@ interface P {
   duplicateSpeedDial: (item: Partial<BookmarkDataType>) => void
 }
 
-export const GridItem: Component<P> = (props) => {
+export const GridItem = (props: P) => {
   return (
     <a class={gridItemA} href={props.item?.url}>
       <div class={gridItem}>

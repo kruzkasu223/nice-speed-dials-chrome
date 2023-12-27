@@ -1,13 +1,17 @@
 import { clsx } from 'clsx'
 import { PlusIcon } from 'lucide-solid'
 import { dndzone } from 'solid-dnd-directive'
-import { Component, createEffect, For, onCleanup } from 'solid-js'
+import { For } from 'solid-js'
 import { HopeProvider } from '@hope-ui/solid'
 import {
   ADD_NEW_SPEED_DIALS_ITEM,
   BookmarkDataType,
-  createModal,
-  createSpeedDials,
+  speedDials,
+  setSpeedDials,
+  moveSpeedDial,
+  speedDialsGrid,
+  duplicateSpeedDial,
+  openModal,
 } from '../stores'
 import {
   gridItem,
@@ -21,25 +25,8 @@ import {
 import { InputModal } from './'
 import { GridItem } from './GridItem'
 
-export const Grid: Component = () => {
+export const Grid = () => {
   dndzone
-  const {
-    speedDials,
-    getSpeedDials,
-    setSpeedDials,
-    moveSpeedDial,
-    speedDialsGrid,
-    duplicateSpeedDial,
-    chromeBookmarkEventListeners,
-    removeChromeBookmarkEventListeners,
-  } = createSpeedDials()
-  const { openModal } = createModal()
-
-  createEffect(() => {
-    getSpeedDials()
-    chromeBookmarkEventListeners()
-    onCleanup(removeChromeBookmarkEventListeners)
-  })
 
   const onDrag = (e: any, isFinalize = false) => {
     if (isFinalize) {

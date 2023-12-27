@@ -1,4 +1,3 @@
-import { Component } from 'solid-js'
 import { Toaster } from 'solid-toast'
 import { createPalette, extendTheme, HopeProvider } from '@hope-ui/core'
 import { Grid } from './components'
@@ -23,7 +22,7 @@ const theme = extendTheme({
   },
 })
 
-const App: Component = () => {
+export const App = () => {
   return (
     <HopeProvider initialColorMode="dark" theme={theme}>
       <Toaster
@@ -42,5 +41,3 @@ const App: Component = () => {
     </HopeProvider>
   )
 }
-
-export default App

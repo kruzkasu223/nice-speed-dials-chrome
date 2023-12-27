@@ -1,2 +1,2 @@
-export * from './createSpeedDials.store'
-export * from './createModal.store'
+export * from './useSpeedDials'
+export * from './useModal'

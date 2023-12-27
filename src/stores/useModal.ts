@@ -1,6 +1,11 @@
 import { createSignal } from 'solid-js'
 import { isUrlValid } from '../utils'
-import { BookmarkDataType, createSpeedDials } from './createSpeedDials.store'
+import {
+  BookmarkDataType,
+  addNewSpeedDial,
+  editSpeedDial,
+  deleteSpeedDial,
+} from './useSpeedDials'
 
 export type ModalType = {
   type: keyof typeof MODAL_TYPES
@@ -49,50 +54,43 @@ const [isModalOpen, setIsModalOpen] = createSignal(false)
 const [modalType, setModalType] = createSignal<ModalType>()
 const [modalData, setModalData] = createSignal<ModalDataType>()
 
-export const createModal = () => {
-  const { addNewSpeedDial, editSpeedDial, deleteSpeedDial } = createSpeedDials()
+const openModal = (type: ModalTypes, data?: BookmarkDataType) => {
+  setIsModalOpen(true)
+  setModalType(MODAL_TYPES[type])
+  if (data) setModalData(data)
+}
 
-  const toggleModal = () => setIsModalOpen((s) => !s)
+const closeModal = () => {
+  setIsModalOpen(false)
+  setModalData()
+}
 
-  const openModal = (type: ModalTypes, data?: BookmarkDataType) => {
-    setIsModalOpen(true)
-    setModalType(MODAL_TYPES[type])
-    if (data) setModalData(data)
-  }
+const handleModalDataChange = (e: Event) => {
+  const { name, value = '' } = e.target as HTMLInputElement
+  setModalData((s) => ({ ...s, [name]: value }))
+}
 
-  const closeModal = () => {
-    setIsModalOpen(false)
-    setModalData()
-  }
-
-  const handleModalDataChange = (e: Event) => {
-    const { name, value = '' } = e.target as HTMLInputElement
-    setModalData((s) => ({ ...s, [name]: value }))
-  }
-
-  const handleModalOnSubmit = () => {
-    const type = modalType()?.type
-    if (type && isValid(type, modalData())) {
-      if (type === 'DELETE') {
-        deleteSpeedDial(modalData())
-      } else if (type === 'EDIT') {
-        editSpeedDial(modalData())
-      } else if (type === 'ADD') {
-        addNewSpeedDial(modalData())
-      }
+const handleModalOnSubmit = () => {
+  const type = modalType()?.type
+  if (type && isValid(type, modalData())) {
+    if (type === 'DELETE') {
+      deleteSpeedDial(modalData())
+    } else if (type === 'EDIT') {
+      editSpeedDial(modalData())
+    } else if (type === 'ADD') {
+      addNewSpeedDial(modalData())
     }
-
-    closeModal()
   }
 
-  return {
-    modalType,
-    modalData,
-    openModal,
-    closeModal,
-    isModalOpen,
-    toggleModal,
-    handleModalOnSubmit,
-    handleModalDataChange,
-  }
+  closeModal()
+}
+
+export {
+  modalType,
+  modalData,
+  openModal,
+  closeModal,
+  isModalOpen,
+  handleModalOnSubmit,
+  handleModalDataChange,
 }

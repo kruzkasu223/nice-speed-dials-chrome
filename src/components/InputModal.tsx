@@ -1,16 +1,15 @@
 import { Button, HStack, Input, Modal, Text, VStack } from '@hope-ui/core'
-import { createModal, isValid } from '../stores'
+import {
+  modalType,
+  modalData,
+  closeModal,
+  isModalOpen,
+  handleModalOnSubmit,
+  handleModalDataChange,
+  isValid,
+} from '../stores'
 
 export const InputModal = () => {
-  const {
-    modalType,
-    modalData,
-    closeModal,
-    isModalOpen,
-    handleModalOnSubmit,
-    handleModalDataChange,
-  } = createModal()
-
   return (
     <Modal isOpen={isModalOpen()} onClose={closeModal} isCentered>
       <Modal.Overlay />
