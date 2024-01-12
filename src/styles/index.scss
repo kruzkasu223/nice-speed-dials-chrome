@@ -1,39 +1,13 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
-:root {
-  --hope-colors-neutral-700: #2c2124 !important;
-  --hope-colors-neutral-600: #594a4e !important;
-}
-
 body {
   min-width: 100vw;
   min-height: 100vh;
   width: min-content;
   height: auto !important;
-  background-color: #2c2124;
-  font-family: Roboto, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 #root {
   width: 100%;
   height: 100%;
-  background-color: #2c2124;
-}
-
-[role='menu'] {
-  --hope-colors-neutral4: rgb(
-    var(--hope-colors-primary-mainChannel) / 0.1
-  ) !important;
-  --hope-colors-neutral7: #594a4e !important;
-  --hope-colors-neutral12: var(--hope-colors-primary-200) !important;
-  --hope-colors-loContrast: #2c2124 !important;
 }

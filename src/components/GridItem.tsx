@@ -1,9 +1,11 @@
 import { FolderIcon } from 'lucide-solid'
-import { Popover, Text } from '@hope-ui/core'
-import { BookmarkDataType, ModalTypes } from '../stores'
-import classes from '../styles/Grid.module.scss'
-import { getFaviconUrl } from '../utils'
-import { ContextMenu } from './ContextMenu'
+import { Portal } from 'solid-js/web'
+import { Text } from '~/lib/ui/text'
+import { Tooltip } from '~/lib/ui/tooltip'
+import { BookmarkDataType, ModalTypes } from '~/stores'
+import classes from '~/styles/Grid.module.scss'
+import { getFaviconUrl } from '~/utils'
+import { ContextMenu } from './'
 
 interface P {
   item: BookmarkDataType
@@ -29,23 +31,35 @@ export const GridItem = (props: P) => {
               alt={props.item.title}
             />
           ) : (
-            <FolderIcon
-              class={classes.gridItemImg}
-              color="var(--hope-colors-whiteAlpha-800)"
-            />
+            <FolderIcon class={classes.gridItemImg} />
           )}
         </div>
 
-        {/* change this popover to a tooltip once available in hope-ui v1 */}
-        <Popover triggerMode="hover">
-          <Popover.Trigger as={Text} class={classes.gridItemText}>
-            {props.item.title}
-          </Popover.Trigger>
-          <Popover.Content w="max-content" maxW="3xl" textAlign="center" p={2}>
-            <p>{props.item.title}</p>
-            <p>{props.item.url}</p>
-          </Popover.Content>
-        </Popover>
+        <Tooltip.Root
+          lazyMount
+          unmountOnExit
+          closeDelay={0}
+          openDelay={100}
+          positioning={{ placement: 'bottom' }}
+        >
+          <Tooltip.Trigger asChild>
+            <Text fontSize="xs" class={classes.gridItemText}>
+              {props.item.title}
+            </Text>
+          </Tooltip.Trigger>
+
+          <Portal>
+            <Tooltip.Positioner>
+              <Tooltip.Arrow>
+                <Tooltip.ArrowTip />
+              </Tooltip.Arrow>
+              <Tooltip.Content w="max-content" maxW="3xl" textAlign="center">
+                <Text>{props.item.title}</Text>
+                <Text>{props.item.url}</Text>
+              </Tooltip.Content>
+            </Tooltip.Positioner>
+          </Portal>
+        </Tooltip.Root>
       </div>
     </a>
   )

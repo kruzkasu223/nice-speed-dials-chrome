@@ -20,6 +20,7 @@
   "description": "Nice and Simple Speed Dials Extension for Chrome",
   "type": "module",
   "scripts": {
+    "prepare": "panda codegen",
     "start": "vite",
     "dev": "vite build --mode development",
     "dev:build": "yarn dev && onchange -k './src/**' -- yarn dev",
@@ -28,23 +29,21 @@
     "export": "rm -rf ./dist ./extension.zip && yarn build && yarn zip"
   },
   "devDependencies": {
+    "@pandacss/dev": "0.26.2",
+    "@park-ui/panda-preset": "0.28.0",
     "@types/chrome": "0.0.254",
     "bestzip": "2.2.1",
     "onchange": "7.1.0",
-    "sass": "^1.69.5",
+    "sass": "1.69.5",
     "typescript": "5.3.3",
     "vite": "5.0.10",
-    "vite-plugin-solid": "2.8.0"
+    "vite-plugin-solid": "2.8.0",
+    "vite-tsconfig-paths": "4.2.3"
   },
   "dependencies": {
-    "@hope-ui/core": "1.0.0-next.11",
-    "@hope-ui/solid": "0.6.7",
-    "@stitches/core": "1.2.8",
-    "clsx": "2.0.0",
+    "@ark-ui/solid": "1.2.0",
     "lucide-solid": "0.302.0",
     "solid-dnd-directive": "0.2.0",
-    "solid-js": "1.8.7",
-    "solid-toast": "0.5.0",
-    "solid-transition-group": "0.2.3"
+    "solid-js": "1.8.7"
   }
 }

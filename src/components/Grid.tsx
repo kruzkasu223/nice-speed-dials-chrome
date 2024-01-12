@@ -1,21 +1,19 @@
-import { clsx } from 'clsx'
 import { PlusIcon } from 'lucide-solid'
 import { dndzone } from 'solid-dnd-directive'
 import { For } from 'solid-js'
-import { HopeProvider } from '@hope-ui/solid'
+import { Button } from '~/lib/ui/button'
 import {
   ADD_NEW_SPEED_DIALS_ITEM,
   BookmarkDataType,
-  speedDials,
-  setSpeedDials,
-  moveSpeedDial,
-  speedDialsGrid,
   duplicateSpeedDial,
+  moveSpeedDial,
   openModal,
-} from '../stores'
-import classes from '../styles/Grid.module.scss'
-import { InputModal } from './'
-import { GridItem } from './GridItem'
+  setSpeedDials,
+  speedDials,
+  speedDialsGrid,
+} from '~/stores'
+import classes from '~/styles/Grid.module.scss'
+import { GridItem, InputModal } from './'
 
 export const Grid = () => {
   dndzone
@@ -64,7 +62,7 @@ export const Grid = () => {
           '--grid-width': speedDialsGrid().width,
           '--grid-height': speedDialsGrid().height,
         }}
-        // @ts-expect-error
+        // @ts-expect-error ts(2322)
         use:dndzone={{
           items: () => speedDials,
           // some glitches in animations, hence disabling for now
@@ -73,40 +71,35 @@ export const Grid = () => {
         on:consider={onDragConsider}
         on:finalize={onDragFinalize}
       >
-        {/* refactor this (HopeProvider) out once menu is available in hope-ui v1 */}
-        <HopeProvider>
-          <For each={speedDials}>
-            {(item) =>
-              item.id === 'ADD' ? (
-                <button
-                  class={classes.gridItem}
-                  onClick={() => openModal('ADD')}
-                >
-                  <div class={classes.gridItemContent}>
-                    <div
-                      class={clsx(
-                        classes.gridItemImgDiv,
-                        classes.gridItemAddIcon
-                      )}
-                    >
-                      <PlusIcon
-                        class={classes.gridItemImg}
-                        color="var(--hope-colors-whiteAlpha-800)"
-                      />
-                    </div>
-                    <p class={classes.gridItemText}>{item.title}</p>
+        <For each={speedDials}>
+          {(item) =>
+            item.id === 'ADD' ? (
+              <Button
+                variant="outline"
+                class={classes.gridItem}
+                onClick={() => openModal('ADD')}
+              >
+                <div class={classes.gridItemContent}>
+                  <div
+                    classList={{
+                      [classes.gridItemImgDiv]: true,
+                      [classes.gridItemAddIcon]: true,
+                    }}
+                  >
+                    <PlusIcon class={classes.gridItemImg} />
                   </div>
-                </button>
-              ) : (
-                <GridItem
-                  item={item}
-                  openModal={openModal}
-                  duplicateSpeedDial={duplicateSpeedDial}
-                />
-              )
-            }
-          </For>
-        </HopeProvider>
+                  <p class={classes.gridItemText}>{item.title}</p>
+                </div>
+              </Button>
+            ) : (
+              <GridItem
+                item={item}
+                openModal={openModal}
+                duplicateSpeedDial={duplicateSpeedDial}
+              />
+            )
+          }
+        </For>
       </div>
     </>
   )

@@ -1,7 +1,7 @@
 import { createEffect, createMemo, createSignal, onCleanup } from 'solid-js'
 import { createStore } from 'solid-js/store'
-import toast from 'solid-toast'
-import { getGridDimensions } from '../utils'
+import { notify } from '~/lib/ui/toast'
+import { getGridDimensions } from '~/utils'
 
 export type BookmarkDataType = chrome.bookmarks.BookmarkTreeNode
 
@@ -106,10 +106,13 @@ const addNewSpeedDial = async (values?: Partial<BookmarkDataType>) => {
       url: values?.url,
     })
     .then((bookmark) => {
-      toast.success(`${bookmark.title} added successfully!`)
+      notify().success({
+        title: 'Success!',
+        description: `${bookmark.title} added successfully!`,
+      })
     })
     .catch((error) => {
-      toast.error(error.message)
+      notify().error({ title: 'Error!!', description: error.message })
     })
 }
 
@@ -122,10 +125,13 @@ const editSpeedDial = async (values?: Partial<BookmarkDataType>) => {
       url: values?.url,
     })
     .then((bookmark) => {
-      toast.success(`${bookmark.title} edited successfully!`)
+      notify().success({
+        title: 'Success!',
+        description: `${bookmark.title} edited successfully!`,
+      })
     })
     .catch((error) => {
-      toast.error(error.message)
+      notify().error({ title: 'Error!!', description: error.message })
     })
 }
 
@@ -135,10 +141,13 @@ const deleteSpeedDial = async (values?: Partial<BookmarkDataType>) => {
   await chrome.bookmarks
     .remove(values?.id)
     .then(() => {
-      toast.success('Speed dial deleted successfully!')
+      notify().success({
+        title: 'Success!',
+        description: 'Speed dial deleted successfully!',
+      })
     })
     .catch((error) => {
-      toast.error(error.message)
+      notify().error({ title: 'Error!!', description: error.message })
     })
 }
 
@@ -152,10 +161,13 @@ const duplicateSpeedDial = async (values?: Partial<BookmarkDataType>) => {
       url: values?.url,
     })
     .then((bookmark) => {
-      toast.success(`${bookmark.title} duplicated successfully!`)
+      notify().success({
+        title: 'Success!',
+        description: `${bookmark.title} duplicated successfully!`,
+      })
     })
     .catch((error) => {
-      toast.error(error.message)
+      notify().error({ title: 'Error!!', description: error.message })
     })
 }
 
@@ -170,10 +182,13 @@ const moveSpeedDial = async (
       index: newIndex,
     })
     .then((bookmark) => {
-      // toast.success(`${bookmark.title} reordered successfully!`)
+      // notify().success({
+      //   title: 'Success!',
+      //   description: `${bookmark.title} reordered successfully!`,
+      // })
     })
     .catch((error) => {
-      toast.error(error.message)
+      notify().error({ title: 'Error!!', description: error.message })
     })
 }
 

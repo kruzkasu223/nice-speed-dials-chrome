@@ -1,43 +1,14 @@
-import { Toaster } from 'solid-toast'
-import { createPalette, extendTheme, HopeProvider } from '@hope-ui/core'
-import { Grid } from './components'
-import classes from './styles/App.module.scss'
-
-const theme = extendTheme({
-  colors: {
-    dark: {
-      primary: createPalette({
-        50: '#fff0f4',
-        100: '#fedce5',
-        200: '#febed0',
-        300: '#fd91b0',
-        400: '#fa618c',
-        500: '#f63c71',
-        600: '#eb245c',
-        700: '#d71d52',
-        800: '#ae1e47',
-        900: '#8a1e3d',
-      }),
-    },
-  },
-})
+import { Grid } from '~/components'
+import { ToastProvider } from '~/lib/ui/toast'
+import classes from '~/styles/App.module.scss'
 
 export const App = () => {
   return (
-    <HopeProvider initialColorMode="dark" theme={theme}>
-      <Toaster
-        toastOptions={{
-          duration: 3000,
-          style: {
-            background: '#1d1618',
-            color: 'var(--hope-colors-primary-200)',
-            'font-size': '1.125rem',
-          },
-        }}
-      />
+    <>
+      <ToastProvider />
       <div class={classes.app}>
         <Grid />
       </div>
-    </HopeProvider>
+    </>
   )
 }

@@ -4,15 +4,11 @@ import {
   PencilIcon,
   Trash2Icon,
 } from 'lucide-solid'
-import {
-  IconButton,
-  Menu,
-  MenuContent,
-  MenuItem,
-  MenuTrigger,
-} from '@hope-ui/solid'
-import { BookmarkDataType, ModalTypes } from '../stores'
-import classes from '../styles/Grid.module.scss'
+import { Portal } from 'solid-js/web'
+import { HStack } from 'styled-system/jsx'
+import { Menu } from '~/lib/ui/menu'
+import { BookmarkDataType, ModalTypes } from '~/stores'
+import classes from '~/styles/Grid.module.scss'
 
 type P = {
   item: BookmarkDataType
@@ -27,42 +23,51 @@ export const ContextMenu = (props: P) => {
   }
 
   return (
-    <Menu>
-      <MenuTrigger
+    <Menu.Root lazyMount unmountOnExit>
+      <Menu.Trigger
         onClick={handleOpenMenu}
-        as={IconButton}
-        variant="outline"
-        colorScheme="neutral"
-        class={classes.gridMenuIcon}
-        icon={
-          <MoreVerticalIcon
-            class={classes.menuIcon}
-            color="var(--hope-colors-whiteAlpha-800)"
-          />
-        }
-      />
-      <MenuContent minW={'max-content'}>
-        <MenuItem
-          icon={<PencilIcon size={16} color="var(--hope-colors-primary-200)" />}
-          onSelect={() => props.openModal('EDIT', props.item)}
-        >
-          Edit
-        </MenuItem>
-        <MenuItem
-          icon={<Trash2Icon size={16} color="var(--hope-colors-primary-200)" />}
-          onSelect={() => props.openModal('DELETE', props.item)}
-        >
-          Delete
-        </MenuItem>
-        <MenuItem
-          icon={
-            <CopyPlusIcon size={16} color="var(--hope-colors-primary-200)" />
-          }
-          onSelect={() => props.duplicateSpeedDial(props.item)}
-        >
-          Duplicate
-        </MenuItem>
-      </MenuContent>
-    </Menu>
+        classList={{
+          [classes.gridMenuIcon]: true,
+        }}
+      >
+        <MoreVerticalIcon size={14} class={classes.menuIcon} />
+      </Menu.Trigger>
+
+      <Portal>
+        <Menu.Positioner>
+          <Menu.Content border={'1px solid var(--colors-gray-a8)'}>
+            <Menu.Item
+              id="edit"
+              onClick={() => props.openModal('EDIT', props.item)}
+            >
+              <HStack>
+                <PencilIcon size={16} />
+                Edit
+              </HStack>
+            </Menu.Item>
+
+            <Menu.Item
+              id="delete"
+              onClick={() => props.openModal('DELETE', props.item)}
+            >
+              <HStack>
+                <Trash2Icon size={16} />
+                Delete
+              </HStack>
+            </Menu.Item>
+
+            <Menu.Item
+              id="duplicate"
+              onClick={() => props.duplicateSpeedDial(props.item)}
+            >
+              <HStack>
+                <CopyPlusIcon size={16} />
+                Duplicate
+              </HStack>
+            </Menu.Item>
+          </Menu.Content>
+        </Menu.Positioner>
+      </Portal>
+    </Menu.Root>
   )
 }

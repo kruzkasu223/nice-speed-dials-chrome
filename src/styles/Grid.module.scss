@@ -21,16 +21,12 @@
   height: 100%;
   border-radius: 4px;
   text-decoration: none;
-  color: var(--hope-colors-whiteAlpha-800);
+  border: 1px solid var(--colors-gray-a8);
   padding: 8px;
-  border: 1px solid var(--hope-colors-whiteAlpha-200);
-  background-color: var(--hope-colors-whiteAlpha-50);
   cursor: pointer;
   transition: all 0.25s ease-in-out;
 
   &:hover {
-    background-color: var(--hope-colors-whiteAlpha-200);
-
     & .gridItemContent .gridMenuIcon {
       opacity: 1 !important;
       transition: opacity 0.25s ease-in-out 0.4s,
@@ -60,7 +56,7 @@
     }
 
     .gridItemAddIcon {
-      border: 1px solid var(--hope-colors-whiteAlpha-400);
+      border: 1px solid var(--colors-color-palette-a8);
     }
 
     .gridItemText {
@@ -75,22 +71,11 @@
       position: absolute !important;
       top: 8px;
       right: 8px;
-      width: max-content !important;
-      height: max-content !important;
-      cursor: pointer;
-      background: none !important;
-      border: none !important;
-      padding: 4px !important;
-      padding-inline-end: 2 !important;
-      padding-inline-start: 2 !important;
-      border-radius: 2px;
+      padding: 4px;
       opacity: 0;
       transition: opacity 0.25s ease-in-out 0s,
         background-color 0.25s ease-in-out 0s;
-
-      &:hover {
-        background-color: var(--hope-colors-whiteAlpha-200) !important;
-      }
+      cursor: pointer;
 
       &:focus {
         opacity: 1;
@@ -99,9 +84,6 @@
       .menuIcon {
         width: 14px;
         height: 14px;
-        object-fit: contain;
-        margin: 0;
-        padding: 0;
       }
     }
   }

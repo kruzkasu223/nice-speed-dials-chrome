@@ -1,11 +1,11 @@
 import { createSignal } from 'solid-js'
-import { isUrlValid } from '../utils'
+import { isUrlValid } from '~/utils'
 import {
-  BookmarkDataType,
   addNewSpeedDial,
-  editSpeedDial,
+  BookmarkDataType,
   deleteSpeedDial,
-} from './useSpeedDials'
+  editSpeedDial,
+} from './'
 
 export type ModalType = {
   type: keyof typeof MODAL_TYPES
@@ -91,6 +91,7 @@ export {
   openModal,
   closeModal,
   isModalOpen,
+  setIsModalOpen,
   handleModalOnSubmit,
   handleModalDataChange,
 }

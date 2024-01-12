@@ -10,6 +10,8 @@
     "jsxImportSource": "solid-js",
     "types": ["vite/client", "@types/chrome"],
     "noEmit": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": { "~/*": ["./src/*"] }
   }
 }
