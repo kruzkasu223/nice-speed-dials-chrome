@@ -1,9 +1,8 @@
-import { PlusIcon } from 'lucide-solid'
+import { PlusIcon, SettingsIcon } from 'lucide-solid'
 import { dndzone } from 'solid-dnd-directive'
 import { For } from 'solid-js'
-import { Button } from '~/lib/ui/button'
 import {
-  ADD_NEW_SPEED_DIALS_ITEM,
+  DEFAULT_SPEED_DIALS_ITEM,
   BookmarkDataType,
   duplicateSpeedDial,
   moveSpeedDial,
@@ -11,9 +10,15 @@ import {
   setSpeedDials,
   speedDials,
   speedDialsGrid,
+  setIsSettingDrawerOpen,
 } from '~/stores'
 import classes from '~/styles/Grid.module.scss'
-import { GridItem, InputModal } from './'
+import { GridItem, InputModal, SettingsDrawer } from './'
+
+const IconMapper = {
+  ADD: <PlusIcon class={classes.gridItemImg} />,
+  SETTINGS: <SettingsIcon class={classes.gridItemImg} />,
+}
 
 export const Grid = () => {
   dndzone
@@ -23,8 +28,7 @@ export const Grid = () => {
       const newItems = (e.detail.items as BookmarkDataType[]).filter(
         (item) => item.id !== 'ADD'
       )
-      newItems.push(ADD_NEW_SPEED_DIALS_ITEM)
-      setSpeedDials(newItems)
+      setSpeedDials(newItems.concat([...DEFAULT_SPEED_DIALS_ITEM]))
       return
     }
     const newItems = e.detail.items as BookmarkDataType[]
@@ -56,6 +60,7 @@ export const Grid = () => {
   return (
     <>
       <InputModal />
+      <SettingsDrawer />
       <div
         class={classes.grid}
         style={{
@@ -73,8 +78,15 @@ export const Grid = () => {
       >
         <For each={speedDials}>
           {(item) =>
-            item.id === 'ADD' ? (
-              <div class={classes.gridItem} onClick={() => openModal('ADD')}>
+            item.id === 'ADD' || item.id === 'SETTINGS' ? (
+              <div
+                class={classes.gridItem}
+                onClick={() =>
+                  item.id === 'ADD'
+                    ? openModal('ADD')
+                    : setIsSettingDrawerOpen(true)
+                }
+              >
                 <div class={classes.gridItemContent}>
                   <div
                     classList={{
@@ -82,7 +94,7 @@ export const Grid = () => {
                       [classes.gridItemAddIcon]: true,
                     }}
                   >
-                    <PlusIcon class={classes.gridItemImg} />
+                    {IconMapper[item.id]}
                   </div>
                   <p class={classes.gridItemText}>{item.title}</p>
                 </div>

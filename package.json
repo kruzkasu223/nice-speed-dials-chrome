@@ -29,6 +29,7 @@
     "export": "rm -rf ./dist ./extension.zip && yarn build && yarn zip"
   },
   "devDependencies": {
+    "@crxjs/vite-plugin": "2.0.0-beta.23",
     "@pandacss/dev": "0.26.2",
     "@park-ui/panda-preset": "0.28.0",
     "@types/chrome": "0.0.254",

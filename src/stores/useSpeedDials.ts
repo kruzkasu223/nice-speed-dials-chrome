@@ -26,11 +26,21 @@ export const ADD_NEW_SPEED_DIALS_ITEM: BookmarkDataType = {
   title: 'Add New',
 }
 
+export const SETTINGS_SPEED_DIALS_ITEM: BookmarkDataType = {
+  id: 'SETTINGS',
+  title: 'Settings',
+}
+
+export const DEFAULT_SPEED_DIALS_ITEM: BookmarkDataType[] = [
+  ADD_NEW_SPEED_DIALS_ITEM,
+  SETTINGS_SPEED_DIALS_ITEM,
+]
+
 const [defaultSpeedDialsFolder, setDefaultSpeedDialsFolder] =
   createSignal<BookmarkDataType>()
 
 const [speedDials, setSpeedDials] = createStore<BookmarkDataType[]>([
-  ADD_NEW_SPEED_DIALS_ITEM,
+  ...DEFAULT_SPEED_DIALS_ITEM,
 ])
 
 const speedDialsLength = createMemo(() => speedDials?.length || 0)
@@ -77,19 +87,19 @@ const getSpeedDials = async () => {
       })
   } else {
     const children = await chrome.bookmarks.getChildren(defaultFolder.id)
-    setSpeedDials(children.concat([ADD_NEW_SPEED_DIALS_ITEM]))
+    setSpeedDials(children.concat([...DEFAULT_SPEED_DIALS_ITEM]))
   }
 }
 
 const chromeBookmarkEventListeners = () =>
-  CHROME_BOOKMARK_EVENTS.forEach((event) => {
-    return chrome.bookmarks[event].addListener(getSpeedDials)
-  })
+  CHROME_BOOKMARK_EVENTS.forEach((event) =>
+    chrome.bookmarks[event].addListener(getSpeedDials)
+  )
 
 const removeChromeBookmarkEventListeners = () =>
-  CHROME_BOOKMARK_EVENTS.forEach((event) => {
-    return chrome.bookmarks[event].removeListener(getSpeedDials)
-  })
+  CHROME_BOOKMARK_EVENTS.forEach((event) =>
+    chrome.bookmarks[event].removeListener(getSpeedDials)
+  )
 
 const addNewSpeedDial = async (values?: Partial<BookmarkDataType>) => {
   if (!values?.title || !values?.url) return // maybe will add validation later
