@@ -35,7 +35,7 @@ export const ContextMenu = (props: P) => {
 
       <Portal>
         <Menu.Positioner>
-          <Menu.Content border={'1px solid var(--colors-gray-a8)'}>
+          <Menu.Content border="1px solid var(--colors-gray-a6)">
             <Menu.Item
               id="edit"
               onClick={() => props.openModal('EDIT', props.item)}

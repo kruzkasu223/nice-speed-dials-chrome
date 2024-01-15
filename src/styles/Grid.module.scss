@@ -21,10 +21,17 @@
   height: 100%;
   border-radius: 4px;
   text-decoration: none;
-  border: 1px solid var(--colors-gray-a8);
   padding: 8px;
   cursor: pointer;
   transition: all 0.25s ease-in-out;
+  background-color: var(--colors-gray-a2);
+  border: 1px solid var(--colors-gray-a6);
+
+  &:hover,
+  &:focus {
+    background-color: var(--colors-gray-a4);
+    border: 1px solid var(--colors-gray-a7);
+  }
 
   &:hover {
     & .gridItemContent .gridMenuIcon {
@@ -56,7 +63,7 @@
     }
 
     .gridItemAddIcon {
-      border: 1px solid var(--colors-color-palette-a8);
+      border: 1px solid var(--colors-gray-a6);
     }
 
     .gridItemText {

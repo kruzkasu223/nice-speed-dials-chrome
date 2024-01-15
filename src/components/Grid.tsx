@@ -74,11 +74,7 @@ export const Grid = () => {
         <For each={speedDials}>
           {(item) =>
             item.id === 'ADD' ? (
-              <Button
-                variant="outline"
-                class={classes.gridItem}
-                onClick={() => openModal('ADD')}
-              >
+              <div class={classes.gridItem} onClick={() => openModal('ADD')}>
                 <div class={classes.gridItemContent}>
                   <div
                     classList={{
@@ -90,7 +86,7 @@ export const Grid = () => {
                   </div>
                   <p class={classes.gridItemText}>{item.title}</p>
                 </div>
-              </Button>
+              </div>
             ) : (
               <GridItem
                 item={item}
