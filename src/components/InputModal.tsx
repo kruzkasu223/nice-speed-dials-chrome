@@ -31,8 +31,8 @@ export const InputModal = () => {
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content p={6}>
-            <HStack justifyContent="space-between" mb={6}>
+          <Dialog.Content p={4} minW="md">
+            <HStack justifyContent="space-between" mb={4}>
               <Dialog.Title fontSize="xl" fontWeight="semibold">
                 {modalType()?.title}
               </Dialog.Title>
@@ -44,7 +44,7 @@ export const InputModal = () => {
               </Dialog.CloseTrigger>
             </HStack>
 
-            <VStack gap={6}>
+            <VStack gap={4}>
               {modalType()?.type === 'DELETE' ? (
                 <Text alignSelf={'flex-start'} fontSize="lg">
                   {modalType()?.description}
@@ -67,7 +67,8 @@ export const InputModal = () => {
                   />
                 </>
               )}
-              <HStack alignSelf={'flex-end'} gap={6}>
+
+              <HStack alignSelf={'flex-end'} gap={4}>
                 <Button variant="ghost" onClick={() => setIsModalOpen(false)}>
                   Cancel
                 </Button>

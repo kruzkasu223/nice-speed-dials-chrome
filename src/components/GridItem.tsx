@@ -42,7 +42,7 @@ export const GridItem = (props: P) => {
           openDelay={100}
           positioning={{ placement: 'bottom' }}
         >
-          <Tooltip.Trigger asChild>
+          <Tooltip.Trigger width="full">
             <Text fontSize="xs" class={classes.gridItemText}>
               {props.item.title}
             </Text>
