@@ -1,6 +1,6 @@
 import { XIcon } from 'lucide-solid'
 import { Button } from '~/lib/ui/button'
-import { Drawer } from '~/lib/ui/drawer'
+import * as Drawer from '~/lib/ui/drawer'
 import { IconButton } from '~/lib/ui/icon-button'
 import { isSettingDrawerOpen, setIsSettingDrawerOpen } from '~/stores'
 

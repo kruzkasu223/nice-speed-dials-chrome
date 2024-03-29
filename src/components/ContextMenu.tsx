@@ -6,7 +6,7 @@ import {
 } from 'lucide-solid'
 import { Portal } from 'solid-js/web'
 import { HStack } from 'styled-system/jsx'
-import { Menu } from '~/lib/ui/menu'
+import * as Menu from '~/lib/ui/menu'
 import { BookmarkDataType, ModalTypes } from '~/stores'
 import classes from '~/styles/Grid.module.scss'
 
@@ -24,12 +24,7 @@ export const ContextMenu = (props: P) => {
 
   return (
     <Menu.Root lazyMount unmountOnExit>
-      <Menu.Trigger
-        onClick={handleOpenMenu}
-        classList={{
-          [classes.gridMenuIcon]: true,
-        }}
-      >
+      <Menu.Trigger onClick={handleOpenMenu}>
         <MoreVerticalIcon size={14} class={classes.menuIcon} />
       </Menu.Trigger>
 

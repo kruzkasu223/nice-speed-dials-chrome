@@ -1,29 +1,21 @@
+import { Tooltip } from '@ark-ui/solid'
+import type { ComponentProps } from 'solid-js'
 import { styled } from 'styled-system/jsx'
 import { tooltip } from 'styled-system/recipes'
 import { createStyleContext } from '~/lib/create-style-context'
-import { Tooltip as ArkTooltip } from '@ark-ui/solid'
 
 const { withProvider, withContext } = createStyleContext(tooltip)
 
-export const TooltipRoot = withProvider(ArkTooltip.Root)
-export const TooltipArrow = withContext(styled(ArkTooltip.Arrow), 'arrow')
-export const TooltipArrowTip = withContext(styled(ArkTooltip.ArrowTip), 'arrowTip')
-export const TooltipContent = withContext(styled(ArkTooltip.Content), 'content')
-export const TooltipPositioner = withContext(styled(ArkTooltip.Positioner), 'positioner')
-export const TooltipTrigger = withContext(styled(ArkTooltip.Trigger), 'trigger')
+export const Root = withProvider(Tooltip.Root)
+export const Arrow = withContext(styled(Tooltip.Arrow), 'arrow')
+export const ArrowTip = withContext(styled(Tooltip.ArrowTip), 'arrowTip')
+export const Content = withContext(styled(Tooltip.Content), 'content')
+export const Positioner = withContext(styled(Tooltip.Positioner), 'positioner')
+export const Trigger = withContext(styled(Tooltip.Trigger), 'trigger')
 
-export const Tooltip = Object.assign(TooltipRoot, {
-  Root: TooltipRoot,
-  Arrow: TooltipArrow,
-  ArrowTip: TooltipArrowTip,
-  Content: TooltipContent,
-  Positioner: TooltipPositioner,
-  Trigger: TooltipTrigger,
-})
-
-export type TooltipProps = typeof TooltipRoot
-export type TooltipArrowProps = typeof TooltipArrow
-export type TooltipArrowTipProps = typeof TooltipArrowTip
-export type TooltipContentProps = typeof TooltipContent
-export type TooltipPositionerProps = typeof TooltipPositioner
-export type TooltipTriggerProps = typeof TooltipTrigger
+export interface RootProps extends ComponentProps<typeof Root> {}
+export interface ArrowProps extends ComponentProps<typeof Arrow> {}
+export interface ArrowTipProps extends ComponentProps<typeof ArrowTip> {}
+export interface ContentProps extends ComponentProps<typeof Content> {}
+export interface PositionerProps extends ComponentProps<typeof Positioner> {}
+export interface TriggerProps extends ComponentProps<typeof Trigger> {}

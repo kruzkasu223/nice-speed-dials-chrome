@@ -26,7 +26,7 @@ export const Grid = () => {
   const onDrag = (e: any, isFinalize = false) => {
     if (isFinalize) {
       const newItems = (e.detail.items as BookmarkDataType[]).filter(
-        (item) => item.id !== 'ADD'
+        (item) => item.id !== 'ADD' && item.id !== 'SETTINGS'
       )
       setSpeedDials(newItems.concat([...DEFAULT_SPEED_DIALS_ITEM]))
       return
@@ -42,7 +42,7 @@ export const Grid = () => {
   const onDragFinalize = (e: any) => {
     onDrag(e, true)
 
-    if (e.detail.info.id === 'ADD') return
+    if (e.detail.info.id === 'ADD' || e.detail.info.id === 'SETTINGS') return
 
     const itemId = e.detail.info.id
     const item = speedDials.find((item) => item.id === itemId)

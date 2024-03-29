@@ -34,9 +34,10 @@
   }
 
   &:hover {
-    & .gridItemContent .gridMenuIcon {
+    & .gridItemContent :global(.menu__trigger) {
       opacity: 1 !important;
-      transition: opacity 0.25s ease-in-out 0.4s,
+      transition:
+        opacity 0.25s ease-in-out 0.4s,
         background-color 0.25s ease-in-out 0s;
     }
   }
@@ -74,13 +75,14 @@
       text-align: center;
     }
 
-    .gridMenuIcon {
+    :global(.menu__trigger) {
       position: absolute !important;
       top: 8px;
       right: 8px;
       padding: 4px;
       opacity: 0;
-      transition: opacity 0.25s ease-in-out 0s,
+      transition:
+        opacity 0.25s ease-in-out 0s,
         background-color 0.25s ease-in-out 0s;
       cursor: pointer;
 

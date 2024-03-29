@@ -1,51 +1,19 @@
-import { XIcon } from 'lucide-solid'
+import { Toast } from '@ark-ui/solid'
+import type { ComponentProps } from 'solid-js'
 import { styled } from 'styled-system/jsx'
 import { toast } from 'styled-system/recipes'
 import { createStyleContext } from '~/lib/create-style-context'
-import { createToaster, Toast as ArkToast } from '@ark-ui/solid'
-import { IconButton } from './icon-button'
 
 const { withProvider, withContext } = createStyleContext(toast)
 
-export const ToastRoot = withProvider(styled(ArkToast.Root), 'root')
-export const ToastCloseTrigger = withContext(
-  styled(ArkToast.CloseTrigger),
-  'closeTrigger'
-)
-export const ToastDescription = withContext(
-  styled(ArkToast.Description),
-  'description'
-)
-export const ToastGroup = withContext(styled(ArkToast.Group), 'group')
-export const ToastTitle = withContext(styled(ArkToast.Title), 'title')
+export const Root = withProvider(styled(Toast.Root), 'root')
+export const CloseTrigger = withContext(styled(Toast.CloseTrigger), 'closeTrigger')
+export const Description = withContext(styled(Toast.Description), 'description')
+export const Group = withContext(styled(Toast.Group), 'group')
+export const Title = withContext(styled(Toast.Title), 'title')
 
-export const Toast = Object.assign(ToastRoot, {
-  Root: ToastRoot,
-  CloseTrigger: ToastCloseTrigger,
-  Description: ToastDescription,
-  Group: ToastGroup,
-  Title: ToastTitle,
-})
-
-export type ToastProps = typeof ToastRoot
-export type ToastCloseTriggerProps = typeof ToastCloseTrigger
-export type ToastDescriptionProps = typeof ToastDescription
-export type ToastGroupProps = typeof ToastGroup
-export type ToastTitleProps = typeof ToastTitle
-
-export const [ToastProvider, notify] = createToaster({
-  placement: 'top-end',
-  render(toast) {
-    return (
-      <Toast.Root>
-        <Toast.Title>{toast().title}</Toast.Title>
-        <Toast.Description>{toast().description}</Toast.Description>
-        <Toast.CloseTrigger asChild>
-          <IconButton size="sm" variant="link">
-            <XIcon />
-          </IconButton>
-        </Toast.CloseTrigger>
-      </Toast.Root>
-    )
-  },
-})
+export interface RootProps extends ComponentProps<typeof Root> {}
+export interface CloseTriggerProps extends ComponentProps<typeof CloseTrigger> {}
+export interface DescriptionProps extends ComponentProps<typeof Description> {}
+export interface GroupProps extends ComponentProps<typeof Group> {}
+export interface TitleProps extends ComponentProps<typeof Title> {}

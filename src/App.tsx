@@ -1,5 +1,4 @@
-import { Grid } from '~/components'
-import { ToastProvider } from '~/lib/ui/toast'
+import { Grid, ToastProvider } from '~/components'
 import classes from '~/styles/App.module.scss'
 
 export const App = () => {

@@ -1,7 +1,7 @@
 import { FolderIcon } from 'lucide-solid'
 import { Portal } from 'solid-js/web'
 import { Text } from '~/lib/ui/text'
-import { Tooltip } from '~/lib/ui/tooltip'
+import * as Tooltip from '~/lib/ui/tooltip'
 import { BookmarkDataType, ModalTypes } from '~/stores'
 import classes from '~/styles/Grid.module.scss'
 import { getFaviconUrl } from '~/utils'

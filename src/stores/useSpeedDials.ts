@@ -1,6 +1,6 @@
 import { createEffect, createMemo, createSignal, onCleanup } from 'solid-js'
 import { createStore } from 'solid-js/store'
-import { notify } from '~/lib/ui/toast'
+import { notify } from '~/components/Toast'
 import { getGridDimensions } from '~/utils'
 
 export type BookmarkDataType = chrome.bookmarks.BookmarkTreeNode
@@ -45,9 +45,8 @@ const [speedDials, setSpeedDials] = createStore<BookmarkDataType[]>([
 
 const speedDialsLength = createMemo(() => speedDials?.length || 0)
 const speedDialsGrid = createMemo(() => {
-  const { gridHeight: height, gridWidth: width } = getGridDimensions(
-    speedDialsLength()
-  )
+  const { gridHeight: height, gridWidth: width } =
+    getGridDimensions(speedDialsLength())
   return {
     height,
     width,

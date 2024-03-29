@@ -1,35 +1,25 @@
+import { Dialog } from '@ark-ui/solid'
+import type { ComponentProps } from 'solid-js'
 import { styled } from 'styled-system/jsx'
 import { dialog } from 'styled-system/recipes'
 import { createStyleContext } from '~/lib/create-style-context'
-import { Dialog as ArkDialog } from '@ark-ui/solid'
 
 const { withProvider, withContext } = createStyleContext(dialog)
 
-export const DialogRoot = withProvider(ArkDialog.Root)
-export const DialogBackdrop = withContext(styled(ArkDialog.Backdrop), 'backdrop')
-export const DialogCloseTrigger = withContext(styled(ArkDialog.CloseTrigger), 'closeTrigger')
-export const DialogContent = withContext(styled(ArkDialog.Content), 'content')
-export const DialogDescription = withContext(styled(ArkDialog.Description), 'description')
-export const DialogPositioner = withContext(styled(ArkDialog.Positioner), 'positioner')
-export const DialogTitle = withContext(styled(ArkDialog.Title), 'title')
-export const DialogTrigger = withContext(styled(ArkDialog.Trigger), 'trigger')
+export const Root = withProvider(Dialog.Root)
+export const Backdrop = withContext(styled(Dialog.Backdrop), 'backdrop')
+export const CloseTrigger = withContext(styled(Dialog.CloseTrigger), 'closeTrigger')
+export const Content = withContext(styled(Dialog.Content), 'content')
+export const Description = withContext(styled(Dialog.Description), 'description')
+export const Positioner = withContext(styled(Dialog.Positioner), 'positioner')
+export const Title = withContext(styled(Dialog.Title), 'title')
+export const Trigger = withContext(styled(Dialog.Trigger), 'trigger')
 
-export const Dialog = Object.assign(DialogRoot, {
-  Root: DialogRoot,
-  Backdrop: DialogBackdrop,
-  CloseTrigger: DialogCloseTrigger,
-  Content: DialogContent,
-  Description: DialogDescription,
-  Positioner: DialogPositioner,
-  Title: DialogTitle,
-  Trigger: DialogTrigger,
-})
-
-export type DialogProps = typeof DialogRoot
-export type DialogBackdropProps = typeof DialogBackdrop
-export type DialogCloseTriggerProps = typeof DialogCloseTrigger
-export type DialogContentProps = typeof DialogContent
-export type DialogDescriptionProps = typeof DialogDescription
-export type DialogPositionerProps = typeof DialogPositioner
-export type DialogTitleProps = typeof DialogTitle
-export type DialogTriggerProps = typeof DialogTrigger
+export interface RootProps extends ComponentProps<typeof Root> {}
+export interface BackdropProps extends ComponentProps<typeof Backdrop> {}
+export interface CloseTriggerProps extends ComponentProps<typeof CloseTrigger> {}
+export interface ContentProps extends ComponentProps<typeof Content> {}
+export interface DescriptionProps extends ComponentProps<typeof Description> {}
+export interface PositionerProps extends ComponentProps<typeof Positioner> {}
+export interface TitleProps extends ComponentProps<typeof Title> {}
+export interface TriggerProps extends ComponentProps<typeof Trigger> {}

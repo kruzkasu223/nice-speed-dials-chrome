@@ -17,22 +17,22 @@ const contextMenuHandler = (
   }
 }
 
-chrome.contextMenus.onClicked.addListener(contextMenuHandler)
+// chrome.contextMenus.onClicked.addListener(contextMenuHandler)
 
-chrome.contextMenus.create({
-  title: 'Show/Hide Add New Button',
-  documentUrlPatterns: [`chrome-extension://${chrome.runtime.id}/index.html`],
-  id: 'toggleAddNew',
-})
+// chrome.contextMenus.create({
+//   title: 'Show/Hide Add New Button',
+//   documentUrlPatterns: [`chrome-extension://${chrome.runtime.id}/index.html`],
+//   id: 'toggleAddNew',
+// })
 
-chrome.contextMenus.create({
-  title: 'Show/Hide Settings Button',
-  documentUrlPatterns: [`chrome-extension://${chrome.runtime.id}/index.html`],
-  id: 'toggleSettings',
-})
+// chrome.contextMenus.create({
+//   title: 'Show/Hide Settings Button',
+//   documentUrlPatterns: [`chrome-extension://${chrome.runtime.id}/index.html`],
+//   id: 'toggleSettings',
+// })
 
-chrome.contextMenus.create({
-  title: 'Add To Speed Dials',
-  documentUrlPatterns: [`<all_urls>`],
-  id: 'addToSpeedDials',
-})
+// chrome.contextMenus.create({
+//   title: 'Add To Speed Dials',
+//   documentUrlPatterns: [`<all_urls>`],
+//   id: 'addToSpeedDials',
+// })
