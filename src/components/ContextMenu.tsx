@@ -1,5 +1,6 @@
 import {
   CopyPlusIcon,
+  FileStackIcon,
   MoreVerticalIcon,
   PencilIcon,
   Trash2Icon,
@@ -31,6 +32,30 @@ export const ContextMenu = (props: P) => {
       <Portal>
         <Menu.Positioner>
           <Menu.Content border="1px solid var(--colors-gray-a6)">
+            {!props.item?.url && (
+              <Menu.Item
+                id="open_in_new_tab"
+                onClick={() => {
+                  chrome.bookmarks
+                    .getChildren(props.item.id)
+                    .then((children) => {
+                      children?.forEach((child) => {
+                        child?.url &&
+                          chrome.tabs.create({
+                            url: child.url,
+                            active: false,
+                          })
+                      })
+                    })
+                }}
+              >
+                <HStack>
+                  <FileStackIcon size={16} />
+                  Open all in new tab
+                </HStack>
+              </Menu.Item>
+            )}
+
             <Menu.Item
               id="edit"
               onClick={() => props.openModal('EDIT', props.item)}

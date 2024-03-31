@@ -27,7 +27,8 @@
     "zip": "bestzip extension.zip dist",
     "build": "vite build",
     "export": "rm -rf ./dist ./extension.zip && yarn build && yarn zip",
-    "parkui:update": "npx @park-ui/cli add button dialog drawer iconButton input menu text toast tooltip"
+    "parkui:add": "npx @park-ui/cli add",
+    "parkui:update": "npx @park-ui/cli add button dialog drawer iconButton input menu text toast tooltip accordion switch slider colorPicker fileUpload numberInput radioButtonGroup"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "2.0.0-beta.23",

@@ -6,9 +6,9 @@ export default defineConfig({
   presets: [
     '@pandacss/preset-base',
     createPreset({
-      accentColor: 'crimson',
+      accentColor: 'ruby',
       grayColor: 'mauve',
-      borderRadius: 'sm',
+      additionalColors: ['*'],
     }),
   ],
   include: ['./src/**/*.{js,jsx,ts,tsx}'],
