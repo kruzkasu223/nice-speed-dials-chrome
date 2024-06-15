@@ -31,13 +31,14 @@ export const InputModal = () => {
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content p={4} minW="md">
+          <Dialog.Content p={'4'} minW="md">
             <HStack justifyContent="space-between" mb={4}>
               <Dialog.Title fontSize="xl" fontWeight="semibold">
                 {modalType()?.title}
               </Dialog.Title>
 
-              <Dialog.CloseTrigger asChild>
+              {/* <Dialog.CloseTrigger asChild> */}
+              <Dialog.CloseTrigger>
                 <IconButton size="sm" variant="ghost">
                   <XIcon />
                 </IconButton>

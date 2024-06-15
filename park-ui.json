@@ -1,4 +1,5 @@
 {
+  "$schema": "https://park-ui.com/schema.json",
   "cssFramework": "panda",
   "jsFramework": "solid",
   "importAliases": {

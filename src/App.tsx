@@ -1,10 +1,13 @@
-import { Grid, ToastProvider } from '~/components'
+import {
+  Grid,
+  // ToastProvider
+} from '~/components'
 import classes from '~/styles/App.module.scss'
 
 export const App = () => {
   return (
     <>
-      <ToastProvider />
+      {/* <ToastProvider /> */}
       <div class={classes.app}>
         <Grid />
       </div>

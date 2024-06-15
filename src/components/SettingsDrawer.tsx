@@ -27,7 +27,8 @@ export const SettingsDrawer = () => {
           <Drawer.Header>
             <Drawer.Title>Settings</Drawer.Title>
             <Drawer.Description>Look and feel for this page</Drawer.Description>
-            <Drawer.CloseTrigger asChild position="absolute" top="3" right="4">
+            {/* <Drawer.CloseTrigger asChild position="absolute" top="3" right="4"> */}
+            <Drawer.CloseTrigger position="absolute" top="3" right="4">
               <IconButton variant="ghost">
                 <XIcon />
               </IconButton>
@@ -240,7 +241,8 @@ export const SettingsDrawer = () => {
                   positioning={{ placement: 'top' }}
                   closeOnPointerDown={false}
                 >
-                  <Tooltip.Trigger asChild>
+                  {/* <Tooltip.Trigger asChild> */}
+                  <Tooltip.Trigger>
                     <Switch disabled></Switch>
                   </Tooltip.Trigger>
 
@@ -268,7 +270,8 @@ export const SettingsDrawer = () => {
                   positioning={{ placement: 'top' }}
                   closeOnPointerDown={false}
                 >
-                  <Tooltip.Trigger asChild>
+                  {/* <Tooltip.Trigger asChild> */}
+                  <Tooltip.Trigger>
                     <Switch disabled></Switch>
                   </Tooltip.Trigger>
 
@@ -297,7 +300,8 @@ export const SettingsDrawer = () => {
             </div>
           </Drawer.Body>
           <Drawer.Footer gap="3">
-            <Drawer.CloseTrigger asChild>
+            {/* <Drawer.CloseTrigger asChild> */}
+            <Drawer.CloseTrigger>
               <Button variant="outline">Close</Button>
             </Drawer.CloseTrigger>
 
@@ -332,7 +336,8 @@ const SettingItemTitle = (props: {
             positioning={{ placement: 'top' }}
             closeOnPointerDown={false}
           >
-            <Tooltip.Trigger asChild>
+            {/* <Tooltip.Trigger asChild> */}
+            <Tooltip.Trigger>
               <IconButton variant="ghost" size="xs">
                 <Undo2Icon />
               </IconButton>

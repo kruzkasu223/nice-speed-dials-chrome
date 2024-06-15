@@ -14,12 +14,13 @@ export const FileUpload = (props: ParkFileUpload.RootProps) => {
         <ParkFileUpload.Label>
           Upload image for main background (max size 4.8MB)
         </ParkFileUpload.Label>
-        <ParkFileUpload.Trigger asChild>
+        {/* <ParkFileUpload.Trigger asChild> */}
+        <ParkFileUpload.Trigger>
           <Button size="sm">Open Explorer</Button>
         </ParkFileUpload.Trigger>
       </ParkFileUpload.Dropzone>
 
-      <ParkFileUpload.ItemGroup>
+      {/* <ParkFileUpload.ItemGroup>
         {(files) =>
           files().map((file, id) => (
             <ParkFileUpload.Item key={id} file={file}>
@@ -27,8 +28,9 @@ export const FileUpload = (props: ParkFileUpload.RootProps) => {
                 <ParkFileUpload.ItemPreviewImage />
               </ParkFileUpload.ItemPreview>
               <ParkFileUpload.ItemName />
-              <ParkFileUpload.ItemSizeText />
-              <ParkFileUpload.ItemDeleteTrigger asChild>
+              <ParkFileUpload.ItemSizeText /> */}
+      {/* <ParkFileUpload.ItemDeleteTrigger asChild> */}
+      {/* <ParkFileUpload.ItemDeleteTrigger>
                 <IconButton variant="link" size="sm">
                   <Trash2Icon />
                 </IconButton>
@@ -36,7 +38,7 @@ export const FileUpload = (props: ParkFileUpload.RootProps) => {
             </ParkFileUpload.Item>
           ))
         }
-      </ParkFileUpload.ItemGroup>
+      </ParkFileUpload.ItemGroup> */}
     </ParkFileUpload.Root>
   )
 }

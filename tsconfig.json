@@ -13,5 +13,6 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "paths": { "~/*": ["./src/*"] }
-  }
+  },
+  "include": ["src", "styled-system"]
 }

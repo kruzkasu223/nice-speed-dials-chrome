@@ -12,14 +12,16 @@ export const ColorPicker = (props: ParkColorPicker.RootProps) => {
         <>
           {/* <ColorPickerBase.Label>Color Picker</ColorPickerBase.Label> */}
           <ParkColorPicker.Control>
-            <ParkColorPicker.ChannelInput channel="hex" asChild>
+            {/* <ParkColorPicker.ChannelInput channel="hex" asChild> */}
+            <ParkColorPicker.ChannelInput channel="hex">
               <Input />
             </ParkColorPicker.ChannelInput>
 
-            <ParkColorPicker.Trigger asChild>
+            {/* <ParkColorPicker.Trigger asChild> */}
+            <ParkColorPicker.Trigger>
               {/* TODO: Fix asChild issue everywhere */}
               <IconButton variant="outline">
-                <ParkColorPicker.Swatch value={api().value || '#000000'} />
+                <ParkColorPicker.Swatch value={'#000000'} />
               </IconButton>
             </ParkColorPicker.Trigger>
           </ParkColorPicker.Control>
@@ -33,7 +35,8 @@ export const ColorPicker = (props: ParkColorPicker.RootProps) => {
                 </ParkColorPicker.Area>
 
                 <HStack gap="3">
-                  <ParkColorPicker.EyeDropperTrigger asChild>
+                  {/* <ParkColorPicker.EyeDropperTrigger asChild> */}
+                  <ParkColorPicker.EyeDropperTrigger>
                     <IconButton
                       size="xs"
                       variant="outline"
@@ -57,10 +60,12 @@ export const ColorPicker = (props: ParkColorPicker.RootProps) => {
                 </HStack>
 
                 <HStack>
-                  <ParkColorPicker.ChannelInput channel="hex" asChild>
+                  {/* <ParkColorPicker.ChannelInput channel="hex" asChild> */}
+                  <ParkColorPicker.ChannelInput channel="hex">
                     <Input size="2xs" />
                   </ParkColorPicker.ChannelInput>
-                  <ParkColorPicker.ChannelInput channel="alpha" asChild>
+                  {/* <ParkColorPicker.ChannelInput channel="alpha" asChild> */}
+                  <ParkColorPicker.ChannelInput channel="alpha">
                     <Input size="2xs" />
                   </ParkColorPicker.ChannelInput>
                 </HStack>

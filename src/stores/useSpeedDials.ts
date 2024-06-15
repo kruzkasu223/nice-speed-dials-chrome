@@ -1,6 +1,6 @@
 import { createEffect, createMemo, createSignal, onCleanup } from 'solid-js'
 import { createStore } from 'solid-js/store'
-import { notify } from '~/components/Toast'
+// import { notify } from '~/components/Toast'
 import { getGridDimensions } from '~/utils'
 
 export type BookmarkDataType = chrome.bookmarks.BookmarkTreeNode
@@ -115,13 +115,13 @@ const addNewSpeedDial = async (values?: Partial<BookmarkDataType>) => {
       url: values?.url,
     })
     .then((bookmark) => {
-      notify().success({
-        title: 'Success!',
-        description: `${bookmark.title} added successfully!`,
-      })
+      // notify().success({
+      //   title: 'Success!',
+      //   description: `${bookmark.title} added successfully!`,
+      // })
     })
     .catch((error) => {
-      notify().error({ title: 'Error!!', description: error.message })
+      // notify().error({ title: 'Error!!', description: error.message })
     })
 }
 
@@ -134,13 +134,13 @@ const editSpeedDial = async (values?: Partial<BookmarkDataType>) => {
       url: values?.url,
     })
     .then((bookmark) => {
-      notify().success({
-        title: 'Success!',
-        description: `${bookmark.title} edited successfully!`,
-      })
+      // notify().success({
+      //   title: 'Success!',
+      //   description: `${bookmark.title} edited successfully!`,
+      // })
     })
     .catch((error) => {
-      notify().error({ title: 'Error!!', description: error.message })
+      // notify().error({ title: 'Error!!', description: error.message })
     })
 }
 
@@ -150,13 +150,13 @@ const deleteSpeedDial = async (values?: Partial<BookmarkDataType>) => {
   await chrome.bookmarks
     .remove(values?.id)
     .then(() => {
-      notify().success({
-        title: 'Success!',
-        description: 'Speed dial deleted successfully!',
-      })
+      // notify().success({
+      //   title: 'Success!',
+      //   description: 'Speed dial deleted successfully!',
+      // })
     })
     .catch((error) => {
-      notify().error({ title: 'Error!!', description: error.message })
+      // notify().error({ title: 'Error!!', description: error.message })
     })
 }
 
@@ -170,13 +170,13 @@ const duplicateSpeedDial = async (values?: Partial<BookmarkDataType>) => {
       url: values?.url,
     })
     .then((bookmark) => {
-      notify().success({
-        title: 'Success!',
-        description: `${bookmark.title} duplicated successfully!`,
-      })
+      // notify().success({
+      //   title: 'Success!',
+      //   description: `${bookmark.title} duplicated successfully!`,
+      // })
     })
     .catch((error) => {
-      notify().error({ title: 'Error!!', description: error.message })
+      // notify().error({ title: 'Error!!', description: error.message })
     })
 }
 
@@ -197,7 +197,7 @@ const moveSpeedDial = async (
       // })
     })
     .catch((error) => {
-      notify().error({ title: 'Error!!', description: error.message })
+      // notify().error({ title: 'Error!!', description: error.message })
     })
 }
 
