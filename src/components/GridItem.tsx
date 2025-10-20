@@ -1,11 +1,11 @@
-import { FolderIcon } from 'lucide-solid'
-import { Portal } from 'solid-js/web'
-import { Text } from '~/lib/ui/text'
-import * as Tooltip from '~/lib/ui/tooltip'
-import { BookmarkDataType, ModalTypes } from '~/stores'
-import classes from '~/styles/Grid.module.scss'
-import { getFaviconUrl } from '~/utils'
-import { ContextMenu } from './'
+import { FolderIcon } from "lucide-solid"
+import { Portal } from "solid-js/web"
+import { Text } from "~/components/ui/text"
+import { Tooltip } from "~/components/ui/tooltip"
+import { BookmarkDataType, ModalTypes } from "~/stores"
+import classes from "~/styles/Grid.module.scss"
+import { getFaviconUrl } from "~/utils"
+import { ContextMenu } from "./"
 
 interface P {
   item: BookmarkDataType
@@ -40,7 +40,7 @@ export const GridItem = (props: P) => {
           unmountOnExit
           closeDelay={0}
           openDelay={100}
-          positioning={{ placement: 'bottom' }}
+          positioning={{ placement: "bottom" }}
           closeOnPointerDown={false}
         >
           <Tooltip.Trigger width="full">

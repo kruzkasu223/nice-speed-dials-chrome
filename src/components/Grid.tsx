@@ -1,6 +1,6 @@
-import { PlusIcon, SettingsIcon } from 'lucide-solid'
-import { dndzone } from 'solid-dnd-directive'
-import { For } from 'solid-js'
+import { PlusIcon, SettingsIcon } from "lucide-solid"
+import { dndzone } from "solid-dnd-directive"
+import { For } from "solid-js"
 import {
   DEFAULT_SPEED_DIALS_ITEM,
   BookmarkDataType,
@@ -11,9 +11,9 @@ import {
   speedDials,
   speedDialsGrid,
   setIsSettingDrawerOpen,
-} from '~/stores'
-import classes from '~/styles/Grid.module.scss'
-import { GridItem, InputModal, SettingsDrawer } from './'
+} from "~/stores"
+import classes from "~/styles/Grid.module.scss"
+import { GridItem, InputModal, SettingsDrawer } from "./"
 
 const IconMapper = {
   ADD: <PlusIcon class={classes.gridItemImg} />,
@@ -26,7 +26,7 @@ export const Grid = () => {
   const onDrag = (e: any, isFinalize = false) => {
     if (isFinalize) {
       const newItems = (e.detail.items as BookmarkDataType[]).filter(
-        (item) => item.id !== 'ADD' && item.id !== 'SETTINGS'
+        (item) => item.id !== "ADD" && item.id !== "SETTINGS"
       )
       setSpeedDials(newItems.concat([...DEFAULT_SPEED_DIALS_ITEM]))
       return
@@ -42,7 +42,7 @@ export const Grid = () => {
   const onDragFinalize = (e: any) => {
     onDrag(e, true)
 
-    if (e.detail.info.id === 'ADD' || e.detail.info.id === 'SETTINGS') return
+    if (e.detail.info.id === "ADD" || e.detail.info.id === "SETTINGS") return
 
     const itemId = e.detail.info.id
     const item = speedDials.find((item) => item.id === itemId)
@@ -64,8 +64,8 @@ export const Grid = () => {
       <div
         class={classes.grid}
         style={{
-          '--grid-width': speedDialsGrid().width,
-          '--grid-height': speedDialsGrid().height,
+          "--grid-width": speedDialsGrid().width,
+          "--grid-height": speedDialsGrid().height,
         }}
         // @ts-expect-error ts(2322)
         use:dndzone={{
@@ -78,12 +78,12 @@ export const Grid = () => {
       >
         <For each={speedDials}>
           {(item) =>
-            item.id === 'ADD' || item.id === 'SETTINGS' ? (
+            item.id === "ADD" || item.id === "SETTINGS" ? (
               <div
                 class={classes.gridItem}
                 onClick={() =>
-                  item.id === 'ADD'
-                    ? openModal('ADD')
+                  item.id === "ADD"
+                    ? openModal("ADD")
                     : setIsSettingDrawerOpen(true)
                 }
               >

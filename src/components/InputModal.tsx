@@ -1,11 +1,11 @@
-import { XIcon } from 'lucide-solid'
-import { Portal } from 'solid-js/web'
-import { HStack, VStack } from 'styled-system/jsx'
-import { Button } from '~/lib/ui/button'
-import * as Dialog from '~/lib/ui/dialog'
-import { IconButton } from '~/lib/ui/icon-button'
-import { Input } from '~/lib/ui/input'
-import { Text } from '~/lib/ui/text'
+import { XIcon } from "lucide-solid"
+import { Portal } from "solid-js/web"
+import { HStack, VStack } from "styled-system/jsx"
+import { Button } from "~/components/ui/button"
+import { Dialog } from "~/components/ui/dialog"
+import { IconButton } from "~/components/ui/icon-button"
+import { Input } from "~/components/ui/input"
+import { Text } from "~/components/ui/text"
 import {
   closeModal,
   handleModalDataChange,
@@ -15,7 +15,7 @@ import {
   modalData,
   modalType,
   setIsModalOpen,
-} from '~/stores'
+} from "~/stores"
 
 export const InputModal = () => {
   return (
@@ -31,7 +31,7 @@ export const InputModal = () => {
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content p={'4'} minW="md">
+          <Dialog.Content p={"4"} minW="md">
             <HStack justifyContent="space-between" mb={4}>
               <Dialog.Title fontSize="xl" fontWeight="semibold">
                 {modalType()?.title}
@@ -46,8 +46,8 @@ export const InputModal = () => {
             </HStack>
 
             <VStack gap={4}>
-              {modalType()?.type === 'DELETE' ? (
-                <Text alignSelf={'flex-start'} fontSize="lg">
+              {modalType()?.type === "DELETE" ? (
+                <Text alignSelf={"flex-start"} fontSize="lg">
                   {modalType()?.description}
                 </Text>
               ) : (
@@ -56,20 +56,20 @@ export const InputModal = () => {
                     name="title"
                     inputMode="text"
                     placeholder="Name"
-                    value={modalData()?.title || ''}
+                    value={modalData()?.title || ""}
                     onInput={handleModalDataChange}
                   />
                   <Input
                     name="url"
                     inputMode="url"
                     placeholder="URL"
-                    value={modalData()?.url || ''}
+                    value={modalData()?.url || ""}
                     onInput={handleModalDataChange}
                   />
                 </>
               )}
 
-              <HStack alignSelf={'flex-end'} gap={4}>
+              <HStack alignSelf={"flex-end"} gap={4}>
                 <Button variant="ghost" onClick={() => setIsModalOpen(false)}>
                   Cancel
                 </Button>

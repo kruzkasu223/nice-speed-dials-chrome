@@ -16,7 +16,7 @@
 //     })
 //   }
 // }
-console.log('hi from background')
+console.log("hi from background")
 // chrome.contextMenus.onClicked.addListener(contextMenuHandler)
 
 // chrome.contextMenus.create({

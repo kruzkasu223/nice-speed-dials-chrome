@@ -1,34 +1,34 @@
-import { createEffect, createMemo, createSignal, onCleanup } from 'solid-js'
-import { createStore } from 'solid-js/store'
+import { createEffect, createMemo, createSignal, onCleanup } from "solid-js"
+import { createStore } from "solid-js/store"
 // import { notify } from '~/components/Toast'
-import { getGridDimensions } from '~/utils'
+import { getGridDimensions } from "~/utils"
 
 export type BookmarkDataType = chrome.bookmarks.BookmarkTreeNode
 
-const IS_DEV = import.meta.env.MODE === 'development'
+const IS_DEV = import.meta.env.MODE === "development"
 
 const DEFAULT_SPEED_DIALS_FOLDER_NAME = IS_DEV
-  ? 'NICE_SPEED_DIALS_BOOKMARKS_[DO_NOT_DELETE]__DEV'
-  : 'NICE_SPEED_DIALS_BOOKMARKS_[DO_NOT_DELETE]'
-const DEFAULT_SPEED_DIALS_PARENT_ID = '2' // refactor this OUT :trash:
+  ? "NICE_SPEED_DIALS_BOOKMARKS_[DO_NOT_DELETE]__DEV"
+  : "NICE_SPEED_DIALS_BOOKMARKS_[DO_NOT_DELETE]"
+const DEFAULT_SPEED_DIALS_PARENT_ID = "2" // refactor this OUT :trash:
 const CHROME_BOOKMARK_EVENTS = [
-  'onChanged',
-  'onChildrenReordered',
-  'onCreated',
-  'onImportBegan',
-  'onImportEnded',
-  'onMoved',
-  'onRemoved',
+  "onChanged",
+  "onChildrenReordered",
+  "onCreated",
+  "onImportBegan",
+  "onImportEnded",
+  "onMoved",
+  "onRemoved",
 ] as const
 
 export const ADD_NEW_SPEED_DIALS_ITEM: BookmarkDataType = {
-  id: 'ADD',
-  title: 'Add New',
+  id: "ADD",
+  title: "Add New",
 }
 
 export const SETTINGS_SPEED_DIALS_ITEM: BookmarkDataType = {
-  id: 'SETTINGS',
-  title: 'Settings',
+  id: "SETTINGS",
+  title: "Settings",
 }
 
 export const DEFAULT_SPEED_DIALS_ITEM: BookmarkDataType[] = [
@@ -47,10 +47,7 @@ const speedDialsLength = createMemo(() => speedDials?.length || 0)
 const speedDialsGrid = createMemo(() => {
   const { gridHeight: height, gridWidth: width } =
     getGridDimensions(speedDialsLength())
-  return {
-    height,
-    width,
-  }
+  return { height, width }
 })
 
 const createDefaultSpeedDialsFolder = async () => {
@@ -129,10 +126,7 @@ const editSpeedDial = async (values?: Partial<BookmarkDataType>) => {
   if (!values?.id || !values?.title || !values?.url) return // maybe will add validation later
 
   await chrome.bookmarks
-    .update(values?.id, {
-      title: values?.title,
-      url: values?.url,
-    })
+    .update(values?.id, { title: values?.title, url: values?.url })
     .then((bookmark) => {
       // notify().success({
       //   title: 'Success!',
@@ -166,7 +160,7 @@ const duplicateSpeedDial = async (values?: Partial<BookmarkDataType>) => {
   await chrome.bookmarks
     .create({
       parentId: defaultSpeedDialsFolder()?.id,
-      title: values?.title + ' (copy)',
+      title: values?.title + " (copy)",
       url: values?.url,
     })
     .then((bookmark) => {
@@ -187,9 +181,7 @@ const moveSpeedDial = async (
   if (!values?.id) return // maybe will add validation later
   if (values?.index === newIndex) return getSpeedDials()
   await chrome.bookmarks
-    .move(values?.id, {
-      index: newIndex,
-    })
+    .move(values?.id, { index: newIndex })
     .then((bookmark) => {
       // notify().success({
       //   title: 'Success!',

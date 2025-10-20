@@ -1,7 +1,7 @@
 // import { createToaster } from '@ark-ui/solid'
 // import { XIcon } from 'lucide-solid'
-// import { IconButton } from '~/lib/ui/icon-button'
-// import * as Toast from '~/lib/ui/toast'
+// import { IconButton } from '~/components/ui/icon-button'
+// import { Toast } from '~/components/ui/toast'
 
 // export const [ToastProvider, notify] = createToaster({
 //   placement: 'top-end',

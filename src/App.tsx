@@ -1,8 +1,8 @@
 import {
   Grid,
   // ToastProvider
-} from '~/components'
-import classes from '~/styles/App.module.scss'
+} from "~/components"
+import classes from "~/styles/App.module.scss"
 
 export const App = () => {
   return (

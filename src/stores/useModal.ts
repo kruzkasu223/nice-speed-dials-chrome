@@ -1,11 +1,11 @@
-import { createSignal } from 'solid-js'
-import { isUrlValid } from '~/utils'
+import { createSignal } from "solid-js"
+import { isUrlValid } from "~/utils"
 import {
   addNewSpeedDial,
   BookmarkDataType,
   deleteSpeedDial,
   editSpeedDial,
-} from './'
+} from "./"
 
 export type ModalType = {
   type: keyof typeof MODAL_TYPES
@@ -18,33 +18,33 @@ export type ModalDataType = Partial<BookmarkDataType>
 
 export const MODAL_TYPES = {
   ADD: {
-    type: 'ADD',
-    title: 'Create',
-    button: 'Create',
-    description: 'Create a new speed dial',
+    type: "ADD",
+    title: "Create",
+    button: "Create",
+    description: "Create a new speed dial",
   },
   EDIT: {
-    type: 'EDIT',
-    title: 'Edit',
-    button: 'Save',
-    description: 'Edit the speed dial',
+    type: "EDIT",
+    title: "Edit",
+    button: "Save",
+    description: "Edit the speed dial",
   },
   DELETE: {
-    type: 'DELETE',
-    title: 'Delete',
-    button: 'Delete',
-    description: 'Are you sure you want to delete?',
+    type: "DELETE",
+    title: "Delete",
+    button: "Delete",
+    description: "Are you sure you want to delete?",
   },
 } as const
 
 export type ModalTypes = keyof typeof MODAL_TYPES
 
 export const isValid = (type?: ModalTypes, data?: ModalDataType) => {
-  if (type === 'DELETE') {
+  if (type === "DELETE") {
     return !!data?.id
-  } else if (type === 'EDIT') {
+  } else if (type === "EDIT") {
     return !!(data?.id && data?.title && data?.url && isUrlValid(data?.url))
-  } else if (type === 'ADD') {
+  } else if (type === "ADD") {
     return !!(data?.title && data?.url && isUrlValid(data?.url))
   }
   return false
@@ -66,18 +66,18 @@ const closeModal = () => {
 }
 
 const handleModalDataChange = (e: Event) => {
-  const { name, value = '' } = e.target as HTMLInputElement
+  const { name, value = "" } = e.target as HTMLInputElement
   setModalData((s) => ({ ...s, [name]: value }))
 }
 
 const handleModalOnSubmit = () => {
   const type = modalType()?.type
   if (type && isValid(type, modalData())) {
-    if (type === 'DELETE') {
+    if (type === "DELETE") {
       deleteSpeedDial(modalData())
-    } else if (type === 'EDIT') {
+    } else if (type === "EDIT") {
       editSpeedDial(modalData())
-    } else if (type === 'ADD') {
+    } else if (type === "ADD") {
       addNewSpeedDial(modalData())
     }
   }

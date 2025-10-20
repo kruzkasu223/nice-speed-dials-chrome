@@ -1,19 +1,20 @@
-import { Undo2Icon, XIcon } from 'lucide-solid'
-import { Button } from '~/lib/ui/button'
-import * as Drawer from '~/lib/ui/drawer'
-import { IconButton } from '~/lib/ui/icon-button'
-import { Text } from '~/lib/ui/text'
-import { isSettingDrawerOpen, setIsSettingDrawerOpen } from '~/stores'
-import { ColorPicker, Divider, FileUpload } from '.'
-import { NumberInput } from '~/lib/ui/number-input'
-import { Switch } from '~/lib/ui/switch'
-import { Circle, Flex } from 'styled-system/jsx'
-import { Show } from 'solid-js'
-import * as Tooltip from '~/lib/ui/tooltip'
-import { Slider } from '~/lib/ui/slider'
-import { accentColors, borderRadii, grayColors } from '@park-ui/panda-preset'
-import * as RadioButtonGroup from '~/lib/ui/radio-button-group'
-import { token } from 'styled-system/tokens'
+import { Undo2Icon, XIcon } from "lucide-solid"
+import { Button } from "~/components/ui/button"
+import { Drawer } from "~/components/ui/drawer"
+import { IconButton } from "~/components/ui/icon-button"
+import { Text } from "~/components/ui/text"
+import { isSettingDrawerOpen, setIsSettingDrawerOpen } from "~/stores"
+import { ColorPicker, Divider, FileUpload } from "."
+import { NumberInput } from "~/components/ui/number-input"
+import { Switch } from "~/components/ui/switch"
+import { Circle, Flex } from "styled-system/jsx"
+import { Show } from "solid-js"
+import { Tooltip } from "~/components/ui/tooltip"
+import { Slider } from "~/components/ui/slider"
+import { accentColors, radii, grayColors } from "@park-ui/panda-preset"
+import { RadioButtonGroup } from "~/components/ui/radio-button-group"
+import { Token, token } from "styled-system/tokens"
+import { parseColor } from "@ark-ui/solid"
 
 export const SettingsDrawer = () => {
   return (
@@ -107,7 +108,7 @@ export const SettingsDrawer = () => {
                 title="Main background"
                 subTitle="Image will be used if uploaded, else default/selected color will be used"
               />
-              <ColorPicker mt="4" value={'#000001'} />
+              <ColorPicker mt="4" value={parseColor("#000001")} />
               <Text my="2" fontWeight="bold">
                 OR
               </Text>
@@ -125,7 +126,7 @@ export const SettingsDrawer = () => {
 
               <RadioButtonGroup.Root
                 mt="4"
-                value={'mauve'}
+                value={"mauve"}
                 // value={currentGrayColor}
                 size="sm"
                 variant="outline"
@@ -141,11 +142,10 @@ export const SettingsDrawer = () => {
               >
                 {grayColors.map((gray) => (
                   <RadioButtonGroup.Item
-                    key={gray}
                     value={gray}
                     _checked={{
-                      borderColor: 'border.outline',
-                      boxShadow: '0 0 0 1px var(--colors-border-outline)',
+                      borderColor: "border.outline",
+                      boxShadow: "0 0 0 1px var(--colors-border-outline)",
                     }}
                     justifyContent="flex-start"
                   >
@@ -154,7 +154,7 @@ export const SettingsDrawer = () => {
                       <Circle
                         size="3.5"
                         style={{
-                          background: token.var(`colors.${gray}.9`),
+                          background: token.var(`colors.${gray}.9` as Token),
                         }}
                       />
                       {gray}
@@ -171,7 +171,7 @@ export const SettingsDrawer = () => {
 
               <RadioButtonGroup.Root
                 mt="4"
-                value={'ruby'}
+                value={"ruby"}
                 // value={currentAccentColor}
                 size="sm"
                 variant="outline"
@@ -187,7 +187,6 @@ export const SettingsDrawer = () => {
               >
                 {accentColors.map((accent) => (
                   <RadioButtonGroup.Item
-                    key={accent}
                     value={accent}
                     justifyContent="flex-start"
                   >
@@ -196,7 +195,7 @@ export const SettingsDrawer = () => {
                       <Circle
                         size="3.5"
                         style={{
-                          background: token.var(`colors.${accent}.9`),
+                          background: token.var(`colors.${accent}.9` as Token),
                         }}
                       />
                       {accent}
@@ -214,13 +213,13 @@ export const SettingsDrawer = () => {
                 mt="4"
                 mb="6"
                 min={0}
-                max={borderRadii.length - 1}
-                value={[borderRadii.indexOf('sm')]}
+                max={radii.length - 1}
+                value={[radii.indexOf("sm")]}
                 // value={[borderRadii.indexOf(currentBorderRadius)]}
                 // onValueChange={(e) =>
                 //   updateBorderRadius(borderRadii[e.value[0]])
                 // }
-                marks={borderRadii.map((borderRadius, index) => ({
+                marks={radii.map((borderRadius, index) => ({
                   value: index,
                   label: borderRadius,
                 }))}
@@ -238,36 +237,7 @@ export const SettingsDrawer = () => {
                   unmountOnExit
                   closeDelay={0}
                   openDelay={0}
-                  positioning={{ placement: 'top' }}
-                  closeOnPointerDown={false}
-                >
-                  {/* <Tooltip.Trigger asChild> */}
-                  <Tooltip.Trigger>
-                    <Switch disabled></Switch>
-                  </Tooltip.Trigger>
-
-                  <Tooltip.Positioner>
-                    <Tooltip.Arrow>
-                      <Tooltip.ArrowTip />
-                    </Tooltip.Arrow>
-                    <Tooltip.Content>Coming Soon</Tooltip.Content>
-                  </Tooltip.Positioner>
-                </Tooltip.Root>
-              </Flex>
-            </div>
-
-            <Divider />
-
-            <div>
-              <Flex justify="space-between" align="center">
-                <SettingItemTitle title="Disable all the animations" />
-
-                <Tooltip.Root
-                  lazyMount
-                  unmountOnExit
-                  closeDelay={0}
-                  openDelay={0}
-                  positioning={{ placement: 'top' }}
+                  positioning={{ placement: "top" }}
                   closeOnPointerDown={false}
                 >
                   {/* <Tooltip.Trigger asChild> */}
@@ -333,7 +303,7 @@ const SettingItemTitle = (props: {
             unmountOnExit
             closeDelay={0}
             openDelay={0}
-            positioning={{ placement: 'top' }}
+            positioning={{ placement: "top" }}
             closeOnPointerDown={false}
           >
             {/* <Tooltip.Trigger asChild> */}

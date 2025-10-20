@@ -1,7 +1,7 @@
-import { Trash2Icon } from 'lucide-solid'
-import { Button } from '~/lib/ui/button'
-import * as ParkFileUpload from '~/lib/ui/file-upload'
-import { IconButton } from '~/lib/ui/icon-button'
+import { Trash2Icon } from "lucide-solid"
+import { Button } from "~/components/ui/button"
+import { FileUpload as ParkFileUpload } from "~/components/ui/file-upload"
+import { IconButton } from "~/components/ui/icon-button"
 
 export const FileUpload = (props: ParkFileUpload.RootProps) => {
   return (

@@ -1,5 +1,1 @@
-module.exports = {
-  plugins: {
-    '@pandacss/dev/postcss': {},
-  },
-}
+module.exports = { plugins: { "@pandacss/dev/postcss": {} } }

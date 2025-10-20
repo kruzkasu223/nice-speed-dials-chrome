@@ -1,15 +1,16 @@
 import {
   CopyPlusIcon,
   FileStackIcon,
-  MoreVerticalIcon,
+  EllipsisVertical,
   PencilIcon,
   Trash2Icon,
-} from 'lucide-solid'
-import { Portal } from 'solid-js/web'
-import { HStack } from 'styled-system/jsx'
-import * as Menu from '~/lib/ui/menu'
-import { BookmarkDataType, ModalTypes } from '~/stores'
-import classes from '~/styles/Grid.module.scss'
+} from "lucide-solid"
+import { createSignal } from "solid-js"
+import { Portal } from "solid-js/web"
+import { HStack } from "styled-system/jsx"
+import { Menu } from "~/components/ui/menu"
+import { BookmarkDataType, ModalTypes } from "~/stores"
+import classes from "~/styles/Grid.module.scss"
 
 type P = {
   item: BookmarkDataType
@@ -18,15 +19,24 @@ type P = {
 }
 
 export const ContextMenu = (props: P) => {
+  const [open, setOpen] = createSignal(false)
   const handleOpenMenu = (e: Event) => {
     e.preventDefault()
     e.stopPropagation()
+    setOpen((open) => !open)
   }
 
   return (
-    <Menu.Root lazyMount unmountOnExit>
-      <Menu.Trigger onClick={handleOpenMenu}>
-        <MoreVerticalIcon size={14} class={classes.menuIcon} />
+    <Menu.Root
+      lazyMount
+      unmountOnExit
+      open={open()}
+      onOpenChange={(e) => setOpen(e.open)}
+    >
+      <Menu.Trigger
+        asChild={(props) => <button {...props} on:click={handleOpenMenu} />}
+      >
+        <EllipsisVertical size={14} class={classes.menuIcon} />
       </Menu.Trigger>
 
       <Portal>
@@ -35,16 +45,14 @@ export const ContextMenu = (props: P) => {
             {!props.item?.url && (
               <Menu.Item
                 id="open_in_new_tab"
+                value="open_in_new_tab"
                 onClick={() => {
                   chrome.bookmarks
                     .getChildren(props.item.id)
                     .then((children) => {
                       children?.forEach((child) => {
                         child?.url &&
-                          chrome.tabs.create({
-                            url: child.url,
-                            active: false,
-                          })
+                          chrome.tabs.create({ url: child.url, active: false })
                       })
                     })
                 }}
@@ -58,7 +66,8 @@ export const ContextMenu = (props: P) => {
 
             <Menu.Item
               id="edit"
-              onClick={() => props.openModal('EDIT', props.item)}
+              value="edit"
+              onClick={() => props.openModal("EDIT", props.item)}
             >
               <HStack>
                 <PencilIcon size={16} />
@@ -68,7 +77,8 @@ export const ContextMenu = (props: P) => {
 
             <Menu.Item
               id="delete"
-              onClick={() => props.openModal('DELETE', props.item)}
+              value="delete"
+              onClick={() => props.openModal("DELETE", props.item)}
             >
               <HStack>
                 <Trash2Icon size={16} />
@@ -78,6 +88,7 @@ export const ContextMenu = (props: P) => {
 
             <Menu.Item
               id="duplicate"
+              value="duplicate"
               onClick={() => props.duplicateSpeedDial(props.item)}
             >
               <HStack>

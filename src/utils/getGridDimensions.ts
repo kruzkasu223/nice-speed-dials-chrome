@@ -11,9 +11,5 @@ export const getGridDimensions = (listLength: number) => {
     }
   }
 
-  return {
-    grid,
-    gridWidth,
-    gridHeight,
-  }
+  return { grid, gridWidth, gridHeight }
 }
