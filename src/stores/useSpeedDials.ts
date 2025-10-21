@@ -2,8 +2,9 @@ import { createEffect, createMemo, createSignal, onCleanup } from "solid-js"
 import { createStore } from "solid-js/store"
 // import { notify } from '~/components/Toast'
 import { getGridDimensions } from "~/utils"
+import { type Browser, browser } from "wxt/browser"
 
-export type BookmarkDataType = chrome.bookmarks.BookmarkTreeNode
+export type BookmarkDataType = Browser.bookmarks.BookmarkTreeNode
 
 const IS_DEV = import.meta.env.MODE === "development"
 
@@ -24,11 +25,13 @@ const CHROME_BOOKMARK_EVENTS = [
 export const ADD_NEW_SPEED_DIALS_ITEM: BookmarkDataType = {
   id: "ADD",
   title: "Add New",
+  syncing: false,
 }
 
 export const SETTINGS_SPEED_DIALS_ITEM: BookmarkDataType = {
   id: "SETTINGS",
   title: "Settings",
+  syncing: false,
 }
 
 export const DEFAULT_SPEED_DIALS_ITEM: BookmarkDataType[] = [
@@ -51,7 +54,7 @@ const speedDialsGrid = createMemo(() => {
 })
 
 const createDefaultSpeedDialsFolder = async () => {
-  await chrome.bookmarks.create({
+  await browser.bookmarks.create({
     title: DEFAULT_SPEED_DIALS_FOLDER_NAME,
     parentId: DEFAULT_SPEED_DIALS_PARENT_ID,
   })
@@ -59,7 +62,7 @@ const createDefaultSpeedDialsFolder = async () => {
 }
 
 const getDefaultSpeedDialsFolder = async () => {
-  chrome.bookmarks
+  browser.bookmarks
     .getChildren(DEFAULT_SPEED_DIALS_PARENT_ID)
     .then((children) => {
       const defaultFolder = children?.find(
@@ -72,7 +75,7 @@ const getDefaultSpeedDialsFolder = async () => {
 const getSpeedDials = async () => {
   const defaultFolder = defaultSpeedDialsFolder()
   if (!defaultFolder) {
-    chrome.bookmarks
+    browser.bookmarks
       .getChildren(DEFAULT_SPEED_DIALS_PARENT_ID)
       .then((bookmarks) => {
         const defaultFolder = bookmarks?.find(
@@ -82,19 +85,19 @@ const getSpeedDials = async () => {
         else getDefaultSpeedDialsFolder()
       })
   } else {
-    const children = await chrome.bookmarks.getChildren(defaultFolder.id)
+    const children = await browser.bookmarks.getChildren(defaultFolder.id)
     setSpeedDials(children.concat([...DEFAULT_SPEED_DIALS_ITEM]))
   }
 }
 
 const chromeBookmarkEventListeners = () =>
   CHROME_BOOKMARK_EVENTS.forEach((event) =>
-    chrome.bookmarks[event].addListener(getSpeedDials)
+    browser.bookmarks[event].addListener(getSpeedDials)
   )
 
 const removeChromeBookmarkEventListeners = () =>
   CHROME_BOOKMARK_EVENTS.forEach((event) =>
-    chrome.bookmarks[event].removeListener(getSpeedDials)
+    browser.bookmarks[event].removeListener(getSpeedDials)
   )
 
 const addNewSpeedDial = async (values?: Partial<BookmarkDataType>) => {
@@ -105,7 +108,7 @@ const addNewSpeedDial = async (values?: Partial<BookmarkDataType>) => {
     await createDefaultSpeedDialsFolder()
   }
 
-  await chrome.bookmarks
+  await browser.bookmarks
     .create({
       parentId: defaultFolder?.id,
       title: values?.title,
@@ -125,7 +128,7 @@ const addNewSpeedDial = async (values?: Partial<BookmarkDataType>) => {
 const editSpeedDial = async (values?: Partial<BookmarkDataType>) => {
   if (!values?.id || !values?.title || !values?.url) return // maybe will add validation later
 
-  await chrome.bookmarks
+  await browser.bookmarks
     .update(values?.id, { title: values?.title, url: values?.url })
     .then((bookmark) => {
       // notify().success({
@@ -141,7 +144,7 @@ const editSpeedDial = async (values?: Partial<BookmarkDataType>) => {
 const deleteSpeedDial = async (values?: Partial<BookmarkDataType>) => {
   if (!values?.id) return // maybe will add validation later
 
-  await chrome.bookmarks
+  await browser.bookmarks
     .remove(values?.id)
     .then(() => {
       // notify().success({
@@ -157,7 +160,7 @@ const deleteSpeedDial = async (values?: Partial<BookmarkDataType>) => {
 const duplicateSpeedDial = async (values?: Partial<BookmarkDataType>) => {
   if (!values?.title || !values?.url) return // maybe will add validation later
 
-  await chrome.bookmarks
+  await browser.bookmarks
     .create({
       parentId: defaultSpeedDialsFolder()?.id,
       title: values?.title + " (copy)",
@@ -180,7 +183,7 @@ const moveSpeedDial = async (
 ) => {
   if (!values?.id) return // maybe will add validation later
   if (values?.index === newIndex) return getSpeedDials()
-  await chrome.bookmarks
+  await browser.bookmarks
     .move(values?.id, { index: newIndex })
     .then((bookmark) => {
       // notify().success({

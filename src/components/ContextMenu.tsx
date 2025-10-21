@@ -8,6 +8,7 @@ import {
 import { createSignal } from "solid-js"
 import { Portal } from "solid-js/web"
 import { HStack } from "styled-system/jsx"
+import { browser } from "wxt/browser"
 import { Menu } from "~/components/ui/menu"
 import { BookmarkDataType, ModalTypes } from "~/stores"
 import classes from "~/styles/Grid.module.scss"
@@ -47,12 +48,12 @@ export const ContextMenu = (props: P) => {
                 id="open_in_new_tab"
                 value="open_in_new_tab"
                 onClick={() => {
-                  chrome.bookmarks
+                  browser.bookmarks
                     .getChildren(props.item.id)
                     .then((children) => {
                       children?.forEach((child) => {
                         child?.url &&
-                          chrome.tabs.create({ url: child.url, active: false })
+                          browser.tabs.create({ url: child.url, active: false })
                       })
                     })
                 }}

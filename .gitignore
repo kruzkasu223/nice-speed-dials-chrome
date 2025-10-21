@@ -2,3 +2,7 @@ node_modules
 dist
 styled-system
 styled-system-studio
+.wxt
+.output
+stats.html
+stats-*.json
