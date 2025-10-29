@@ -1,4 +1,5 @@
 import { PlusIcon, SettingsIcon } from "lucide-solid"
+// @ts-expect-error ts(2307)
 import { dndzone } from "solid-dnd-directive"
 import { For } from "solid-js"
 import {
@@ -71,7 +72,13 @@ export const Grid = () => {
         use:dndzone={{
           items: () => speedDials,
           // some glitches in animations, hence disabling for now
-          flipDurationMs: 0,
+          flipDurationMs: 150,
+          dragDisabled: false,
+          centreDraggedOnCursor: true,
+          dropTargetStyle: {
+            outline: "2px dashed var(--colors-gray-a6)",
+            borderRadius: "4px",
+          },
         }}
         on:consider={onDragConsider}
         on:finalize={onDragFinalize}

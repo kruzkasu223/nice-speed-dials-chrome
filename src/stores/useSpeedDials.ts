@@ -11,7 +11,7 @@ const IS_DEV = import.meta.env.MODE === "development"
 const DEFAULT_SPEED_DIALS_FOLDER_NAME = IS_DEV
   ? "NICE_SPEED_DIALS_BOOKMARKS_[DO_NOT_DELETE]__DEV"
   : "NICE_SPEED_DIALS_BOOKMARKS_[DO_NOT_DELETE]"
-const DEFAULT_SPEED_DIALS_PARENT_ID = "2" // refactor this OUT :trash:
+const DEFAULT_SPEED_DIALS_PARENT_ID = "2" // FIXME: refactor this OUT
 const CHROME_BOOKMARK_EVENTS = [
   "onChanged",
   "onChildrenReordered",
@@ -46,10 +46,10 @@ const [speedDials, setSpeedDials] = createStore<BookmarkDataType[]>([
   ...DEFAULT_SPEED_DIALS_ITEM,
 ])
 
-const speedDialsLength = createMemo(() => speedDials?.length || 0)
 const speedDialsGrid = createMemo(() => {
-  const { gridHeight: height, gridWidth: width } =
-    getGridDimensions(speedDialsLength())
+  const { gridHeight: height, gridWidth: width } = getGridDimensions(
+    speedDials?.length || 0
+  )
   return { height, width }
 })
 
