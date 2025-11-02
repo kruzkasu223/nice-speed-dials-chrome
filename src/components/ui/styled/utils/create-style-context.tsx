@@ -1,8 +1,8 @@
-import { type JSX, createContext, useContext } from "solid-js"
-import { Dynamic } from "solid-js/web"
-import { cx } from "styled-system/css"
-import { isCssProperty, styled } from "styled-system/jsx"
-import type { ElementType, StyledComponent } from "styled-system/types"
+import { type JSX, createContext, useContext } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
+import { cx } from 'styled-system/css'
+import { isCssProperty, styled } from 'styled-system/jsx'
+import type { ElementType, StyledComponent } from 'styled-system/types'
 
 type Props = Record<string, unknown>
 type Recipe = {
@@ -13,20 +13,13 @@ type Recipe = {
 type Slot<R extends Recipe> = keyof ReturnType<R>
 type Options = { forwardProps?: string[] }
 
-const shouldForwardProp = (
-  prop: string,
-  variantKeys: string[],
-  options: Options = {}
-) =>
-  options.forwardProps?.includes(prop) ||
-  (!variantKeys.includes(prop) && !isCssProperty(prop))
+const shouldForwardProp = (prop: string, variantKeys: string[], options: Options = {}) =>
+  options.forwardProps?.includes(prop) || (!variantKeys.includes(prop) && !isCssProperty(prop))
 
 export const createStyleContext = <R extends Recipe>(recipe: R) => {
   const StyleContext = createContext<Record<Slot<R>, string> | null>(null)
 
-  const withRootProvider = <P extends {}>(
-    Component: ElementType
-  ): ((props: P) => JSX.Element) => {
+  const withRootProvider = <P extends {}>(Component: ElementType): ((props: P) => JSX.Element) => {
     const StyledComponent = (props: P) => {
       const [variantProps, localProps] = recipe.splitVariantProps(props)
       const slotStyles = recipe(variantProps) as Record<Slot<R>, string>
@@ -43,15 +36,14 @@ export const createStyleContext = <R extends Recipe>(recipe: R) => {
   const withProvider = <P extends { class?: string }>(
     Component: ElementType,
     slot: Slot<R>,
-    options?: Options
+    options?: Options,
   ): ((props: P) => JSX.Element) => {
     const StyledComponent = styled(
       Component,
       {},
       {
-        shouldForwardProp: (prop, variantKeys) =>
-          shouldForwardProp(prop, variantKeys, options),
-      }
+        shouldForwardProp: (prop, variantKeys) => shouldForwardProp(prop, variantKeys, options),
+      },
     ) as StyledComponent<ElementType>
 
     return (props: P) => {
@@ -72,7 +64,7 @@ export const createStyleContext = <R extends Recipe>(recipe: R) => {
 
   const withContext = <P extends { class?: string }>(
     Component: ElementType,
-    slot: Slot<R>
+    slot: Slot<R>,
   ): ((props: P) => JSX.Element) => {
     const StyledComponent = styled(Component)
 
@@ -89,5 +81,9 @@ export const createStyleContext = <R extends Recipe>(recipe: R) => {
     return Foo
   }
 
-  return { withRootProvider, withProvider, withContext }
+  return {
+    withRootProvider,
+    withProvider,
+    withContext,
+  }
 }

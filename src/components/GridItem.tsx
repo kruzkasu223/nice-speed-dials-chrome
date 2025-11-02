@@ -2,10 +2,11 @@ import { FolderIcon } from "lucide-solid"
 import { Portal } from "solid-js/web"
 import { Text } from "~/components/ui/text"
 import { Tooltip } from "~/components/ui/tooltip"
-import { BookmarkDataType, ModalTypes } from "~/stores"
+import { BookmarkDataType, ModalTypes, openLinksInNewTab } from "~/stores"
 import classes from "~/styles/Grid.module.scss"
 import { getFaviconUrl } from "~/utils"
 import { ContextMenu } from "./"
+import { createSignal, onMount } from "solid-js"
 
 interface P {
   item: BookmarkDataType
@@ -14,8 +15,20 @@ interface P {
 }
 
 export const GridItem = (props: P) => {
+  const [target, setTarget] = createSignal<"_blank" | "_self">("_self")
+
+  onMount(async () => {
+    const openInNewTab = await openLinksInNewTab.getValue()
+    setTarget(openInNewTab ? "_blank" : "_self")
+
+    // Watch for changes
+    openLinksInNewTab.watch((value: boolean) => {
+      setTarget(value ? "_blank" : "_self")
+    })
+  })
+
   return (
-    <a class={classes.gridItem} href={props.item?.url}>
+    <a class={classes.gridItem} href={props.item?.url} target={target()}>
       <div class={classes.gridItemContent}>
         <ContextMenu
           item={props.item}

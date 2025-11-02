@@ -28,7 +28,7 @@
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
     "parkui:add": "npx @park-ui/cli components add",
-    "parkui:update": "npx @park-ui/cli components add button spinner dialog drawer icon-button input menu text toast tooltip accordion switch slider color-picker file-upload number-input radio-button-group",
+    "parkui:update": "npx @park-ui/cli components add button alert spinner dialog drawer icon-button input menu text toast tooltip accordion switch slider color-picker file-upload number-input radio-button-group",
     "format": "prettier --write ."
   },
   "devDependencies": {

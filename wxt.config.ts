@@ -16,7 +16,7 @@ export default defineConfig({
     version: "4",
     version_name: "beryllium (v4)",
     manifest_version: 3,
-    permissions: ["bookmarks", "favicon", "contextMenus"],
+    permissions: ["bookmarks", "favicon", "contextMenus", "storage"],
     // chrome_url_overrides: { newtab: "index.html" },
     // background: { service_worker: "src/background.ts" },
     icons: {

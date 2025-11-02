@@ -1,4 +1,5 @@
 import { PipetteIcon } from "lucide-solid"
+import { For } from "solid-js"
 import { HStack, Stack } from "styled-system/jsx"
 import { ColorPicker as ParkColorPicker } from "~/components/ui/color-picker"
 import { IconButton } from "~/components/ui/icon-button"
@@ -11,22 +12,20 @@ export const ColorPicker = (props: ParkColorPicker.RootProps) => {
       <ParkColorPicker.Context>
         {(api) => (
           <>
-            {/* <ColorPickerBase.Label>Color Picker</ColorPickerBase.Label> */}
+            <ParkColorPicker.Label>Color Picker</ParkColorPicker.Label>
             <ParkColorPicker.Control>
-              {/* <ParkColorPicker.ChannelInput channel="hex" asChild> */}
-              <ParkColorPicker.ChannelInput channel="hex">
-                <Input />
-              </ParkColorPicker.ChannelInput>
-
-              {/* <ParkColorPicker.Trigger asChild> */}
-              <ParkColorPicker.Trigger>
-                {/* TODO: Fix asChild issue everywhere */}
-                <IconButton variant="outline">
-                  <ParkColorPicker.Swatch value={api().value} />
-                </IconButton>
-              </ParkColorPicker.Trigger>
+              <ParkColorPicker.ChannelInput
+                channel="hex"
+                asChild={(inputProps) => <Input {...inputProps()} />}
+              />
+              <ParkColorPicker.Trigger
+                asChild={(triggerProps) => (
+                  <IconButton variant="outline" {...triggerProps()}>
+                    <ParkColorPicker.Swatch value={api().value} />
+                  </IconButton>
+                )}
+              />
             </ParkColorPicker.Control>
-
             <ParkColorPicker.Positioner>
               <ParkColorPicker.Content>
                 <Stack gap="3">
@@ -34,19 +33,19 @@ export const ColorPicker = (props: ParkColorPicker.RootProps) => {
                     <ParkColorPicker.AreaBackground />
                     <ParkColorPicker.AreaThumb />
                   </ParkColorPicker.Area>
-
                   <HStack gap="3">
-                    {/* <ParkColorPicker.EyeDropperTrigger asChild> */}
-                    <ParkColorPicker.EyeDropperTrigger>
-                      <IconButton
-                        size="xs"
-                        variant="outline"
-                        aria-label="Pick a color"
-                      >
-                        <PipetteIcon />
-                      </IconButton>
-                    </ParkColorPicker.EyeDropperTrigger>
-
+                    {/* <ParkColorPicker.EyeDropperTrigger
+                      asChild={(triggerProps) => (
+                        <IconButton
+                          size="xs"
+                          variant="outline"
+                          aria-label="Pick a color"
+                          {...triggerProps()}
+                        >
+                          <PipetteIcon />
+                        </IconButton>
+                      )}
+                    /> */}
                     <Stack gap="2" flex="1">
                       <ParkColorPicker.ChannelSlider channel="hue">
                         <ParkColorPicker.ChannelSliderTrack />
@@ -59,28 +58,32 @@ export const ColorPicker = (props: ParkColorPicker.RootProps) => {
                       </ParkColorPicker.ChannelSlider>
                     </Stack>
                   </HStack>
-
                   <HStack>
-                    {/* <ParkColorPicker.ChannelInput channel="hex" asChild> */}
-                    <ParkColorPicker.ChannelInput channel="hex">
-                      <Input size="2xs" />
-                    </ParkColorPicker.ChannelInput>
-                    {/* <ParkColorPicker.ChannelInput channel="alpha" asChild> */}
-                    <ParkColorPicker.ChannelInput channel="alpha">
-                      <Input size="2xs" />
-                    </ParkColorPicker.ChannelInput>
+                    <ParkColorPicker.ChannelInput
+                      channel="hex"
+                      asChild={(inputProps) => (
+                        <Input size="2xs" {...inputProps()} />
+                      )}
+                    />
+                    <ParkColorPicker.ChannelInput
+                      channel="alpha"
+                      asChild={(inputProps) => (
+                        <Input size="2xs" {...inputProps()} />
+                      )}
+                    />
                   </HStack>
-
                   <Stack gap="1.5">
                     <Text size="xs" fontWeight="medium" color="fg.default">
-                      Presets
+                      Saved Colors
                     </Text>
                     <ParkColorPicker.SwatchGroup>
-                      {presets.map((color) => (
-                        <ParkColorPicker.SwatchTrigger value={color}>
-                          <ParkColorPicker.Swatch value={color} />
-                        </ParkColorPicker.SwatchTrigger>
-                      ))}
+                      <For each={presets}>
+                        {(color) => (
+                          <ParkColorPicker.SwatchTrigger value={color}>
+                            <ParkColorPicker.Swatch value={color} />
+                          </ParkColorPicker.SwatchTrigger>
+                        )}
+                      </For>
                     </ParkColorPicker.SwatchGroup>
                   </Stack>
                 </Stack>
@@ -89,11 +92,13 @@ export const ColorPicker = (props: ParkColorPicker.RootProps) => {
           </>
         )}
       </ParkColorPicker.Context>
+      <ParkColorPicker.HiddenInput />
     </ParkColorPicker.Root>
   )
 }
 
 const presets = [
+  "#2c2124",
   "hsl(10, 81%, 59%)",
   "hsl(60, 81%, 59%)",
   "hsl(100, 81%, 59%)",

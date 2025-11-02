@@ -9,9 +9,8 @@ export type BookmarkDataType = Browser.bookmarks.BookmarkTreeNode
 const IS_DEV = import.meta.env.MODE === "development"
 
 const DEFAULT_SPEED_DIALS_FOLDER_NAME = IS_DEV
-  ? "NICE_SPEED_DIALS_BOOKMARKS_[DO_NOT_DELETE]__DEV"
+  ? "NICE_SPEED_DIALS_BOOKMARKS_[DO_NOT_DELETE]_DEV"
   : "NICE_SPEED_DIALS_BOOKMARKS_[DO_NOT_DELETE]"
-const DEFAULT_SPEED_DIALS_PARENT_ID = "2" // FIXME: refactor this OUT
 const CHROME_BOOKMARK_EVENTS = [
   "onChanged",
   "onChildrenReordered",
@@ -34,17 +33,10 @@ export const SETTINGS_SPEED_DIALS_ITEM: BookmarkDataType = {
   syncing: false,
 }
 
-export const DEFAULT_SPEED_DIALS_ITEM: BookmarkDataType[] = [
-  ADD_NEW_SPEED_DIALS_ITEM,
-  SETTINGS_SPEED_DIALS_ITEM,
-]
-
 const [defaultSpeedDialsFolder, setDefaultSpeedDialsFolder] =
   createSignal<BookmarkDataType>()
 
-const [speedDials, setSpeedDials] = createStore<BookmarkDataType[]>([
-  ...DEFAULT_SPEED_DIALS_ITEM,
-])
+const [speedDials, setSpeedDials] = createStore<BookmarkDataType[]>([])
 
 const speedDialsGrid = createMemo(() => {
   const { gridHeight: height, gridWidth: width } = getGridDimensions(
@@ -54,39 +46,56 @@ const speedDialsGrid = createMemo(() => {
 })
 
 const createDefaultSpeedDialsFolder = async () => {
-  await browser.bookmarks.create({
+  const created = await browser.bookmarks.create({
     title: DEFAULT_SPEED_DIALS_FOLDER_NAME,
-    parentId: DEFAULT_SPEED_DIALS_PARENT_ID,
   })
-  await getDefaultSpeedDialsFolder()
+  setDefaultSpeedDialsFolder(created)
+  return created
 }
 
 const getDefaultSpeedDialsFolder = async () => {
-  browser.bookmarks
-    .getChildren(DEFAULT_SPEED_DIALS_PARENT_ID)
-    .then((children) => {
-      const defaultFolder = children?.find(
-        (child) => child.title === DEFAULT_SPEED_DIALS_FOLDER_NAME
-      )
+  if (defaultSpeedDialsFolder()) return defaultSpeedDialsFolder()!
+
+  const results = await browser.bookmarks.search({
+    title: DEFAULT_SPEED_DIALS_FOLDER_NAME,
+  })
+
+  if (results && results.length > 0) {
+    // Find the folder (bookmark without URL property)
+    const defaultFolder = results.find((bookmark) => !bookmark.url)
+    if (defaultFolder) {
       setDefaultSpeedDialsFolder(defaultFolder)
-    })
+      return defaultFolder
+    }
+  }
+
+  // If not found, create it
+  return await createDefaultSpeedDialsFolder()
 }
 
 const getSpeedDials = async () => {
-  const defaultFolder = defaultSpeedDialsFolder()
+  let defaultFolder = defaultSpeedDialsFolder()
+
   if (!defaultFolder) {
-    browser.bookmarks
-      .getChildren(DEFAULT_SPEED_DIALS_PARENT_ID)
-      .then((bookmarks) => {
-        const defaultFolder = bookmarks?.find(
-          (child) => child.title === DEFAULT_SPEED_DIALS_FOLDER_NAME
-        )
-        if (!defaultFolder) createDefaultSpeedDialsFolder()
-        else getDefaultSpeedDialsFolder()
-      })
+    // Try to find or create the folder using search
+    defaultFolder = await getDefaultSpeedDialsFolder()
   } else {
+    // Verify the folder still exists
+    try {
+      const [verification] = await browser.bookmarks.get(defaultFolder.id)
+      if (!verification) {
+        // Folder was deleted, search for it again or create new one
+        defaultFolder = await getDefaultSpeedDialsFolder()
+      }
+    } catch (error) {
+      // Folder might have been deleted, search for it again or create new one
+      defaultFolder = await getDefaultSpeedDialsFolder()
+    }
+  }
+
+  if (defaultFolder) {
     const children = await browser.bookmarks.getChildren(defaultFolder.id)
-    setSpeedDials(children.concat([...DEFAULT_SPEED_DIALS_ITEM]))
+    setSpeedDials(children)
   }
 }
 
@@ -103,14 +112,11 @@ const removeChromeBookmarkEventListeners = () =>
 const addNewSpeedDial = async (values?: Partial<BookmarkDataType>) => {
   if (!values?.title || !values?.url) return // maybe will add validation later
 
-  const defaultFolder = defaultSpeedDialsFolder()
-  if (!defaultFolder) {
-    await createDefaultSpeedDialsFolder()
-  }
+  const defaultFolder = await getDefaultSpeedDialsFolder()
 
   await browser.bookmarks
     .create({
-      parentId: defaultFolder?.id,
+      parentId: defaultFolder.id,
       title: values?.title,
       url: values?.url,
     })
@@ -160,9 +166,11 @@ const deleteSpeedDial = async (values?: Partial<BookmarkDataType>) => {
 const duplicateSpeedDial = async (values?: Partial<BookmarkDataType>) => {
   if (!values?.title || !values?.url) return // maybe will add validation later
 
+  const defaultFolder = await getDefaultSpeedDialsFolder()
+
   await browser.bookmarks
     .create({
-      parentId: defaultSpeedDialsFolder()?.id,
+      parentId: defaultFolder.id,
       title: values?.title + " (copy)",
       url: values?.url,
     })
