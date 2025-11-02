@@ -1,0 +1,101 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-width, 3), var(--dial-size, 112px));
+  grid-template-rows: repeat(var(--grid-height, 3), var(--dial-size, 112px));
+  gap: 8px;
+  animation: fadeInAnimation 0.75s ease-in-out;
+
+  @keyframes fadeInAnimation {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+.gridItem {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--dial-radius, 4px);
+  text-decoration: none;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  background-color: var(--colors-gray-a2);
+  border: 1px solid var(--colors-gray-a6);
+
+  &:hover,
+  &:focus {
+    background-color: var(--colors-gray-a4);
+    border: 1px solid var(--colors-gray-a7);
+  }
+
+  &:hover {
+    & .gridItemContent :global(.menu__trigger) {
+      opacity: 1 !important;
+      transition:
+        opacity 0.25s ease-in-out 0.4s,
+        background-color 0.25s ease-in-out 0s;
+    }
+  }
+
+  .gridItemContent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+
+    .gridItemImgDiv {
+      width: 50%;
+      height: 50%;
+      padding: 8px;
+      border-radius: var(--dial-radius, 4px);
+
+      .gridItemImg {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        pointer-events: none;
+        user-select: none;
+      }
+    }
+
+    .gridItemAddIcon {
+      border: 1px solid var(--colors-gray-a6);
+    }
+
+    .gridItemText {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 100%;
+      text-align: center;
+    }
+
+    :global(.menu__trigger) {
+      position: absolute !important;
+      top: 8px;
+      right: 8px;
+      padding: 4px;
+      opacity: 0;
+      transition:
+        opacity 0.25s ease-in-out 0s,
+        background-color 0.25s ease-in-out 0s;
+      cursor: pointer;
+
+      &:focus {
+        opacity: 1;
+      }
+
+      .menuIcon {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+}

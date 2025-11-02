@@ -1,63 +1,90 @@
-import { Button, HStack, Input, Modal, Text, VStack } from '@hope-ui/core'
-import { createModal, isValid } from '../stores'
+import { XIcon } from "lucide-solid"
+import { Portal } from "solid-js/web"
+import { HStack, VStack } from "styled-system/jsx"
+import { Button } from "~/components/ui/button"
+import { Dialog } from "~/components/ui/dialog"
+import { IconButton } from "~/components/ui/icon-button"
+import { Input } from "~/components/ui/input"
+import { Text } from "~/components/ui/text"
+import {
+  closeModal,
+  handleModalDataChange,
+  handleModalOnSubmit,
+  isModalOpen,
+  isValid,
+  modalData,
+  modalType,
+  setIsModalOpen,
+} from "~/stores"
 
 export const InputModal = () => {
-  const {
-    modalType,
-    modalData,
-    closeModal,
-    isModalOpen,
-    handleModalOnSubmit,
-    handleModalDataChange,
-  } = createModal()
-
   return (
-    <Modal isOpen={isModalOpen()} onClose={closeModal} isCentered>
-      <Modal.Overlay />
-      <Modal.Content p={6}>
-        <HStack justifyContent="space-between" mb={6}>
-          <Modal.Heading fontSize={'xl'} fontWeight="semibold">
-            {modalType()?.title}
-          </Modal.Heading>
-          <Modal.CloseButton />
-        </HStack>
-        <VStack spacing={'6'}>
-          {modalType()?.type === 'DELETE' ? (
-            <Text alignSelf={'flex-start'} fontSize={'lg'}>
-              {modalType()?.description}
-            </Text>
-          ) : (
-            <>
-              <Input
-                name="title"
-                inputMode="text"
-                placeholder="Name"
-                value={modalData()?.title || ''}
-                onInput={handleModalDataChange}
-              />
-              <Input
-                name="url"
-                inputMode="url"
-                placeholder="URL"
-                value={modalData()?.url || ''}
-                onInput={handleModalDataChange}
-              />
-            </>
-          )}
-          <HStack alignSelf={'flex-end'} spacing={'6'}>
-            <Button variant="plain" onClick={closeModal}>
-              Cancel
-            </Button>
-            <Button
-              variant="outlined"
-              onClick={handleModalOnSubmit}
-              isDisabled={!isValid(modalType()?.type, modalData())}
-            >
-              {modalType()?.button}
-            </Button>
-          </HStack>
-        </VStack>
-      </Modal.Content>
-    </Modal>
+    <Dialog.Root
+      lazyMount
+      unmountOnExit
+      open={isModalOpen()}
+      onOpenChange={(e) => {
+        setIsModalOpen(e.open)
+      }}
+      onExitComplete={closeModal}
+    >
+      <Portal>
+        <Dialog.Backdrop />
+        <Dialog.Positioner>
+          <Dialog.Content p={"4"} minW="md">
+            <HStack justifyContent="space-between" mb={4}>
+              <Dialog.Title fontSize="xl" fontWeight="semibold">
+                {modalType()?.title}
+              </Dialog.Title>
+
+              {/* <Dialog.CloseTrigger asChild> */}
+              <Dialog.CloseTrigger>
+                <IconButton size="sm" variant="ghost">
+                  <XIcon />
+                </IconButton>
+              </Dialog.CloseTrigger>
+            </HStack>
+
+            <VStack gap={4}>
+              {modalType()?.type === "DELETE" ? (
+                <Text alignSelf={"flex-start"} fontSize="lg">
+                  {modalType()?.description}
+                </Text>
+              ) : (
+                <>
+                  <Input
+                    name="title"
+                    inputMode="text"
+                    placeholder="Name"
+                    value={modalData()?.title || ""}
+                    onInput={handleModalDataChange}
+                  />
+                  <Input
+                    name="url"
+                    inputMode="url"
+                    placeholder="URL"
+                    value={modalData()?.url || ""}
+                    onInput={handleModalDataChange}
+                  />
+                </>
+              )}
+
+              <HStack alignSelf={"flex-end"} gap={4}>
+                <Button variant="ghost" onClick={() => setIsModalOpen(false)}>
+                  Cancel
+                </Button>
+
+                <Button
+                  onClick={handleModalOnSubmit}
+                  disabled={!isValid(modalType()?.type, modalData())}
+                >
+                  {modalType()?.button}
+                </Button>
+              </HStack>
+            </VStack>
+          </Dialog.Content>
+        </Dialog.Positioner>
+      </Portal>
+    </Dialog.Root>
   )
 }

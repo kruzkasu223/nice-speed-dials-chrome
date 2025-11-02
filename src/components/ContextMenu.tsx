@@ -1,19 +1,17 @@
 import {
   CopyPlusIcon,
-  MoreVerticalIcon,
+  FileStackIcon,
+  EllipsisVertical,
   PencilIcon,
   Trash2Icon,
-} from 'lucide-solid'
-import { Component } from 'solid-js'
-import {
-  IconButton,
-  Menu,
-  MenuContent,
-  MenuItem,
-  MenuTrigger,
-} from '@hope-ui/solid'
-import { BookmarkDataType, ModalTypes } from '../stores'
-import { gridMenuIcon, menuIcon } from '../styles'
+} from "lucide-solid"
+import { createSignal } from "solid-js"
+import { Portal } from "solid-js/web"
+import { HStack } from "styled-system/jsx"
+import { browser } from "wxt/browser"
+import { Menu } from "~/components/ui/menu"
+import { BookmarkDataType, ModalTypes } from "~/stores"
+import classes from "~/styles/Grid.module.scss"
 
 type P = {
   item: BookmarkDataType
@@ -21,49 +19,87 @@ type P = {
   duplicateSpeedDial: (item: Partial<BookmarkDataType>) => void
 }
 
-export const ContextMenu: Component<P> = (props) => {
+export const ContextMenu = (props: P) => {
+  const [open, setOpen] = createSignal(false)
   const handleOpenMenu = (e: Event) => {
     e.preventDefault()
     e.stopPropagation()
+    setOpen((open) => !open)
   }
 
   return (
-    <Menu>
-      <MenuTrigger
-        onClick={handleOpenMenu}
-        as={IconButton}
-        variant="outline"
-        colorScheme="neutral"
-        class={gridMenuIcon}
-        icon={
-          <MoreVerticalIcon
-            class={menuIcon}
-            color="var(--hope-colors-whiteAlpha-800)"
-          />
-        }
-      />
-      <MenuContent minW={'max-content'}>
-        <MenuItem
-          icon={<PencilIcon size={16} color="var(--hope-colors-primary-200)" />}
-          onSelect={() => props.openModal('EDIT', props.item)}
-        >
-          Edit
-        </MenuItem>
-        <MenuItem
-          icon={<Trash2Icon size={16} color="var(--hope-colors-primary-200)" />}
-          onSelect={() => props.openModal('DELETE', props.item)}
-        >
-          Delete
-        </MenuItem>
-        <MenuItem
-          icon={
-            <CopyPlusIcon size={16} color="var(--hope-colors-primary-200)" />
-          }
-          onSelect={() => props.duplicateSpeedDial(props.item)}
-        >
-          Duplicate
-        </MenuItem>
-      </MenuContent>
-    </Menu>
+    <Menu.Root
+      lazyMount
+      unmountOnExit
+      open={open()}
+      onOpenChange={(e) => setOpen(e.open)}
+    >
+      <Menu.Trigger
+        asChild={(props) => <button {...props} on:click={handleOpenMenu} />}
+      >
+        <EllipsisVertical size={14} class={classes.menuIcon} />
+      </Menu.Trigger>
+
+      <Portal>
+        <Menu.Positioner>
+          <Menu.Content border="1px solid var(--colors-gray-a6)">
+            {!props.item?.url && (
+              <Menu.Item
+                id="open_in_new_tab"
+                value="open_in_new_tab"
+                onClick={() => {
+                  browser.bookmarks
+                    .getChildren(props.item.id)
+                    .then((children) => {
+                      children?.forEach((child) => {
+                        child?.url &&
+                          browser.tabs.create({ url: child.url, active: false })
+                      })
+                    })
+                }}
+              >
+                <HStack>
+                  <FileStackIcon size={16} />
+                  Open all in new tab
+                </HStack>
+              </Menu.Item>
+            )}
+
+            <Menu.Item
+              id="edit"
+              value="edit"
+              onClick={() => props.openModal("EDIT", props.item)}
+            >
+              <HStack>
+                <PencilIcon size={16} />
+                Edit
+              </HStack>
+            </Menu.Item>
+
+            <Menu.Item
+              id="delete"
+              value="delete"
+              onClick={() => props.openModal("DELETE", props.item)}
+            >
+              <HStack>
+                <Trash2Icon size={16} />
+                Delete
+              </HStack>
+            </Menu.Item>
+
+            <Menu.Item
+              id="duplicate"
+              value="duplicate"
+              onClick={() => props.duplicateSpeedDial(props.item)}
+            >
+              <HStack>
+                <CopyPlusIcon size={16} />
+                Duplicate
+              </HStack>
+            </Menu.Item>
+          </Menu.Content>
+        </Menu.Positioner>
+      </Portal>
+    </Menu.Root>
   )
 }

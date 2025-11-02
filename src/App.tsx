@@ -1,46 +1,69 @@
-import { Component } from 'solid-js'
-import { Toaster } from 'solid-toast'
-import { createPalette, extendTheme, HopeProvider } from '@hope-ui/core'
-import { Grid } from './components'
-import { app } from './styles'
+import {
+  Grid,
+  // ToastProvider
+} from "~/components"
+import classes from "~/styles/App.module.scss"
+import { createEffect, onMount } from "solid-js"
+import {
+  darkMode,
+  DEFAULT_VALUES,
+  mainBackgroundColor,
+  mainBackgroundImage,
+} from "~/stores"
+import { createSignal } from "solid-js"
 
-const theme = extendTheme({
-  colors: {
-    dark: {
-      primary: createPalette({
-        50: '#fff0f4',
-        100: '#fedce5',
-        200: '#febed0',
-        300: '#fd91b0',
-        400: '#fa618c',
-        500: '#f63c71',
-        600: '#eb245c',
-        700: '#d71d52',
-        800: '#ae1e47',
-        900: '#8a1e3d',
-      }),
-    },
-  },
-})
+export const App = () => {
+  const [isDarkMode, setIsDarkMode] = createSignal(false)
+  const [bgColor, setBgColor] = createSignal<string | undefined>(undefined)
+  const [bgImage, setBgImage] = createSignal<string | undefined>(undefined)
 
-const App: Component = () => {
+  onMount(async () => {
+    setIsDarkMode(await darkMode.getValue())
+    setBgColor((await mainBackgroundColor.getValue()) || undefined)
+    setBgImage((await mainBackgroundImage.getValue()) || undefined)
+
+    // Watch for changes
+    darkMode.watch(setIsDarkMode)
+    mainBackgroundColor.watch(setBgColor)
+    mainBackgroundImage.watch(setBgImage)
+  })
+
+  // Apply dark mode
+  createEffect(() => {
+    if (isDarkMode()) {
+      document.documentElement.classList.add("dark")
+    } else {
+      document.documentElement.classList.remove("dark")
+    }
+  })
+
+  // Apply background
+  createEffect(() => {
+    const bgImg = bgImage()
+    const bgCol = bgColor()
+
+    const bg = bgImg
+      ? `url(${bgImg})`
+      : bgCol
+        ? bgCol
+        : DEFAULT_VALUES.mainBackgroundColor
+    const bgSize = bgImg ? "cover" : "auto"
+    const bgPosition = bgImg ? "center" : "auto"
+
+    document.documentElement.style.setProperty("--app-background", bg)
+    document.documentElement.style.setProperty("--app-background-size", bgSize)
+    document.documentElement.style.setProperty(
+      "--app-background-position",
+      bgPosition
+    )
+  })
+
   return (
-    <HopeProvider initialColorMode="dark" theme={theme}>
-      <Toaster
-        toastOptions={{
-          duration: 3000,
-          style: {
-            background: '#1d1618',
-            color: 'var(--hope-colors-primary-200)',
-            'font-size': '1.125rem',
-          },
-        }}
-      />
-      <div class={app}>
+    <>
+      {/* <ToastProvider /> */}
+      <div class={classes.app}>
         <Grid />
       </div>
-    </HopeProvider>
+    </>
   )
 }
-
-export default App
