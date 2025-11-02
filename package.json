@@ -1,6 +1,6 @@
 {
   "name": "nice-speed-dials-chrome",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "license": "MIT",
   "keywords": [
     "chrome",
@@ -25,8 +25,8 @@
     "dev:firefox": "wxt -b firefox",
     "build": "wxt build",
     "build:firefox": "wxt build -b firefox",
-    "zip": "wxt zip",
-    "zip:firefox": "wxt zip -b firefox",
+    "zip": "wxt zip && cp .output/extension-chrome.zip extension-chrome.zip",
+    "zip:firefox": "wxt zip -b firefox && cp .output/extension-firefox.zip extension-firefox.zip",
     "parkui:add": "npx @park-ui/cli components add",
     "parkui:update": "npx @park-ui/cli components add button alert spinner dialog drawer icon-button input menu text toast tooltip accordion switch slider color-picker file-upload number-input radio-button-group",
     "format": "prettier --write ."
