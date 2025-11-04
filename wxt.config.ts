@@ -7,7 +7,7 @@ export default defineConfig({
   modules: ["@wxt-dev/module-solid"],
   srcDir: "./src",
   alias: { "styled-system": resolve("./styled-system") },
-  zip: { artifactTemplate: "extension-{{browser}}.zip", compressionLevel: 9 },
+  zip: { artifactTemplate: "extension-{{browser}}.zip" },
   vite: () => ({ plugins: [solid()], build: { chunkSizeWarningLimit: 1000 } }),
   webExt: { disabled: true },
   manifest: (env) => ({

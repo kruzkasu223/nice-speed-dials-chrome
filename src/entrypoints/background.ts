@@ -30,16 +30,26 @@ export default defineBackground(() => {
 
   browser.contextMenus.onClicked.addListener(contextMenuHandler)
 
-  browser.contextMenus.create({
-    title: "Toggle Settings",
-    id: "toggleSettings",
-    // @ts-expect-error - getURL is not typed
-    documentUrlPatterns: [browser.runtime.getURL("/newtab.html")],
-  })
+  try {
+    browser.contextMenus.removeAll().then(() => {
+      browser.contextMenus.create({
+        title: "Toggle Settings",
+        id: "toggleSettings",
+        contexts: ["all"],
+        documentUrlPatterns: [
+          // @ts-expect-error - getURL is defined per-project, but not inside the package
+          browser.runtime.getURL("/newtab.html"),
+          // @ts-expect-error - getURL is defined per-project, but not inside the package
+          browser.runtime.getURL("/"),
+        ],
+      })
 
-  browser.contextMenus.create({
-    title: "Add to Speed Dials",
-    id: "addToSpeedDials",
-    documentUrlPatterns: ["<all_urls>"],
-  })
+      browser.contextMenus.create({
+        title: "Add to Speed Dials",
+        id: "addToSpeedDials",
+        contexts: ["all"],
+        documentUrlPatterns: ["<all_urls>"],
+      })
+    })
+  } catch {}
 })

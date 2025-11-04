@@ -328,10 +328,6 @@ export const SettingsDrawer = () => {
                 <SettingItemTitle
                   title="Show 'Settings' button"
                   info="You will be able to access the toogle settings via context menu (or right clicking) on this page"
-                  showReset
-                  onReset={() => {
-                    showSettingsButton.setValue(false)
-                  }}
                 />
                 <Switch
                   checked={currentShowSettings()}

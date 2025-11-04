@@ -28,6 +28,7 @@
     "zip": "wxt zip --mv3 && cp .output/extension-chrome.zip extension-chrome.zip",
     "zip:firefox": "wxt zip -b firefox --mv3 && cp .output/extension-firefox.zip extension-firefox.zip",
     "zip:edge": "wxt zip -b edge --mv3 && cp .output/extension-edge.zip extension-edge.zip",
+    "zip:all": "wxt zip --mv3 && wxt zip -b firefox --mv3 && wxt zip -b edge --mv3 && cp .output/extension-chrome.zip extension-chrome.zip && cp .output/extension-firefox.zip extension-firefox.zip && cp .output/extension-edge.zip extension-edge.zip",
     "parkui:add": "npx @park-ui/cli components add",
     "parkui:update": "npx @park-ui/cli components add button alert spinner dialog drawer icon-button input menu text toast tooltip accordion switch slider color-picker file-upload number-input radio-button-group",
     "format": "prettier --write ."
