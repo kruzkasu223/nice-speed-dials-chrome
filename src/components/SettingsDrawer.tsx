@@ -1,4 +1,4 @@
-import { RotateCcwIcon, Undo2Icon, XIcon } from "lucide-solid"
+import { InfoIcon, RotateCcwIcon, Undo2Icon, XIcon } from "lucide-solid"
 import { Button } from "~/components/ui/button"
 import { Drawer } from "~/components/ui/drawer"
 import { IconButton } from "~/components/ui/icon-button"
@@ -192,7 +192,7 @@ export const SettingsDrawer = () => {
             <Divider />
 
             <div>
-              <Flex justify="space-between" align="center">
+              <Flex justify="space-between" align="center" gap="2">
                 <SettingItemTitle title="Dark mode" />
                 <Switch
                   checked={currentDarkMode()}
@@ -312,7 +312,7 @@ export const SettingsDrawer = () => {
             <Divider />
 
             <div>
-              <Flex justify="space-between" align="center">
+              <Flex justify="space-between" align="center" gap="2">
                 <SettingItemTitle title="Show 'Add New' button" />
                 <Switch
                   checked={currentShowAddNew()}
@@ -324,8 +324,15 @@ export const SettingsDrawer = () => {
             <Divider />
 
             <div>
-              <Flex justify="space-between" align="center">
-                <SettingItemTitle title="Show 'Settings' button" />
+              <Flex justify="space-between" align="center" gap="2">
+                <SettingItemTitle
+                  title="Show 'Settings' button"
+                  info="You will be able to access the toogle settings via context menu (or right clicking) on this page"
+                  showReset
+                  onReset={() => {
+                    showSettingsButton.setValue(false)
+                  }}
+                />
                 <Switch
                   checked={currentShowSettings()}
                   onCheckedChange={(e) =>
@@ -350,7 +357,7 @@ export const SettingsDrawer = () => {
             <Divider /> */}
 
             <div>
-              <Flex justify="space-between" align="center">
+              <Flex justify="space-between" align="center" gap="2">
                 <SettingItemTitle title="Open links in new tab by default" />
                 <Switch
                   checked={currentOpenLinksNewTab()}
@@ -362,7 +369,7 @@ export const SettingsDrawer = () => {
             <Divider />
 
             <div>
-              <Flex justify="space-between" align="center">
+              <Flex justify="space-between" align="center" gap="2">
                 <SettingItemTitle title="Disable drag and drop" />
                 <Switch
                   checked={currentDisableDragDrop()}
@@ -431,6 +438,7 @@ const SettingItemTitle = (props: {
   title: string
   subTitle?: string
   showReset?: boolean
+  info?: string
   onReset?: () => void
 }) => {
   return (
@@ -439,6 +447,18 @@ const SettingItemTitle = (props: {
         <Text size="lg" fontWeight="bold">
           {props.title}
         </Text>
+
+        <Show when={props.info}>
+          <CustomTooltip
+            content={props.info ?? ""}
+            openDelay={0}
+            positioning={{ placement: "top" }}
+          >
+            <IconButton variant="ghost" size="xs">
+              <InfoIcon />
+            </IconButton>
+          </CustomTooltip>
+        </Show>
 
         <Show when={props.showReset}>
           <CustomTooltip

@@ -11,14 +11,14 @@ const IS_DEV = import.meta.env.MODE === "development"
 const DEFAULT_SPEED_DIALS_FOLDER_NAME = IS_DEV
   ? "NICE_SPEED_DIALS_BOOKMARKS_[DO_NOT_DELETE]_DEV"
   : "NICE_SPEED_DIALS_BOOKMARKS_[DO_NOT_DELETE]"
-const CHROME_BOOKMARK_EVENTS = [
+const BOOKMARK_EVENTS = [
   "onChanged",
-  "onChildrenReordered",
   "onCreated",
-  "onImportBegan",
-  "onImportEnded",
   "onMoved",
   "onRemoved",
+  ...(import.meta.env.BROWSER !== "firefox"
+    ? (["onChildrenReordered", "onImportBegan", "onImportEnded"] as const)
+    : ([] as const)),
 ] as const
 
 export const ADD_NEW_SPEED_DIALS_ITEM: BookmarkDataType = {
@@ -99,13 +99,13 @@ const getSpeedDials = async () => {
   }
 }
 
-const chromeBookmarkEventListeners = () =>
-  CHROME_BOOKMARK_EVENTS.forEach((event) =>
+const bookmarkEventListeners = () =>
+  BOOKMARK_EVENTS.forEach((event) =>
     browser.bookmarks[event].addListener(getSpeedDials)
   )
 
-const removeChromeBookmarkEventListeners = () =>
-  CHROME_BOOKMARK_EVENTS.forEach((event) =>
+const removeBookmarkEventListeners = () =>
+  BOOKMARK_EVENTS.forEach((event) =>
     browser.bookmarks[event].removeListener(getSpeedDials)
   )
 
@@ -206,8 +206,8 @@ const moveSpeedDial = async (
 
 createEffect(() => {
   getSpeedDials()
-  chromeBookmarkEventListeners()
-  onCleanup(removeChromeBookmarkEventListeners)
+  bookmarkEventListeners()
+  onCleanup(removeBookmarkEventListeners)
 })
 
 export {

@@ -10,16 +10,22 @@ export default defineConfig({
   zip: { artifactTemplate: "extension-{{browser}}.zip", compressionLevel: 9 },
   vite: () => ({ plugins: [solid()], build: { chunkSizeWarningLimit: 1000 } }),
   webExt: { disabled: true },
-  manifest: {
+  manifest: (env) => ({
     name: "Nice Speed Dials",
-    description: "Nice and Simple Speed dials Extension for Chrome",
+    description: "Nice and Simple Speed dials Extension for Browser",
     version: "5",
     version_name: "boron (v5)",
-    permissions: ["bookmarks", "favicon", "contextMenus", "storage"],
+    permissions: [
+      "bookmarks",
+      "contextMenus",
+      "storage",
+      "tabs",
+      ...(env.browser !== "firefox" ? ["favicon"] : []),
+    ],
     icons: {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
       "128": "icons/icon128.png",
     },
-  },
+  }),
 })

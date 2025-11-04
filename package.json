@@ -1,9 +1,9 @@
 {
-  "name": "nice-speed-dials-chrome",
+  "name": "nice-speed-dials-extension",
   "version": "5.0.0",
   "license": "MIT",
   "keywords": [
-    "chrome",
+    "browser",
     "extension",
     "speed dials",
     "solid",
@@ -15,18 +15,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kruzkasu223/nice-speed-dials-chrome"
+    "url": "git+https://github.com/kruzkasu223/nice-speed-dials-extension"
   },
-  "description": "Nice and Simple Speed Dials Extension for Chrome",
+  "description": "Nice and Simple Speed Dials Extension for Browser",
   "type": "module",
   "scripts": {
     "prepare": "panda codegen && wxt prepare",
-    "dev": "wxt",
-    "dev:firefox": "wxt -b firefox",
-    "build": "wxt build",
-    "build:firefox": "wxt build -b firefox",
-    "zip": "wxt zip && cp .output/extension-chrome.zip extension-chrome.zip",
-    "zip:firefox": "wxt zip -b firefox && cp .output/extension-firefox.zip extension-firefox.zip",
+    "dev": "wxt --mv3",
+    "dev:firefox": "wxt -b firefox --mv3",
+    "build": "wxt build --mv3",
+    "build:firefox": "wxt build -b firefox --mv3",
+    "zip": "wxt zip --mv3 && cp .output/extension-chrome.zip extension-chrome.zip",
+    "zip:firefox": "wxt zip -b firefox --mv3 && cp .output/extension-firefox.zip extension-firefox.zip",
+    "zip:edge": "wxt zip -b edge --mv3 && cp .output/extension-edge.zip extension-edge.zip",
     "parkui:add": "npx @park-ui/cli components add",
     "parkui:update": "npx @park-ui/cli components add button alert spinner dialog drawer icon-button input menu text toast tooltip accordion switch slider color-picker file-upload number-input radio-button-group",
     "format": "prettier --write ."

@@ -9,6 +9,7 @@ export const CustomTooltip = (
       unmountOnExit
       closeDelay={0}
       openDelay={100}
+      closeOnClick={false}
       closeOnPointerDown={false}
       {...props}
     >

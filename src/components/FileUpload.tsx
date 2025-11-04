@@ -41,7 +41,7 @@ export const FileUpload = (
   return (
     <ParkFileUpload.Root
       maxFiles={1}
-      maxFileSize={1572864} // 1.5MB => due to chrome storage restriction
+      maxFileSize={1572864} // 1.5MB => due to browser storage restriction
       {...rest}
       acceptedFiles={
         props.currentImage ? [new File([props.currentImage], "image")] : []
